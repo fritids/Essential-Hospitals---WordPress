@@ -1,4 +1,5 @@
 <?php
+//Global Variables
 
 add_action('init', 'register_my_menus');
 add_action('init', 'loadup_scripts'); // Add Custom Scripts
@@ -24,8 +25,16 @@ function loadup_scripts()
         wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js' ); // Google CDN jQuery
         wp_enqueue_script('jquery'); // Enqueue it!
 
-        wp_register_script('ajaxquery', get_template_directory_uri() . '/js/script-pat.js'); // Custom scripts
-        wp_enqueue_script('ajaxquery'); // Enqueue it!
+
+		//Pat Script - registered
+        wp_register_script('masonry', get_template_directory_uri() . '/js/masonry.pkgd.min.js');
+		wp_register_script('jquerytools', get_template_directory_uri() . '/js/jquery.tools.min.js');
+		wp_register_script('ajaxquery', get_template_directory_uri() . '/js/script-pat.js');
+        
+        //Pat Script - queued
+        wp_enqueue_script('masonry');
+        wp_enqueue_script('jquerytools');
+        wp_enqueue_script('ajaxquery');
     }
 }
 
@@ -362,7 +371,7 @@ function wp_list_categories_for_post_type($post_type, $args = '') {
 
 /*---------------------------CUSTOM POST TYPES----------------------------- **/
 
-
+$themeDIR = get_bloginfo('template_directory');
 // registration code for policy post type
   function register_policy_posttype() {
     $labels = array(
@@ -399,7 +408,7 @@ function wp_list_categories_for_post_type($post_type, $args = '') {
       'rewrite'       => array('slug' => 'policy', 'with_front' => false ),
       'supports'      => $supports,
       'menu_position'   => 5,
-      'menu_icon'     => 'http://essentialhospitals.mesh/wp-content/themes/EssentialHospitals/images/policy-menu.png',
+      'menu_icon'     => get_bloginfo('template_directory').'/images/policy-menu.png',
       'taxonomies'    => $taxonomies
      );
      register_post_type('policy',$post_type_args);
@@ -444,7 +453,7 @@ function wp_list_categories_for_post_type($post_type, $args = '') {
       'rewrite'       => array('slug' => 'quality', 'with_front' => false ),
       'supports'      => $supports,
       'menu_position'   => 5,
-      'menu_icon'     => 'http://essentialhospitals.mesh/wp-content/themes/EssentialHospitals/images/quality-menu.png',
+      'menu_icon'     => get_bloginfo('template_directory').'//images/quality-menu.png',
       'taxonomies'    => $taxonomies
      );
      register_post_type('quality',$post_type_args);
@@ -489,7 +498,7 @@ function wp_list_categories_for_post_type($post_type, $args = '') {
       'rewrite'       => array('slug' => 'institute', 'with_front' => false ),
       'supports'      => $supports,
       'menu_position'   => 5,
-      'menu_icon'     => 'http://essentialhospitals.mesh/wp-content/themes/EssentialHospitals/images/institute-menu.png',
+      'menu_icon'     => get_bloginfo('template_directory').'/images/institute-menu.png',
       'taxonomies'    => $taxonomies
      );
      register_post_type('institute',$post_type_args);
@@ -533,7 +542,7 @@ function wp_list_categories_for_post_type($post_type, $args = '') {
       'rewrite'       => array('slug' => 'externallinks', 'with_front' => false ),
       'supports'      => $supports,
       'menu_position'   => 5,
-      'menu_icon'     => 'http://essentialhospitals.mesh/wp-content/themes/EssentialHospitals/images/education-menu.png',
+      'menu_icon'     => get_bloginfo('template_directory').'/images/education-menu.png',
       'taxonomies'    => $taxonomies
      );
      register_post_type('externallinks',$post_type_args);

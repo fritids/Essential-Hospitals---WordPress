@@ -40,6 +40,7 @@
 	<!-- CSS (* with Edge Inspect Fix)
     ================================================== -->
 	<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'template_url' ); ?>/style.css" />
+	<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'template_url' ); ?>/style-mockupDefault.css" />
  
 
 	<!-- Favicons
@@ -61,7 +62,10 @@
 	<div id="utility-nav" class="fullwidth">
 		<div class="container">
 			 <div class="sixteen columns">
-			 		<?php wp_nav_menu( array( 'menu_id' => 'utils-nav', 'theme_location' => 'utility-menu', 'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>')); ?>
+			 		<?php 
+			 		if(has_nav_menu('main')){
+				 		wp_nav_menu( array( 'menu_id' => 'utils-nav', 'theme_location' => 'utility-menu', 'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>'));
+			 		} ?>
 
 			 </div>
 		</div>

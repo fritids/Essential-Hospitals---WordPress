@@ -1,17 +1,130 @@
 	
-	<div id="footer"> 
-		<div class="container footer">	
-		  
+	<div id="footer" class="fullwidth g4">
+		<div class="container">
 			 
+				 <div id="footer_address" class="four columns element">
+				 	America's Essential Hospitals
+          <br />
+          1301 Pennsylvania Ave. NW, Suite 950
+          <br />
+          Washington, DC 20004
+          <br />
+          <br />
+          202.585.0100
+          <br />
+          info@essentialhospitals.org
+          <br />
+          <br />
+          <div id="newsletter">
+            <form>
+              <span>Essential Hospitals news in your inbox:</span>
+              <input type="text" class="newsletter_btn_input" value="Enter Email Here"><input class="newsletter_btn"  type="submit" >
+              <div class="clear"></div>
+            </form>
+            <div class="clear"></div>
+          </div>
+				 </div>
+         
+	
+         
+				 <div id="footer_contact" class="four columns element">
+          Media Inquiries<br />
+          Carl Graziano | 202.585.0102
+          <br /><br />
+          Association Membership<br />
+          Kristine Metter | 202.585.0573
+          <br /><br />
+          Meetings and Conferences<br />
+          Nneka St. Gerard | 202.585.0131
+          <br /><br />
+          Website Admin and<br />
+          Sign in Questions<br />
+          Maeceon Lewis | 202.585.0559
+          
+				 </div>
+         
+        <div class="eight columns element">
+          
+          <div class="col1">
+          <!--Col1-->
+          <dl>
+            <dt class="color_policy">Policy</dt>
+              <dd>News</dd>
+              <dd>Mission</dd>
+              <dd>Media Information</dd>
+              <dd>Policy Team</dd>
+          </dl>
+          
+          <dl>
+            <dt class="color_quality">Quality</dt>
+              <dd>News</dd>
+              <dd>Who we are</dd>
+              <dd>Mission</dd>
+          </dl>
+          
+          </div>
+          
+           <div class="col2">
+          <!--Col2-->
+           <dl>
+            <dt class="color_education">Education</dt>
+              <dd>Free Webinars</dd>
+              <dd>Essential Hospitals U</dd>
+              <dd>EHEN</dd>
+              <dd>Mass Collab</dd>
+              <dd>Fellowship Program</dd>
+              <dd>GR Academy</dd>
+              <dd>HCHAPS</dd>
+          </dl>
+          
+          </div>
+           <div class="col3">
+          <!--Col3-->
+          <dl>
+            <dt class="color_institute">Institute</dt>
+              <dd>Research Center</dd>
+              <dd>Transformation Center</dd>
+       
+          </dl>
+          </div>
+           <div class="col4">
+          <!--Col4-->
+          <dl class="dfour">
+              <dd>About Essential Hospitals</dd>
+              <dd>Special Events</dd>
+              <dd>Sponsor Opportunities</dd>
+              <dd>Media + Press Kit</dd>
+              <dd>Blog</dd>
+              <dd>Contact Us</dd>
+              <dd>The Essential Hospitals List</dd>
+          </dl>
+          </div>
 
-			 
-			<div class="twelve columns copyright">
-				<p>&copy;  <?php echo the_date('Y') . " ";  bloginfo('name'); ?>. All Rights Reserved. </p>
-					<p class="mesh">Design by <a href="http://meshfresh.com">MESH | Design and Development</a> </p>
+				</div>
+         
+        <div id="footer_logo">
+          <img src="<?php bloginfo('template_directory'); ?>/images/footer_logo.png" />
+        </div> 
+         
+         
+        <div id="social">
+          <a id="icon_linkedin" href="#">Linked In</a>
+          <a id="icon_facebook" href="#">Facebook</a>
+          <a id="icon_twitter" href="#">Twitter</a>
+          <a id="icon_share" href="#">Share This</a>
+          <a id="icon_email" href="#">Email</a>
+        </div> 
+         
+
+         
+        <div class="clear"></div>
+         
+      <!-- END CONTAINER -->     
 			</div>
-
-		</div><!-- End of Container -->
-	</div><!-- End of Footer -->
+ 
+		<div class="clear"></div>
+  <!-- END FOOTER -->  
+	</div> 
 
 	<?php wp_footer(); ?>
 	
