@@ -1,0 +1,6 @@
+<?php /*
+ * Template Name: Education Template
+ */
+?>
+ 
+<?php get_header(); ?>
