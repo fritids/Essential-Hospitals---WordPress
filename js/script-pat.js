@@ -3,8 +3,8 @@ $(document).ready(function(){
 	
 	//Initial Masonry and Slider
 	postDiv = $('#fader .items').children('div.post');	            
-    for(var i = 0; i < postDiv.length; i+=2) {
-        postDiv.slice(i, i+2)
+    for(var i = 0; i < postDiv.length; i+=5) {
+        postDiv.slice(i, i+5)
         .wrapAll('<div class="item" />');
     }
     $('#fader .items > .item').each(function(){
@@ -23,7 +23,7 @@ $(document).ready(function(){
 		circular: 	 false,
 		next:		'#nextbtn',
 		prev:		'#prevbtn',
-		speed:		400,
+		speed:		300,
 		onBeforeSeek: function() {
 			var currSlide = api.getIndex();
 			$('.items > div.post').each(function() {
@@ -47,8 +47,8 @@ $(document).ready(function(){
 			$(this).addClass('active');
 			dataFilter = $(this).attr('data-filter');
 			//Hide elements
-			$('#postBox #fader').fadeOut(400, function(){
-				$('#postBox #fader .items').css('left','0px');
+			$('#postBox #fader').fadeOut(300, function(){
+				api.seekTo(0,1);
 				//Empty DIV then query posts
 				$('#postBox #fader .item').remove();
 				request(queryURL, dataFilter, '#postBox #fader');
@@ -78,15 +78,15 @@ $(document).ready(function(){
 	//Wrap and Render posts callback function
 	function wrapAndRender(wrapdiv){
 	    postDiv = $(wrapdiv).children('div.post');	            
-        for(var i = 0; i < postDiv.length; i+=2) {
-            postDiv.slice(i, i+2)
+        for(var i = 0; i < postDiv.length; i+=5) {
+            postDiv.slice(i, i+5)
             .wrapAll('<div class="item" />');
         }
         $('#fader .items > .item').each(function(){
 		    $(this).prepend('<div class="fixed-box"></div>'); 
 		});
+        $('#fader').fadeIn(300);
         masonryAndSlides();
-        $('#fader').fadeIn(400);
 	}
 	
 	//Masonry Function

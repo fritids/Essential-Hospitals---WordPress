@@ -76,10 +76,9 @@
 	<!-- Logo/Main Navigataion -->
 	<div id="header" class="fullwidth">
 		<div class="container">
-			<div class="four columns">
 				 <div class="logo"> 
 				 	<a href="<?php bloginfo( 'url' );?>" title="<?php bloginfo( 'name' );?>"><img src="<?php bloginfo('template_url' );?>/images/logo.png" title="<?php bloginfo( 'name' );?>"></a>
-				 </div>
+				 
 			</div>
 			<div class="twelve columns navigation">
 				  <ul>

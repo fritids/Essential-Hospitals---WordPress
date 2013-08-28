@@ -107,8 +107,8 @@ h1, h2 {
   background-color: transparent;
   z-index:2000;
   position: absolute;
-  top: -50px;
-  left: 50%;
+  top: 0;
+  left: -10px;
 
   /*
   -webkit-box-shadow: #565656 2px 2px 2px;
@@ -131,7 +131,7 @@ h1, h2 {
   background-color: #ffffff; }
   /* line 63, sass/_layout-horizontal.scss */
   .navigation ul {
-    padding-top: 5px; }
+    padding-top: 5px;float:left; }
  
   /* line 65, sass/_layout-horizontal.scss */
   .navigation li {
