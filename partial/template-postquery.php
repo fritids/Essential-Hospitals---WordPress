@@ -45,7 +45,7 @@
 			$postColor = 'bluee';
 		}
 		
-	    $output .= '<div class="post long columns '. $postColor .' '. $postType .' ">
+	    $output .= '<div class="close post long columns '. $postColor .' '. $postType .' ">
 	  			<div class="item-bar"></div>
     			<div class="item-icon"><img src="'. $templateDIR .'/images/icon-'. $postType .'.png" /></div>
     			<div class="item-content">

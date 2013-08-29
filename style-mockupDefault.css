@@ -144,29 +144,29 @@ h1, h2 {
     display: inline;
     float: left;
     list-style-type: none;
-    margin: 0px 10px 5px 0px;
-    padding: 0 10px 15px 5px; }
+    margin: 0px 10px 0px 0px;
+    padding: 0 10px 19px 5px; }
 
 
-    .navigation li:hover{  cursor: pointer; color: #fff; }
+    .navigation li:hover,.navigation li.active{  cursor: pointer; color: #fff; }
 
-     .navigation li:nth-child(1):hover {
+     .navigation li:nth-child(1):hover,.navigation li:nth-child(1).active {
       border-top: 5px solid #f05135; 
       background-color: #f05135}
  
-    .navigation li:nth-child(2):hover {
+    .navigation li:nth-child(2):hover,.navigation li:nth-child(2).active {
       border-top: 5px solid #28bdb3; 
     background-color: #28bdb3}
  
-    .navigation li:nth-child(3):hover {
+    .navigation li:nth-child(3):hover,.navigation li:nth-child(3).active {
       border-top: 5px solid #; 
     background-color: #565656}
  
-    .navigation li:nth-child(4):hover {
+    .navigation li:nth-child(4):hover,.navigation li:nth-child(4).active {
       border-top: 5px solid #0397d6; 
     background-color: #0397d6} 
 
-    .navigation li:nth-child(5):hover {
+    .navigation li:nth-child(5):hover,.navigation li:nth-child(5).active {
       border-top: 5px solid #aaaaaa; 
       background-color: #aaaaaa}
       
@@ -882,7 +882,7 @@ div.scrollableArea
 {
   position: relative;
   width: auto;
-  height: 100%;
+  height: 100%;margin:0 auto;
 }
 
 
@@ -1242,7 +1242,7 @@ span.button-arrows{
 #social a {
   float: left;
   display: block;
-  width: 28px;
+  width: 28px;height:24px;
    text-indent: -5000px;
 }
 
@@ -1471,3 +1471,15 @@ span.button-arrows{
 .items div.item {
   float:left;
 }
+#postBox .post{transition:0.3s all;-webkit-transition:0.3s all;-moz-transition:0.3s all;-o-transition:0.3s all;-ms-transition:0.3s all;}
+	#postBox .post.close{transform:scale(0);opacity: 0;}
+	
+#featured-img{height:222px;width:100%;background-size:cover;background-position:center center;color:#fff;}
+	#featured-img.action{border-top:7px solid #f05135;}
+	#featured-img.quality{border-top:7px solid #28bdb3;}
+	#featured-img h3{font-size:28px;font-weight:bold;margin-bottom:25px;line-height:normal;}
+		#featured-img.action h3 span{color:#f05135;}
+		#featured-img.quality h3 span{color:#28bdb3;}
+	#featured-img h4{font-family:'Georgia',serif;font-size:13px;font-weight:bold;font-style: italic;}
+	
+	#featured-intro{padding:62px 0 0 0;}

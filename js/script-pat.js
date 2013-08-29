@@ -47,12 +47,13 @@ $(document).ready(function(){
 			$(this).addClass('active');
 			dataFilter = $(this).attr('data-filter');
 			//Hide elements
-			$('#postBox #fader').fadeOut(300, function(){
-				api.seekTo(0,1);
-				//Empty DIV then query posts
+			$('#postBox .post').addClass('close');
+			api.seekTo(0,1);
+			//Empty DIV then query posts
+			setTimeout(function(){
 				$('#postBox #fader .item').remove();
 				request(queryURL, dataFilter, '#postBox #fader');
-			});
+			},300);
         }
 	});
 	
@@ -83,10 +84,10 @@ $(document).ready(function(){
             .wrapAll('<div class="item" />');
         }
         $('#fader .items > .item').each(function(){
-		    $(this).prepend('<div class="fixed-box"></div>'); 
+		    $(this).prepend('<div class="fixed-box stamp"></div>'); 
 		});
-        $('#fader').fadeIn(300);
         masonryAndSlides();
+        $('#postBox .post.close').removeClass('close');
 	}
 	
 	//Masonry Function
@@ -96,11 +97,9 @@ $(document).ready(function(){
 		$masonrycont.masonry({
 		  //columnWidth: 200,
 		  itemSelector: '.post',
+		  stamp:		'.stamp',
 		});
 		var msnry = $masonrycont.data('masonry');
-		
-		
-		
 	}
 });
 

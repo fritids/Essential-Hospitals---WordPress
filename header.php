@@ -81,13 +81,36 @@
 				 
 			</div>
 			<div class="twelve columns navigation">
-				  <ul>
-				  	 <li> <a href="#" title="">Action<span>Public Policy and Advocacy</span></a></li>
-				  	 <li><a href="#" title="">Quality<span>Improving Our Hospitals</span></a></li>
-				  	 <li><a href="#" title="">Education<span>Training Health Care Leaders</span></a></li>
-				  	 <li><a href="#" title="">Institute<span>Research and Transformation</span></a></li>
-				  	 <li><a href="#" title="">Blog<span>"Essential Insights"</span></a></li>
-				  </ul>
+				<?php
+				global $post;
+				$thePostID = $post->ID;
+				
+			    $menu_name = 'primary-menu';
+			
+			    if ( ( $locations = get_nav_menu_locations() ) && isset( $locations[ $menu_name ] ) ) {
+				$menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
+			
+				$menu_items = wp_get_nav_menu_items($menu->term_id);
+			
+				$menu_list = '<ul id="menu-' . $menu_name . '">';
+			
+				foreach ( (array) $menu_items as $key => $menu_item ) {
+					if($thePostID == $menu_item->object_id){
+						$activeClass = 'active';
+					}else{
+						$activeClass = '';
+					}
+				    $title = $menu_item->title;
+				    $url = $menu_item->url;
+				    $desc = $menu_item->description;
+				    $menu_list .= '<li class="'.$activeClass.'"><a href="' . $url . '">' . $title . '<span>'.$desc.'</span></a></li>';
+				}
+				$menu_list .= '</ul>';
+			    } else {
+				$menu_list = '<ul><li>Menu "' . $menu_name . '" not defined.</li></ul>';
+			    }
+			    echo $menu_list;
+				?>
 			</div>
       	    <div class="clear"></div>
 		</div><!-- End of Container -->
