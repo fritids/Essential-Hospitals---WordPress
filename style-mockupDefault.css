@@ -462,7 +462,7 @@ h1, h2 {
 
    /* background: transparent url(images/clear_bg_white.png); */
 
-  display: block;
+  display: none;
   height: 700px;
   width: 50%;
   top: 0;
@@ -504,7 +504,7 @@ h1, h2 {
   background-color: transparent /*rgba(86, 86, 86, 0.7)*/;
   display: block;
   height: 125px;
-  width: 125px;
+  width: 64px;
   top: 200px;
   /*
   -webkit-border-radius: 50px 50px;
@@ -522,16 +522,16 @@ h1, h2 {
 
 /* line 360, sass/_layout-horizontal.scss */
 #prevbtn {
-  left: -50px; 
-  background: transparent url(images/slider_btn.png) no-repeat  -15px 0px;
+  left: 0; 
+  background: transparent url(images/slider_btn.png) no-repeat  center right;
     
   }
  
 
 /* line 367, sass/_layout-horizontal.scss */
 #nextbtn {
-  right: -50px; 
-    background: transparent url(images/slider_btn.png) no-repeat  15px 0px;
+  right: 0; 
+    background: transparent url(images/slider_btn.png) no-repeat  center left;
 
   
   }
