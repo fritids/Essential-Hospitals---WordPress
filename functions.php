@@ -8,8 +8,9 @@ function register_my_menus() {
 	register_nav_menus(
 		array(
 			'primary-menu' => __('Primary Menu'),
-      'utility-menu' => __('Utility Navigation'),
-			'footer-menu' => __('Footer Menu')
+			'utility-menu' => __('Utility Navigation'),
+			'footer-menu'  => __('Footer Menu'),
+			'action-menu'  => __('Action Menu')
 		)	
 	);
 }
