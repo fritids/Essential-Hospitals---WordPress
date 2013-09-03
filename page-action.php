@@ -13,6 +13,11 @@
 	</div>
 </div>
 <div id="contentWrap" class="action">
+	<div id="prev" title="Show previous"> </div>
+	<div id="next" title="Show more Articles"> </div> 
+
+	<a id="prevbtn" title="Show previous">  </a>
+	<a id="nextbtn" title="Show more">  </a> 
 	<div class="gutter">
 		<div class="container">
 			<?php
@@ -23,7 +28,7 @@
 						'container'       => 'div',
 						'container_class' => '',
 						'container_id'    => 'pageNav',
-						'menu_class'      => 'about',
+						'menu_class'      => 'action',
 						'menu_id'         => '',
 						'echo'            => true,
 						'fallback_cb'     => 'wp_page_menu',
@@ -41,22 +46,21 @@
 			<div id="contentPrimary">
 				<div class="gutter">
 					<span class="filterby">Filter By >></span>
-					<ul>
-						<li><a>Health Care Reform and ACA</a></li>
-						<li><a>Medicaid and DSH</a></li>
-						<li><a>Advocacy Agenda</a></li>
-						<li><a>Integrated Care</a></li>
-						<li><a>Disaster Preparedness</a></li>
-						<li><a>Accountable Care Organizations</a></li>
+					<ul id="pagefilter" data-query="action">
+						<li><a>State Waivers</a></li>
+						<li><a>Protecting Medicaid</a></li>
+						<li><a>Other Legislative + Regulatory Issues</a></li>
+						<li><a>Medicare Issues</a></li>
+						<li><a>Health Insurance Marketplaces</a></li>
+						<li><a>Health Information Technology</a></li>
+						<li><a>340B</a></li>
 						<li class="last"><a>Show All Topics</a></li>
 					</ul>
 				</div>
 			</div>
 			<div id="contentSecondary">
 				<div class="gutter">
-					<div id="postBox">
-					
-					</div>
+					<?php get_template_part( 'partial/template', 'actionloop' ); ?> 
 				</div>
 			</div>
 		</div>

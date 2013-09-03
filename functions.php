@@ -10,7 +10,8 @@ function register_my_menus() {
 			'primary-menu' => __('Primary Menu'),
 			'utility-menu' => __('Utility Navigation'),
 			'footer-menu'  => __('Footer Menu'),
-			'action-menu'  => __('Action Menu')
+			'action-nav'  => __('Action Menu'),
+			'quality-nav'  => __('Quality Menu')
 		)	
 	);
 }

@@ -1,4 +1,20 @@
-	
+<div id="orginfo">
+	<div class="container">
+		<div class="gutter clearfix">
+			<div class="onehalf"><div class="gutter">
+				<h3>About America's Essential Hospitals</h3>
+				<p>America’s Essential Hospitals, formerly the National Association of Public Hospitals and Health Systems (NAPH), is the only national association and champion for hospitals and health systems dedicated to high-quality care for all, including the most vulnerable. We support members with advocacy, policy development, research, and education for hospital leadership.</p>
+			</div></div>
+			<div class="onefourth"><div class="gutter">
+				<p class="orange"><strong>America’s Essential Hospitals</strong> was formerly known as the National Association of Public Hospitals and Health Systems (NAPH). Carrying our mission since 1981 into today's health care era.</p>
+				<p><a href="#">Learn more about the name change >></a></p>
+			</div></div>
+			<div class="onefourth"><div class="gutter">
+				<p class="blueP"><strong>Essential Hospitals: Vital Data, 2012</strong><br>Characteristics of the hospitals and health systems in our network.</p>
+			</div></div>
+		</div>
+	</div>
+</div>	
 	<div id="footer" class="fullwidth g4">
 		<div class="container">
 			 

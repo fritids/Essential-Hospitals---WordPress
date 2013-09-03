@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<div id="featured-img" class="action" style="background-image:url(<?php echo $speakerIMG; ?>);">
+<div id="featured-img" class="quality" style="background-image:url(<?php echo $speakerIMG; ?>);">
 	<div class="container">
 		<div id="featured-intro">
 			<?php while ( have_posts() ) : the_post(); ?>
@@ -9,7 +9,7 @@
 		</div>
 	</div>
 </div>
-<div id="content" class="single policy action">
+<div id="content" class="single policy quality">
 	<div class="container">
 		<div id="pageNav"></div>
 		<div id="contentPrimary">

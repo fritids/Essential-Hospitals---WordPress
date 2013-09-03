@@ -61,12 +61,37 @@
 	<!-- Utilities Navigataion -->
 	<div id="utility-nav" class="fullwidth">
 		<div class="container">
-			 <div class="sixteen columns">
-			 		<?php 
-			 		if(has_nav_menu('main')){
+			 <div class="sixteen columns utils">
+			 	<div id="TopMenu">
+				 	<?php 
+			 		if(has_nav_menu('utility-menu')){
 				 		wp_nav_menu( array( 'menu_id' => 'utils-nav', 'theme_location' => 'utility-menu', 'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>'));
 			 		} ?>
-
+			 	</div>
+			 		
+		 		<div id="search" class="search"><img src="<?php bloginfo('template_directory'); ?>/images/search.png" /></div>
+		 		<div id="login" class="login"><img src="<?php bloginfo('template_directory'); ?>/images/login.png" /></div>
+		        <div id="searchBox" class="top">
+		          <form>
+		            <div id='searchForm' >
+		              <input type="text" placeholder="Search" /><input type="submit" value="Go" />
+		            </div>
+		          </form>
+		        </div>
+		        <div id="loginBox" class="top">
+		            <form>
+		            <div id='loginForm'>
+		              <label>Username</label>
+		              <input type="text" placeholder="Username" />
+		              <label>Password</label>
+		              <input type="password" placeholder="Password" />
+		              <input type="submit" value="Login" />
+		             <a href="#">Forgot password?</a><br><br><br><br>
+					 <p><a href="#">Dont have an account?  Sign up now!</a> </p>
+		            </div>
+		          </form>
+		        </div>
+		        
 			 </div>
 		</div>
 	</div>	
