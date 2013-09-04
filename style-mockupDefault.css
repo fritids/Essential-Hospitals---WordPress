@@ -965,7 +965,7 @@ color: #f05135;
 .item-icon { width:99%; height: 20px;  padding-top: 5px; }
 .item-icon img{float: right;}
 
- .bot-border{ position:relative; border-bottom: 1px solid #d6d6d6; height: 2px; width: 99%; }
+ .bot-border{ position:absolute;bottom:5px; border-bottom: 1px solid #d6d6d6; height: 2px; width: 99%; }
 
 .item-header{ width: 100%; }
 
@@ -1452,12 +1452,12 @@ span.button-arrows{
 
 /* Pat' additions */
 #nextbtn.disabled,#prevbtn.disabled{opacity:0.1;}
-.fixed-box.absolute{position:absolute;top:5px;right:5px;width:auto;}
+.fixed-box.absolute{position:absolute;top:5px;right:5px;width:auto;width:280px;}
 #postFeatured{position:relative;width:100%;}
 #postBox{height:700px;overflow:hidden;}
 	#postBox #fader{padding:5px 5px 0px 0px;}
 	#fader div.item{width:1120px;float:left;height:700px !important;}
-	#fader div.item .post{width:24%;}
+	/* #fader div.item .post{width:24%;} */
 	
 .scrollable {
   position:relative;z-index:5;
@@ -1505,6 +1505,7 @@ span.button-arrows{
 		#contentPrimary ul{float:left;width:100%;height:536px;box-shadow: -2px 2px 5px rgba(0,0,0,0.41);}
 			.action #contentPrimary ul{background:#f05133;}
 			.quality #contentPrimary ul{background:#28bdb3;}
+			.education #contentPrimary ul{background:#565656;}
 		#contentPrimary ul li{float:left;width:100%;}
 		#contentPrimary ul li a{color:#fff;font-size:13px;text-transform: uppercase;font-weight: bold;font-family:'Cabin',Arial,sans-serif;display:block;padding:16px 6px;border-bottom:1px solid #c9c9c9;}
 			#contentPrimary ul li.last a{text-transform: none;font-style: italic;}
@@ -1543,3 +1544,20 @@ span.button-arrows{
 	#orginfo .gutter{padding:18px 20px;background:#f7f7f7;margin:6px 4px;}
 		#orginfo .gutter .gutter{padding:0 20px 0 0px;margin:0;}
 	#orginfo h3{font-family:'Cabin',sans-serif;font-size:22px;color:#f05135;margin:0 0 25px 0;}
+	
+#timeFilter{width:100%;float:left;text-transform:uppercase;}
+	#timeFilter .timePhrase{float:left;padding:4px 15px 4px 0;}
+	#timeFilter .timeButton{float:left;background:#565656;color:#fff;padding:4px 10px;margin:0 4px;}
+		.timeButton a{color:#fff;}
+		.timeButton.active a{color:#565656;}
+		#timeFilter .timeButton.active{background:#e7e7e7;color:#565656;}
+
+#fader div.item .post.wide{height:230px !important;width:525px !important;}
+#fader div.item .post.tall{height:460px !important;width:265px !important;}
+.webinar #fader div.item .post.wide,.webinar #fader div.item .post.tall{height:265px !important;width:265px !important;}
+div.item .post .button{width:100%;float:left;text-transform: uppercase;font-size:12px;margin:5px 0;}
+	div.item .post .button a{padding:10px 25px;border-radius:5px;color:#fff;float:left;}
+	div.item .post .button.quality a{background:#28BDB3;}
+	div.item .post .button.policy a{background:#F05135;}
+	div.item .post .button.institute a{background:#0397D6;}
+	div.item .post .button.education a{background:#AAAAAA;}
