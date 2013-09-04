@@ -374,6 +374,49 @@ function wp_list_categories_for_post_type($post_type, $args = '') {
 /*---------------------------CUSTOM POST TYPES----------------------------- **/
 
 $themeDIR = get_bloginfo('template_directory');
+// registration code for webinar post type
+  function register_webinar_posttype() {
+    $labels = array(
+      'name'        => _x( 'webinar', 'post type general name' ),
+      'singular_name'   => _x( 'webinar', 'post type singular name' ),
+      'add_new'       => __( 'Add New' ),
+      'add_new_item'    => __( 'webinar' ),
+      'edit_item'     => __( 'webinar' ),
+      'new_item'      => __( 'webinar' ),
+      'view_item'     => __( 'webinar' ),
+      'search_items'    => __( 'webinar' ),
+      'not_found'     => __( 'webinar' ),
+      'not_found_in_trash'=> __( 'webinar' ),
+      'parent_item_colon' => __( 'webinar' ),
+      'menu_name'     => __( 'webinar' )
+    );
+    
+    $taxonomies = array('post_tag', 'webinartopics', 'educationtopics', 'qualitytopics', 'institutetopics');
+
+    $supports = array('title','editor','author','thumbnail','excerpt','custom-fields','comments','revisions');
+    
+    $post_type_args = array(
+      'labels'      => $labels,
+      'singular_label'  => __('webinar'),
+      'public'      => true,
+      'show_ui'       => true,
+      'publicly_queryable'=> true,
+      'query_var'     => true,
+      'exclude_from_search'=> false,
+      'show_in_nav_menus' => false,
+      'capability_type'   => 'post',
+      'has_archive'     => true,
+      'hierarchical'    => true,
+      'rewrite'       => array('slug' => 'webinar', 'with_front' => false ),
+      'supports'      => $supports,
+      'menu_position'   => 5,
+      'menu_icon'     => get_bloginfo('template_directory').'/images/webinar-menu.png',
+      'taxonomies'    => $taxonomies
+     );
+     register_post_type('webinar',$post_type_args);
+  }
+    add_action('init', 'register_webinar_posttype');
+    
 // registration code for policy post type
   function register_policy_posttype() {
     $labels = array(
@@ -616,6 +659,37 @@ $themeDIR = get_bloginfo('template_directory');
       register_taxonomy('educationtopics', $pages, $args);
     }
     add_action('init', 'register_educationtopics_tax');
+    
+    // registration code for webinartopics taxonomy
+    function register_webinartopics_tax() {
+      $labels = array(
+        'name'          => _x( 'webinar Topics', 'taxonomy general name' ),
+        'singular_name'     => _x( 'webinar Topic', 'taxonomy singular name' ),
+        'add_new'         => _x( 'Add New webinar Topic', 'webinar Topic'),
+        'add_new_item'      => __( 'Add New webinar Topic' ),
+        'edit_item'       => __( 'Edit webinar Topic' ),
+        'new_item'        => __( 'New webinar Topic' ),
+        'view_item'       => __( 'View webinar Topic' ),
+        'search_items'      => __( 'Search webinar Topics' ),
+        'not_found'       => __( 'No webinar Topic found' ),
+        'not_found_in_trash'  => __( 'No webinar Topic found in Trash' ),
+      );
+      
+      $pages = array('policy','quality','institute','externallinks');
+      
+      $args = array(
+        'labels'      => $labels,
+        'singular_label'  => __('webinar Topic'),
+        'public'      => true,
+        'show_ui'       => true,
+        'hierarchical'    => true,
+        'show_tagcloud'   => false,
+        'show_in_nav_menus' => true,
+        'rewrite'       => array('slug' => 'webinartopics', 'with_front' => false ),
+       );
+      register_taxonomy('webinartopics', $pages, $args);
+    }
+    add_action('init', 'register_webinartopics_tax');
 
 
     // registration code for educationtopics taxonomy
