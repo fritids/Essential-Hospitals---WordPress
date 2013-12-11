@@ -2,45 +2,72 @@
 	<div class="fixed-box absolute">
 
       		<div class="twitter">
-      			<img src="<?php bloginfo('template_directory'); ?>/images/twit-icon.png" />
-      			<span class="twitred">EssentialHospials </span>
-      			 announces webinar on round two of heath care innovation grants <a href="#">http://t.com/QADWCZ</a> via @AlexMac 
+      			<?php display_user_tweets('OurHospitals',1); ?>
       		</div>
- 
+
   			<div class="newsletter">
 	            <form>
-	              <span>Essential Hospitals news in your inbox:</span>
+	              <span>Essential hospitals news in your inbox: </span>
 	              <input type="text" class="newsletter_btn_input" value="Enter Email Here"><input class="newsletter_btn" type="submit" >
 	              <div class="clear"></div>
 	            </form>
 	            <div class="clear"></div>
 	        </div>
- 			
+
 	        <div class="topics">
 	        	<h3> Top Issues and Topics</h3>
 	        	<ul>
- 
-					<li>Patient Safety</li>
-					<li>Preventing Readmissions</li>
-					<li>HCAHPS</li>
-					<li>CLINICIAN-PATIENT COMMUNICATIONS</li>
-					<li>PATIENT EXPERIENCE</li>
-					<li>Specialty Care </li>
-					<li>Quality Metrics</li>
+				<?php
+					$taxonomies = array('educationtopics','policytopics','institutetopics','qualitytopics');
+					$args = array(
+					    'orderby'       => 'count',
+					    'order'         => 'ASC',
+					    'hide_empty'    => true,
+					    'exclude'       => array(),
+					    'exclude_tree'  => array(),
+					    'include'       => array(),
+					    'number'        => '',
+					    'fields'        => 'all',
+					    'slug'          => '',
+					    'parent'         => '',
+					    'hierarchical'  => true,
+					    'child_of'      => 0,
+					    'get'           => '',
+					    'name__like'    => '',
+					    'pad_counts'    => false,
+					    'offset'        => '',
+					    'search'        => '',
+					    'cache_domain'  => 'core'
+					);
+					$terms = get_terms($taxonomies,$args);
+					$count = 0;
+					foreach($terms as $term){
+						if($count < 8){ ?>
+						<li><a href="<?php echo get_term_link($term); ?>"><?php echo $term->name; ?></a></li>
+					<?php } $count++; } ?>
 	        	</ul>
 	        </div>
 
       	</div>
 	<div id="fader" class="clearfix scrollable">
 			<div class="items">
-			<?php 
+			<?php get_template_part( 'partial/loop', 'announcement' ); ?>
+
+			<?php
 			query_posts( array(
 				'post_type' => array('policy','quality','education','institute'),
+				'meta_query' => array(
+					array(
+						'key' => 'sticky_topic',
+						'value' => 'home',
+						'compare' => 'NOT IN',
+					)
+				)
 			) );
-			if ( have_posts() ) while ( have_posts() ) : the_post(); 
+			if ( have_posts() ) while ( have_posts() ) : the_post();
 				$postType = get_post_type( get_the_ID() );
-				
-				//check post type and apply a color	
+
+				//check post type and apply a color
 				if($postType == 'policy'){
 					$postColor = 'redd';
 				}else if($postType == 'quality'){
@@ -53,26 +80,47 @@
 					$postColor = 'bluee';
 				}
 			?>
-			
-			<div class="post long columns <?php echo $postColor; ?>  <?php echo get_post_type( get_the_ID() ); ?> ">
+
+			<div class="post long columns <?php echo $postColor; ?>  <?php echo $postType; ?> ">
+				<div class="graybarright"></div>
 	  			<div class="item-bar"></div>
-    			<div class="item-icon"><img src="<?php bloginfo('template_directory'); ?>/images/icon-<?php echo $postType; ?>.png" /></div>
+    			<div class="item-icon">
+    				<?php $terms = wp_get_post_terms(get_the_ID(), 'series');
+    					if($terms){
+	    					$termLink = get_term_link($terms[0], 'series');
+		    				echo "<a href='".$termLink."'>".$terms[0]->name."</a>";
+	    				}
+    				?>
+					<?php if($postType != 'post'){ ?>
+	    				<img src="<?php bloginfo('template_directory'); ?>/images/icon-<?php echo $postType; ?>.png" />
+    				<?php } ?>
+    			</div>
     			<div class="item-content">
 	    			<div class="item-header">
-	    				<h2><?php the_title(); ?></h2>
+	    				<h2><a href="<?php if(get_field('link_to_media')){the_field('uploaded_file');}else{the_permalink();} ?>"><?php the_title(); ?></a></h2>
 	    				<span class="item-date"><?php the_time('M j, Y'); ?> ||</span>
 	    				<span class="item-author"><?php the_author(); ?></span>
 	    			</div>
-	    			<p><?php the_excerpt(); ?><a class="more" href="<?php the_permalink(); ?>"> read more » </a>
-	    			</p>
+	    			<?php if(get_field('link_to_media')){ ?>
+						<a href="<?php the_field('uploaded_file'); ?>"><img src="<?php bloginfo('template_directory'); ?>/images/<?php echo $postType; ?>-doc.png" /></a>
+					<?php }else{ ?>
+						<p><?php
+						$exc = get_the_excerpt();
+						$line=$exc;
+						if (preg_match('/^.{1,100}\b/s', $exc, $match))
+						{
+						    $line=$match[0];
+						}
+						echo $line; ?><a class="more" href="<?php the_permalink(); ?>"> read more » </a></p>
+					<?php } ?>
 	    			<div class="item-tags">
 	    				<?php the_tags(' ',' ',' '); ?>
 	    			</div>
 	    		</div>
 	    		<div class="bot-border"></div>
 	  		</div>
-			
-			
+
+
 		<?php endwhile; wp_reset_query();?>
 			</div>
 	</div>

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
@@ -6,10 +7,12 @@
 
 <head>
 	<meta charset="utf-8">
-	<title><?php wp_title( '|', true, 'right' );  ?>   <?php bloginfo('name'); ?></title>
+	<title><?php wp_title( '|', true, 'right' );  ?>   America's Essential Hospitals</title>
+
+	<link rel="shortcut icon" type="image/x-icon" href="<?php bloginfo('template_directory'); ?>/favicon.ico">
 
 	<!-- Meta / og: tags -->
-	<?php if (have_posts()):while(have_posts()):the_post(); endwhile; endif;?> 
+	<?php if (have_posts()):while(have_posts()):the_post(); endwhile; endif;?>
 
 	<!-- if page is content page -->
 	<?php if (is_single()) { ?>
@@ -17,21 +20,25 @@
 	<meta property="og:title" content="<?php single_post_title(''); ?>" />
 	<meta property="og:description" content="<?php echo strip_tags(get_the_excerpt($post->ID)); ?>" />
 	<meta property="og:type" content="article" />
-	<meta property="og:image" content="<?php bloginfo('template_url' );?>/images/century-equities.png" />
+	<meta property="og:image" content="<?php bloginfo('template_url' );?>/images/logo.png" />
 
 	<!-- if page is others -->
 	<?php } else { ?>
 	<meta property="og:site_name" content="<?php bloginfo('name'); ?>" />
 	<meta property="og:description" content="<?php bloginfo('description'); ?>" />
 	<meta property="og:type" content="website" />
-	<meta property="og:image" content="<?php bloginfo('template_url' );?>/images/century-equities.png" /> <?php } ?>
+	<meta property="og:image" content="<?php bloginfo('template_url' );?>/images/logo.png" /> <?php } ?>
 
 
+	<script type='text/javascript'>
+		var templateDir = "<?php bloginfo('template_directory') ?>";
+		var siteDir = "<?php bloginfo('url') ?>";
+	</script>
 
 	<!-- Mobile Specific Metas
   ================================================== -->
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0">
-	 
+
 
 	<!-- FONTS
 	================================================== -->
@@ -39,9 +46,7 @@
 
 	<!-- CSS (* with Edge Inspect Fix)
     ================================================== -->
-	<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'template_url' ); ?>/style.css" />
-	<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'template_url' ); ?>/style-mockupDefault.css" />
- 
+	<link rel="stylesheet" type="text/css" media="all" href="<?php echo get_stylesheet_uri(); ?>" />
 
 	<!-- Favicons
 	================================================== -->
@@ -50,75 +55,82 @@
 	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
 	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
 
+	<script type="text/javascript">var switchTo5x=true;</script>
+	<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+	<script type="text/javascript">stLight.options({publisher: "457e6d5d-5f44-4df8-9c1d-ec560a221bb7", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
 	<?php wp_head(); ?>
 
 
+	<!--[if lt IE 9]>
+		<script src="<?php bloginfo('template_directory'); ?>/js/html5shiv.js"></script>
+	<![endif]-->
+
 </head>
-
-<body>
-
+<body <?php body_class();?>>
+<?php get_template_part( 'membernetwork/module', 'memberdash' ); ?>
+<div id="siteWrap" class="clearfix">
+<?php $currentUser = get_current_user_id(); ?>
 
 	<!-- Utilities Navigataion -->
 	<div id="utility-nav" class="fullwidth">
 		<div class="container">
 			 <div class="sixteen columns utils">
 			 	<div id="TopMenu">
-				 	<?php 
+				 	<?php
 			 		if(has_nav_menu('utility-menu')){
 				 		wp_nav_menu( array( 'menu_id' => 'utils-nav', 'theme_location' => 'utility-menu', 'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>'));
 			 		} ?>
 			 	</div>
-			 		
-		 		<div id="search" class="search"><img src="<?php bloginfo('template_directory'); ?>/images/search.png" /></div>
-		 		<div id="login" class="login"><img src="<?php bloginfo('template_directory'); ?>/images/login.png" /></div>
-		        <div id="searchBox" class="top">
-		          <form>
-		            <div id='searchForm' >
-		              <input type="text" placeholder="Search" /><input type="submit" value="Go" />
-		            </div>
-		          </form>
-		        </div>
-		        <div id="loginBox" class="top">
-		            <form>
-		            <div id='loginForm'>
-		              <label>Username</label>
-		              <input type="text" placeholder="Username" />
-		              <label>Password</label>
-		              <input type="password" placeholder="Password" />
-		              <input type="submit" value="Login" />
-		             <a href="#">Forgot password?</a><br><br><br><br>
-					 <p><a href="#">Dont have an account?  Sign up now!</a> </p>
-		            </div>
-		          </form>
-		        </div>
-		        
+
+			 	<div id="searchlogin">
+			 		<div id="search" class="search">
+			 			<img src="<?php bloginfo('template_directory'); ?>/images/search.png" />
+			 			<?php get_template_part( 'membernetwork/module', 'searchform' ); ?>
+			 		</div>
+
+			 		<?php if(is_user_logged_in()){ ?>
+				 		<div id="login" class="login"><a id="memNetwork" href="#">Member Network</a></div>
+				 	<?php }else{ ?>
+						<div id="login" class="login"><a href="<?php bloginfo('url');?>/membernetwork/registration"><img src="<?php bloginfo('template_directory'); ?>/images/signup.png" /></a><img id="loginButton" src="<?php bloginfo('template_directory'); ?>/images/login.png" /></div>
+				 	<?php } ?>
+				 </div>
 			 </div>
 		</div>
-	</div>	
+	</div>
+	<?php
+		if(!is_user_logged_in()){
+			get_template_part( 'membernetwork/module', 'loginreg' );
+		}
+	?>
 	<!-- END Utilities Navigataion -->
-
-
 	<!-- Logo/Main Navigataion -->
 	<div id="header" class="fullwidth">
 		<div class="container">
-				 <div class="logo"> 
-				 	<a href="<?php bloginfo( 'url' );?>" title="<?php bloginfo( 'name' );?>"><img src="<?php bloginfo('template_url' );?>/images/logo.png" title="<?php bloginfo( 'name' );?>"></a>
-				 
+			 <div class="logo">
+			 	<?php
+			 	while ( have_posts() ) : the_post();
+			 	$pageTheme = get_field('theme');
+			 	endwhile;
+			 	if(is_page_template('templates/template-institute.php') || is_post_type_archive('institute') || is_tax('centers') || is_singular('institute') || $pageTheme == 'institute'){ ?>
+			 		<a href="<?php bloginfo( 'url' );?>/institute" title="<?php bloginfo( 'name' );?>"><img src="<?php bloginfo('template_url' );?>/images/instituteLogo.png" title="<?php bloginfo( 'name' );?>"></a>
+				<?php }else{ ?>
+					<a href="<?php bloginfo( 'url' );?>" title="<?php bloginfo( 'name' );?>"><img src="<?php bloginfo('template_url' );?>/images/logo.png" title="<?php bloginfo( 'name' );?>"></a>
+				<?php } ?>
 			</div>
 			<div class="twelve columns navigation">
 				<?php
 				global $post;
 				$thePostID = $post->ID;
-				
+
 			    $menu_name = 'primary-menu';
-			
+
 			    if ( ( $locations = get_nav_menu_locations() ) && isset( $locations[ $menu_name ] ) ) {
 				$menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
-			
+
 				$menu_items = wp_get_nav_menu_items($menu->term_id);
-			
+
 				$menu_list = '<ul id="menu-' . $menu_name . '">';
-			
+
 				foreach ( (array) $menu_items as $key => $menu_item ) {
 					if($thePostID == $menu_item->object_id){
 						$activeClass = 'active';
@@ -128,7 +140,14 @@
 				    $title = $menu_item->title;
 				    $url = $menu_item->url;
 				    $desc = $menu_item->description;
-				    $menu_list .= '<li class="'.$activeClass.'"><a href="' . $url . '">' . $title . '<span>'.$desc.'</span></a></li>';
+				    $menuClass = $menu_item->classes;
+				    $menu_list .= '<li class="';
+				    if($menuClass){
+					    foreach($menuClass as $class){
+						    $menu_list .= $class.' ';
+					    }
+				    }
+				    $menu_list .= $activeClass.'"><a href="' . $url . '">' . $title . '<span>'.$desc.'</span></a></li>';
 				}
 				$menu_list .= '</ul>';
 			    } else {
@@ -140,11 +159,11 @@
       	    <div class="clear"></div>
 		</div><!-- End of Container -->
 		<div class="clear"></div>
-	</div> 
+	</div>
 	<!-- Logo/Main Navigataion -->
 
 
- 
+
 
 
 

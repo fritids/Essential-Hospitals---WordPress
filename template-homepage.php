@@ -9,16 +9,14 @@
       
       <div id="banner_text">
         <span class="orange">
-          <em>Essential People.</em><br />
-          <em>Essential Communities.</em> <br />
-          <span class="bold">Essential Hospitals.</span> <br />
+          <em>Essential People</em><br />
+          <em>Essential Communities</em> <br />
+          <span class="bold">Essential Hospitals</span> <br />
         </span>
         
         <br />
         
-        <em>We are the providers<br />
-        of quality care our<br />
-        communities need.</em>
+        <em> </em>
 
       </div>
 
@@ -66,6 +64,7 @@
 	</div><!-- End of featured -->
 <div id="postFeatured">
 	<div class="container fullborder">
+		
  		<div class="eightteen columns filters">
  			<span> FILTER BY &rsaquo;&rsaquo;</span>
  			<div id="red_btn" data-filter="policy" class="filter_btn "> 
@@ -86,7 +85,8 @@
     <div class ="grayblock"></div>
     
 	<div class="container twelve columns content">
-		
+		<div class="graybarleft"></div>
+		<div class="graybarright"></div>
 		<?php get_template_part('partial/template','homeloop'); ?>
 		
 		
@@ -100,3 +100,4 @@
 </div>
  
 <?php get_footer(); ?>
+footer(); ?>

@@ -1,36 +1,59 @@
 <div id="orginfo">
-	<div class="container">
-		<div class="gutter clearfix">
-			<div class="onehalf"><div class="gutter">
-				<h3>About America's Essential Hospitals</h3>
-				<p>America’s Essential Hospitals, formerly the National Association of Public Hospitals and Health Systems (NAPH), is the only national association and champion for hospitals and health systems dedicated to high-quality care for all, including the most vulnerable. We support members with advocacy, policy development, research, and education for hospital leadership.</p>
-			</div></div>
-			<div class="onefourth"><div class="gutter">
-				<p class="orange"><strong>America’s Essential Hospitals</strong> was formerly known as the National Association of Public Hospitals and Health Systems (NAPH). Carrying our mission since 1981 into today's health care era.</p>
-				<p><a href="#">Learn more about the name change >></a></p>
-			</div></div>
-			<div class="onefourth"><div class="gutter">
-				<p class="blueP"><strong>Essential Hospitals: Vital Data, 2012</strong><br>Characteristics of the hospitals and health systems in our network.</p>
-			</div></div>
-		</div>
-	</div>
-</div>	
+<div id="base" class="container" >
+	<div class="graybarleft"></div>
+	<div class="graybarright"></div>
+	<div class="gutter">
+	    <div class="eight columns about" id="col1">
+	        <?php dynamic_sidebar('left-footer'); ?>
+	    </div>
+
+	    <div class="four columns" id="col2">
+	        <div class="section">
+	        <?php dynamic_sidebar('center-footer'); ?>
+	        </div>
+
+	    </div>
+
+	    <div class="four columns sidebar" id="col3">
+	        <div class="sidesection top">
+	          <?php dynamic_sidebar('righttop-footer'); ?>
+	        </div>
+
+	        <div class="sidesection bottom">
+	          <?php dynamic_sidebar('rightbottom-footer'); ?>
+	        </div>
+	    </div>
+
+	    <div class="clear"></div>
+	  </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
 	<div id="footer" class="fullwidth g4">
 		<div class="container">
-			 
+
 				 <div id="footer_address" class="four columns element">
-				 	America's Essential Hospitals
-          <br />
-          1301 Pennsylvania Ave. NW, Suite 950
-          <br />
-          Washington, DC 20004
-          <br />
-          <br />
-          202.585.0100
-          <br />
-          info@essentialhospitals.org
-          <br />
-          <br />
+				 	<div class="footer-address">
+			  <span class="footHead">AMERICA'S ESSENTIAL HOSPITALS</span>
+              <br />
+              <span class="serif">1301 Pennsylvania Ave. NW, Suite 950
+              <br />
+              Washington, DC 20004</span>
+              <br />
+              <br />
+              202.585.0100
+              <br />
+              info@essentialhospitals.org
+              <br />
+              <br />
+           </div>
           <div id="newsletter">
             <form>
               <span>Essential Hospitals news in your inbox:</span>
@@ -40,46 +63,46 @@
             <div class="clear"></div>
           </div>
 				 </div>
-         
-	
-         
-				 <div id="footer_contact" class="four columns element">
-          Media Inquiries<br />
-          Carl Graziano | 202.585.0102
+
+
+
+				 <div id="footer_contact" class="four columns element"><div class="gutter">
+          <span class="footHead">Media Inquiries</span><br />
+          <span class="serif">Carl Graziano | 202.585.0102</span>
           <br /><br />
-          Association Membership<br />
-          Kristine Metter | 202.585.0573
+          <span class="footHead">Association Membership</span><br />
+          <span class="serif">Kristine Metter | 202.585.0573</span>
           <br /><br />
-          Meetings and Conferences<br />
-          Nneka St. Gerard | 202.585.0131
+          <span class="footHead">Meetings and Conferences</span><br />
+          <span class="serif">Nneka St. Gerard | 202.585.0131</span>
           <br /><br />
-          Website Admin and<br />
-          Sign in Questions<br />
-          Maeceon Lewis | 202.585.0559
-          
-				 </div>
-         
-        <div class="eight columns element">
-          
+          <span class="footHead">Website Admin and<br />
+          Sign in Questions</span><br />
+          <span class="serif">Maeceon Lewis | 202.585.0559</span>
+
+				 </div></div>
+
+        <div class="eight columns element" id="footer_columns"><div class="gutter">
+
           <div class="col1">
           <!--Col1-->
           <dl>
-            <dt class="color_policy">Policy</dt>
+            <dt class="color_policy">Action</dt>
               <dd>News</dd>
               <dd>Mission</dd>
               <dd>Media Information</dd>
               <dd>Policy Team</dd>
           </dl>
-          
+
           <dl>
             <dt class="color_quality">Quality</dt>
               <dd>News</dd>
               <dd>Who we are</dd>
               <dd>Mission</dd>
           </dl>
-          
+
           </div>
-          
+
            <div class="col2">
           <!--Col2-->
            <dl>
@@ -92,7 +115,7 @@
               <dd>GR Academy</dd>
               <dd>HCHAPS</dd>
           </dl>
-          
+
           </div>
            <div class="col3">
           <!--Col3-->
@@ -100,13 +123,13 @@
             <dt class="color_institute">Institute</dt>
               <dd>Research Center</dd>
               <dd>Transformation Center</dd>
-       
+
           </dl>
           </div>
            <div class="col4">
           <!--Col4-->
           <dl class="dfour">
-              <dd>About Essential Hospitals</dd>
+              <dt>About Essential Hospitals</dt>
               <dd>Special Events</dd>
               <dd>Sponsor Opportunities</dd>
               <dd>Media + Press Kit</dd>
@@ -116,39 +139,40 @@
           </dl>
           </div>
 
-				</div>
-         
+				</div></div>
+
         <div id="footer_logo">
-          <img src="<?php bloginfo('template_directory'); ?>/images/footer_logo.png" />
-        </div> 
-         
-         
+          <a href="<?php echo site_url(); ?>"><img src="<?php bloginfo('template_directory'); ?>/images/footer_logo.png" /></a>
+        </div>
+
+
         <div id="social">
           <a id="icon_linkedin" href="#">Linked In</a>
           <a id="icon_facebook" href="#">Facebook</a>
           <a id="icon_twitter" href="#">Twitter</a>
           <a id="icon_share" href="#">Share This</a>
           <a id="icon_email" href="#">Email</a>
-        </div> 
-         
+        </div>
 
-         
+
+
         <div class="clear"></div>
-         
-      <!-- END CONTAINER -->     
+
+      <!-- END CONTAINER -->
 			</div>
- 
+
 		<div class="clear"></div>
-  <!-- END FOOTER -->  
-	</div> 
+  <!-- END FOOTER -->
+	</div>
+	</div>
 
 	<?php wp_footer(); ?>
-	
-	<script src="<?php bloginfo('template_url' );?>/js/jquery-ui-1.8.23.js" type="text/javascript"></script>
-	<script src="<?php bloginfo('template_url' );?>/js/jquery.mousewheel.min.js"></script>
-	<script src="<?php bloginfo('template_url' );?>/js/smoothdivscroll.js"></script>
 
-	<script src="<?php bloginfo('template_url' );?>/js/scripts-josh.js"></script> 
+	<script src="<?php bloginfo('template_url'); ?>/js/jquery-ui-1.8.23.js" type="text/javascript"></script>
+	<script src="<?php bloginfo('template_url'); ?>/js/jquery.mousewheel.min.js"></script>
+	<script src="<?php bloginfo('template_url'); ?>/js/smoothdivscroll.js"></script>
+
+	<script src="<?php bloginfo('template_url'); ?>/js/scripts-josh.js"></script>
 
 
 </body>

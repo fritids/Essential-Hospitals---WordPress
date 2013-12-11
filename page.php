@@ -1,72 +1,196 @@
-<?php /*
- * Default Page Template
- */
-?>
+<?php get_header();
+	global $post;
+	$postSt = $post->post_status;
+	$current_user = wp_get_current_user();
+	$cUID = $current_user->ID;
+	$cUStaff = get_user_meta($cUID,'staff_mem',true);
+	if($postSt == 'private'){
+		if($cUStaff == 'Y'){ ?>
+			<?php while ( have_posts() ) : the_post();
+		$pageTheme = get_field('theme');
 
-<?php get_header(); ?>
-<?php get_template_part( 'subheader'); ?>
+		if($pageTheme == 'policy'){
+			$menu = 'action';
+		}elseif($pageTheme != 'policy'){
+			$menu = $pageTheme;
+		}elseif(!$pageTheme){
+			$menu = 'general';
+		}
 
-<div class="container page_content"> 
-	
-<?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
-	<div class="three columns">
-		
-			<?php 
-            //get parent title
-            global $post;
-            if(is_page() && $post->post_parent) {
-        			$pid = $post->post_parent;
-              $thepermalink = get_permalink( $pid );
-            } 
-			?>
-        
-
-	           <!--<h2><a href="<?php echo $thepermalink; ?>"><?php echo get_the_title($pid); ; ?></a></h2>-->
-	        	<?php
-				 	//list parent child pages
-				 	if($post->post_parent)
-	  					$children = wp_list_pages("title_li=&child_of=".$post->post_parent."&echo=0&depth=1");
-	 				 else
-	 					 $children = wp_list_pages("title_li=&child_of=".$post->ID."&echo=0&depth=1");
-	 				 if ($children) { ?>
-	 				 <div class="border_box">
-						<div class="border_inner page_nav">
-	  						<ul>
-	  							<?php echo $children; ?>
-	  						</ul>  
-	  					</div>		
-					</div>		       
-	  				<?php }  ?>
-	  		
-
-		<div class="border_box page_side testimonials">
-			<div class="border_inner testimonials">
-				<?php $args = array( 'post_type' => 'quotes', 'posts_per_page' => 1, 'orderby'=> 'rand' );
-				$loop = new WP_Query( $args );
-				while ( $loop->have_posts() ) : $loop->the_post();
-					the_content(); 
-					?>
-					<p class="quote_source">- <?php the_title(); ?></p>
-				<?php 
-				endwhile;
-				wp_reset_query();
-				?>
+		$speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
+		<div id="featured-img" class="page-single <?php echo $pageTheme; ?>" style="background-image:url(<?php echo $speakerIMG; ?>);">
+			<div class="container">
+				<div id="featured-intro">
+					<h3><?php the_title(); ?></h3>
+				</div>
 			</div>
 		</div>
-	</div>	
+		<div id="content" class="page-single default <?php echo $pageTheme; ?>">
+			<div class="container">
+				<?php
+					if(has_nav_menu('general-nav')){
+						$defaults = array(
+							'theme_location'  => 'general-nav',
+							'menu'            => 'general-nav',
+							'container'       => 'div',
+							'container_class' => '',
+							'container_id'    => 'pageNav',
+							'menu_class'      => 'quality',
+							'menu_id'         => '',
+							'echo'            => true,
+							'fallback_cb'     => 'wp_page_menu',
+							'before'          => '',
+							'after'           => '',
+							'link_before'     => '',
+							'link_after'      => '',
+							'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+							'depth'           => 0,
+							'walker'          => ''
+						);
+						wp_nav_menu( $defaults );
+					}
+				?>
+				<div id="contentColumnWrap">
+					<div class="graybarright"></div>
+					<div class="graybarleft"></div>
+					<div id="contentPrimary" class="heightcol">
+						<div class="gutter">
+							<h1><?php the_title(); ?></h1>
+							<?php the_content(); ?>
+						</div>
+					</div>
+					<div id="contentSecondary" class="heightcol">
+						<div class="gutter">
+							<?php the_field('secondColumn'); ?>
+						</div>
+					</div>
+					<div id="contentTertiary" class="heightcol">
+						<div class="gutter">
+							<?php
+								if(has_nav_menu('general-nav')){
+									$defaults = array(
+										'theme_location'  => 'general-nav',
+										'menu'            => 'general-nav',
+										'container'       => 'div',
+										'container_class' => 'panel subnav',
+										'container_id'    => '',
+										'menu_class'      => '',
+										'menu_id'         => '',
+										'echo'            => true,
+										'fallback_cb'     => 'wp_page_menu',
+										'before'          => '',
+										'after'           => '',
+										'link_before'     => '',
+										'link_after'      => '',
+										'items_wrap'      => '<div class="gutter"><ul id="%1$s" class="%2$s">%3$s</ul></div>',
+										'depth'           => 0,
+										'walker'          => ''
+									);
+									wp_nav_menu( $defaults );
+								}
+							?>
+							<?php the_field('thirdColumn'); ?>
+						</div>
+					</div>
+				</div>
+			</div>
+		<?php endwhile; // end of the loop. ?>
+		</div><!-- End of Content -->
+	<?php }else{ ?>
+		<div>Private</div>
+	<?php } ?>
 
-	<div class="seven offset-by-one columns content">
-		<?php the_content(); ?>
-	</div>
-		  	
-<?php endwhile; ?>
+	<?php }else{ ?>
+		<?php while ( have_posts() ) : the_post();
+		$pageTheme = get_field('theme');
 
-</div><!-- End of Container -->
+		if($pageTheme == 'policy'){
+			$menu = 'action';
+		}elseif($pageTheme == ''){
+			$menu = 'general';
+		}elseif($pageTheme != 'policy'){
+			$menu = $pageTheme;
+		}
 
-
-
-
-
-
+		$speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
+		<div id="featured-img" class="page-single <?php echo $pageTheme; ?>" style="background-image:url(<?php echo $speakerIMG; ?>);">
+			<div class="container">
+				<div id="featured-intro">
+					<h3><?php the_title(); ?></h3>
+				</div>
+			</div>
+		</div>
+		<div id="content" class="page-single default <?php echo $pageTheme; ?>">
+			<div class="container">
+				<?php
+					if(has_nav_menu($menu.'-nav')){
+						$defaults = array(
+							'theme_location'  => $menu.'-nav',
+							'menu'            => $menu.'-nav',
+							'container'       => 'div',
+							'container_class' => '',
+							'container_id'    => 'pageNav',
+							'menu_class'      => 'quality',
+							'menu_id'         => '',
+							'echo'            => true,
+							'fallback_cb'     => 'wp_page_menu',
+							'before'          => '',
+							'after'           => '',
+							'link_before'     => '',
+							'link_after'      => '',
+							'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+							'depth'           => 0,
+							'walker'          => ''
+						);
+						wp_nav_menu( $defaults );
+					}
+				?>
+				<div id="contentColumnWrap">
+					<div class="graybarright"></div>
+					<div class="graybarleft"></div>
+					<div id="contentPrimary" class="heightcol">
+						<div class="gutter">
+							<h1><?php the_title(); ?></h1>
+							<?php the_content(); ?>
+						</div>
+					</div>
+					<div id="contentSecondary" class="heightcol">
+						<div class="gutter">
+							<?php the_field('secondColumn'); ?>
+						</div>
+					</div>
+					<div id="contentTertiary" class="heightcol">
+						<div class="gutter">
+							<?php
+								if(has_nav_menu('general-nav')){
+									$defaults = array(
+										'theme_location'  => 'general-nav',
+										'menu'            => 'general-nav',
+										'container'       => 'div',
+										'container_class' => 'panel subnav',
+										'container_id'    => '',
+										'menu_class'      => '',
+										'menu_id'         => '',
+										'echo'            => true,
+										'fallback_cb'     => 'wp_page_menu',
+										'before'          => '',
+										'after'           => '',
+										'link_before'     => '',
+										'link_after'      => '',
+										'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+										'depth'           => 0,
+										'walker'          => ''
+									);
+									wp_nav_menu( $defaults );
+								}
+							?>
+							<?php the_field('thirdColumn'); ?>
+						</div>
+					</div>
+				</div>
+			</div>
+		<?php endwhile; // end of the loop. ?>
+		</div><!-- End of Content -->
+	<?php } ?>
 
 <?php get_footer(); ?>

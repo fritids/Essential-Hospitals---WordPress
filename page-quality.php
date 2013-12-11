@@ -1,23 +1,20 @@
-<?php 
-	get_header();
-?>
+<?php get_header(); ?>
 <?php $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
 <div id="featured-img" class="quality" style="background-image:url(<?php echo $speakerIMG; ?>);">
 	<div class="container">
 		<div id="featured-intro">
 			<?php while ( have_posts() ) : the_post(); ?>
-				<h3><?php the_field('bannerTitle'); ?></h3>
-				<h4><?php the_field('bannerDescription'); ?></h4>
+				<h3><span class="greenn">QUALITY</span><br><?php the_field('bannerTitle'); ?></h3>
 			<?php endwhile; // end of the loop. ?>
 		</div>
 	</div>
 </div>
 <div id="contentWrap" class="quality">
 	<div id="prev" title="Show previous"> </div>
-	<div id="next" title="Show more Articles"> </div> 
+	<div id="next" title="Show more Articles"> </div>
 
 	<a id="prevbtn" title="Show previous">  </a>
-	<a id="nextbtn" title="Show more">  </a> 
+	<a id="nextbtn" title="Show more">  </a>
 	<div class="gutter">
 		<div class="container">
 			<?php
@@ -40,32 +37,52 @@
 						'depth'           => 0,
 						'walker'          => ''
 					);
-					wp_nav_menu( $defaults ); 	
+					wp_nav_menu( $defaults );
 				}
 			?>
 			<div id="contentPrimary">
+				<div class="graybar"></div>
 				<div class="gutter">
-					<span class="filterby">Filter By >></span>
-					<ul id="pagefilter" data-query="quality">
-						<li><a>Specialty Care</a></li>
-						<li><a>Population Health</a></li>
-						<li><a>Patient-Centered Care</a></li>
-						<li><a>Patient Safety</a></li>
-						<li><a>Health Care Disparities</a></li>
-						<li><a>Cost + Resource Efficiency</a></li>
-						<li><a>community Outreach</a></li>
-						<li class="last"><a>Show All Topics</a></li>
-					</ul>
+					<span class="filterby">Filter By Topic >></span>
+					<?php
+						$args = array(
+						    'orderby'       => 'name',
+						    'order'         => 'ASC',
+						    'hide_empty'    => false,
+						    'exclude'       => array(),
+						    'exclude_tree'  => array(),
+						    'include'       => array(),
+						    'number'        => '',
+						    'fields'        => 'all',
+						    'slug'          => '',
+						    'parent'         => '',
+						    'hierarchical'  => true,
+						    'child_of'      => 0,
+						    'get'           => '',
+						    'name__like'    => '',
+						    'pad_counts'    => false,
+						    'offset'        => '',
+						    'search'        => '',
+						    'cache_domain'  => 'core'
+						);
+						$terms = get_terms( 'qualitytopics', $args );
+						if(count($terms) > 0){ ?>
+							<ul id="pagefilter" data-query="quality">
+							<?php foreach($terms as $term){ ?>
+								<li data-filter="<?php echo $term->slug; ?>"><a><?php echo $term->name; ?></a></li>
+							<?php } ?>
+								<li class="last"><a>Show All Topics</a></li>
+							</ul>
+						<?php } ?>
 				</div>
 			</div>
 			<div id="contentSecondary">
+				<div class="graybar"></div>
 				<div class="gutter">
-					<?php get_template_part( 'partial/template', 'qualityloop' ); ?> 
+					<?php get_template_part( 'partial/template', 'qualityloop' ); ?>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<?php
-	get_footer();
-?>
+<?php get_footer(); ?>
