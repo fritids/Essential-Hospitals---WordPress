@@ -1,23 +1,18 @@
-<?php get_header(); ?>
-
-<div id="content">
-	
-	<?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
-		
-		<div class="post">
-			<h1><?php the_title(); ?></h1>
-			<p class="postinfo">By <?php the_author(); ?> | Categories: <?php the_category(', '); ?> | <?php comments_popup_link(); ?></p>
-			
-			<?php the_content(); ?>
-		</div>
-		
-		<?php comments_template( '', true ); ?>
-		
-	<?php endwhile; ?>
-
-</div><!-- End of Content -->
+<?php get_header();
+	global $post;
+	$postSt = $post->post_status;
+	$current_user = wp_get_current_user();
+	$cUID = $current_user->ID;
+	$cUStaff = get_user_meta($cUID,'aeh_member_type',true);
+	if($postSt == 'private'){
+		if($cUStaff == 'hospital'){
+			get_template_part('partial/single','loggedin');
+		}else{
+			get_template_part('partial/single','loggedout');
+		}
+	}else{
+		get_template_part('partial/single','public');
+	} ?>
 
 
-
-<?php get_sidebar(); ?>
 <?php get_footer(); ?>
