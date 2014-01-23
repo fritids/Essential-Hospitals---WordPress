@@ -37,7 +37,7 @@
 	    				<span class="item-date"><?php the_time('M j, Y'); ?> ||</span>
 	    				<span class="item-author"><?php the_author(); ?></span>
 	    			</div>
-	    			<p><?php the_excerpt(); ?><a class="more" href="<?php the_permalink(); ?>"> read more » </a></p>
+	    			<p><?php the_excerpt(); ?><a class="more" href="<?php the_permalink(); ?>"> view more » </a></p>
 	    			<div class="item-tags">
 	    				<?php the_tags(' ',' ',' '); ?>
 	    			</div>

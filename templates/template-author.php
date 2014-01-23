@@ -133,7 +133,7 @@ get_header();
 							<h2><?php the_title(); ?></h2>
 							<?php the_content(); ?>
 							<?php $authLink = get_field('author_link'); ?>
-							<a class="readmore" href="<?php site_url(); ?>/authors?authID=<?php echo $authLink['ID']; ?>">Read More &raquo;</a>
+							<a class="readmore" href="<?php site_url(); ?>/authors?authID=<?php echo $authLink['ID']; ?>">view more &raquo;</a>
 						</div>
 					</div>
 					<div id="contentSecondary" class="heightcol">

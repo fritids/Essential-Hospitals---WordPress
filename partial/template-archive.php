@@ -1,6 +1,7 @@
 <div id="postBox" class="clearfix">
 
 	<div id="fader" class="clearfix scrollable">
+	<div id="loader-gif"> Loading more posts</div>
 			<div class="items">
 			<?php
 			if ( have_posts() ) while ( have_posts() ) : the_post();
@@ -20,7 +21,7 @@
 				}
 			?>
 
-			<div class="post long columns <?php echo $postColor; ?>  <?php if($postType == 'institute'){ echo 'instafade'; }else{ echo $postType; } ?> ">
+			<div class="post long columns <?php echo $postColor; ?>  <?php echo $postType; ?> ">
 				<div class="graybarright"></div>
 	  			<div class="item-bar"></div>
     			<div class="item-icon">
@@ -50,10 +51,22 @@
 						{
 						    $line=$match[0];
 						}
-						echo $line; ?><a class="more" href="<?php the_permalink(); ?>"> read more » </a></p>
+						echo $exc; ?></p><a class="more" href="<?php the_permalink(); ?>"> view more » </a>
 					<?php } ?>
 	    			<div class="item-tags">
-	    				<?php the_tags(' ',' ',' '); ?>
+	    				<?php $tags = get_the_terms(get_the_ID(),'post_tag');
+			    					if($tags){
+			    						$cnt = 0;
+			    						foreach($tags as $tag)
+			    						{
+				    						$tagLink = get_term_link($tag->term_id,'post_tag');
+				    						$tagSlug = $tag->slug;
+				    						$tagSlug = str_replace('-',' ', $tagSlug);
+				    						if ($cnt != 0) echo ", ";
+					    					echo "<a href='".$tagLink."'>".$tagSlug."</a>";
+					    					$cnt++;
+					    				}
+				    				}?>
 	    			</div>
 	    		</div>
 	    		<div class="bot-border"></div>

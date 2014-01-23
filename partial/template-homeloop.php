@@ -6,9 +6,15 @@
       		</div>
 
   			<div class="newsletter">
+
+
+
+
 	            <form>
-	              <span>Essential hospitals news in your inbox: </span>
-	              <input type="text" class="newsletter_btn_input" value="Enter Email Here"><input class="newsletter_btn" type="submit" >
+	             <!-- <span>Essential news in your inbox: </span>  -->
+	              <?php echo do_shortcode('[constantcontactapi formid="1" lists="1"]'); ?>
+
+	               <!--<input type="text" class="newsletter_btn_input" value="Enter Your Email"><input class="newsletter_btn" type="submit" > -->
 	              <div class="clear"></div>
 	            </form>
 	            <div class="clear"></div>
@@ -50,11 +56,13 @@
 
       	</div>
 	<div id="fader" class="clearfix scrollable">
+	<div id="loader-gif"> Loading more posts</div>
 			<div class="items">
 			<?php get_template_part( 'partial/loop', 'announcement' ); ?>
 
 			<?php
 			query_posts( array(
+				'posts_per_page' => 25,
 				'post_type' => array('policy','quality','education','institute'),
 				'meta_query' => array(
 					array(
@@ -111,10 +119,22 @@
 						{
 						    $line=$match[0];
 						}
-						echo $line; ?><a class="more" href="<?php the_permalink(); ?>"> read more » </a></p>
+						echo $exc; ?></p><a class="more" href="<?php the_permalink(); ?>"> view more » </a>
 					<?php } ?>
 	    			<div class="item-tags">
-	    				<?php the_tags(' ',' ',' '); ?>
+	    				<?php $tags = get_the_terms(get_the_ID(),'post_tag');
+			    					if($tags){
+			    						$cnt = 0;
+			    						foreach($tags as $tag)
+			    						{
+				    						$tagLink = get_term_link($tag->term_id,'post_tag');
+				    						$tagSlug = $tag->slug;
+				    						$tagSlug = str_replace('-',' ', $tagSlug);
+				    						if ($cnt != 0) echo ", ";
+					    					echo "<a href='".$tagLink."'>".$tagSlug."</a>";
+					    					$cnt++;
+					    				}
+				    				}?>
 	    			</div>
 	    		</div>
 	    		<div class="bot-border"></div>

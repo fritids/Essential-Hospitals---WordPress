@@ -1,10 +1,12 @@
 <?php get_header(); ?>
 
-<?php $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
-<div id="featured-img" class="archive series jobs">
+<?php 
+$rand = rand(1,8);
+$bannerImg = "http://mlinson.staging.wpengine.com/wp-content/uploads/2013/11/AEH_generalbanner" .$rand . "_222.jpg"; ?>
+<div id="featured-img-small" class="archive series jobs" style="background-image:url(<?php echo $bannerImg; ?>);">
 	<div class="container">
 		<div id="featured-intro">
-			<h3 class="tag">Stream Archive: <?php single_tag_title(); ?></h3>
+			<h3 class="tag"><?php single_tag_title(); ?></h3>
 		</div>
 	</div>
 </div>
@@ -32,6 +34,54 @@
 		<div id="contentWrap" class="action">
 			<div class="gutter">
 				<div class="container">
+					<?php
+						if(has_nav_menu('primary-menu')){
+							$defaults = array(
+								'theme_location'  => 'primary-menu',
+								'menu'            => 'primary-menu',
+								'container'       => 'div',
+								'container_class' => '',
+								'container_id'    => 'pageNav',
+								'menu_class'      => 'quality',
+								'menu_id'         => '',
+								'echo'            => true,
+								'fallback_cb'     => 'wp_page_menu',
+								'before'          => '',
+								'after'           => '',
+								'link_before'     => '',
+								'link_after'      => '',
+								'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+								'depth'           => 2,
+								'walker'          => ''
+							); wp_nav_menu( $defaults );
+						}
+					?>
+					<div id="breadcrumbs">
+						<ul>
+							<li><a href="<?php echo home_url(); ?>">Home</a>
+								<?php
+								$defaults = array(
+								'theme_location'  => 'primary-menu',
+								'menu'            => 'primary-menu',
+								'container'       => '',
+								'container_class' => '',
+								'container_id'    => '',
+								'menu_class'      => 'menu',
+								'menu_id'         => '',
+								'echo'            => true,
+								'fallback_cb'     => 'wp_page_menu',
+								'before'          => '',
+								'after'           => '',
+								'link_before'     => '',
+								'link_after'      => '',
+								'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+								'depth'           => 0,
+								'walker'          => ''
+							); wp_nav_menu( $defaults ); ?>
+							</li>
+						</ul>
+					</div>
+
 					<div id="contentPrimary">
 						<div class="graybar"></div>
 						<div class="gutter">

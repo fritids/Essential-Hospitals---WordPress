@@ -28,7 +28,7 @@ get_header();
 
 			<div class="gutter clearfix">
 
-				<h2 class='heading'>Login & Registration</h1>
+				<h2 class='heading'>Login & Registration</h2>
 
 <?php  				
 

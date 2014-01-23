@@ -7,20 +7,55 @@
 		<!--<div class="container">-->
 			<div class="sixteen columns featured">
 
-      <div id="banner_text">
-        <span class="orange">
-          <em>Essential People</em><br />
-          <em>Essential Communities</em> <br />
-          <span class="bold">Essential Hospitals</span> <br />
-        </span>
+			<div class="container" id="bannerAb">
+				<div id="banner_text">
+			        <span class="orange">
+			          <em>Essential People</em><br />
+			          <em>Essential Communities</em> <br />
+			          <span class="bold">Essential Hospitals</span>  
+			        </span>
+ 					 <span class="secondary"><a href="<?php bloginfo('url') ?>/branded-content-faces">These are the faces<br>and stories behind<br>our essential hospitals<br>across the country </a></span>
 
-        <br />
+			      </div>
+			</div>
 
-        <em> </em>
 
-      </div>
 
-      <div id="people">
+	  <div id="people">
+		  <?php
+		  $args = array(
+		  	'posts_per_page' => -1,
+		  	'orderby' => 'rand',
+		  	'post_type' => 'story'
+		  );
+		  $query = get_posts($args);
+		  foreach($query as $post) {
+			  setup_postdata($post); ?>
+
+			  <a class="people_box" href="<?php echo get_permalink(12084); ?>/?loc=<?php echo $post->ID; ?>">
+				<?php $image = wp_get_attachment_image_src( get_field('portrait'), 'home-faces' );?>
+	        	<img src="<?php echo $image[0]; ?>" id="starter" />
+	        	<div class="p_hover">
+	        		<div class="p_name">
+	        			<!--<span class="p_georgia">Name: </span>!--> <?php the_title(); ?>
+	        		</div>
+
+	        		<div class="p_info">
+						<span class="p_occupation"><!--<span class="p_georgia">Occupation:</span>!--> <?php echo get_field('occupation'); ?></span>
+						<span class="p_hospital"><!--<span class="p_georgia">Hospital: </span>!--> <?php echo get_field('hospital'); ?></span>
+					</div>
+
+					<?php if(get_field('legacy_home')){ ?>
+						<p><!--<span class="p_georgia">Legacy: </span>!-->  <?php echo get_field('legacy_home'); ?></p>
+					<?php }else{ ?>
+						<p><!--<span class="p_georgia">Legacy: </span>!-->  <?php echo get_field('legacy_cond'); ?></p>
+					<?php } ?>
+	        	</div>
+	        </a>
+		  <?php	} wp_reset_postdata(); ?>
+	  </div>
+
+      <!--<div id="people">
          <?php while ( have_posts() ) : the_post();
 
 		if(get_field('featured_stories'))
@@ -55,7 +90,7 @@
 
 
 
-      </div>
+      </div>!-->
 
 			</div>
 		<!--</div>-->

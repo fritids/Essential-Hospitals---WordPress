@@ -17,4 +17,4 @@
 			</div>
 		</div>
 <?php } ?>
-<a class="readmore" href="<?php echo get_permalink(248); ?>">Read more here >></a>
+<a class="readmore" href="<?php echo get_permalink(248); ?>">view more >></a>

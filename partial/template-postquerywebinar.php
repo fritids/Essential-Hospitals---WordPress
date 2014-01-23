@@ -19,31 +19,47 @@
 		$ajaxFilter = $webinars;
 	}
 
+	if($timeFilter == 'future'){
+		 $sortCompare = '>=';
+		 $sortOrder = 'asc';
+	 }elseif($timeFilter == 'publish'){
+		 $sortCompare = '<=';
+		 $sortOrder = 'desc';
+	 }else{
+		 $sortCompare = '!=';
+		 $sortOrder = 'desc';
+	 }
+	 $today = mktime(0, 0, 0, date('n'), date('j'));
+
+
 	//Count our posts and set the $output variable
 	$postCount = 0;
 	$output = '';
 
 
 	$args = array(
-		'post_type' => array('webinar'),
-		'tax_query' => array(
+		'post_type' => 'webinar',
+		'orderby' => 'meta_value',
+		'webinartopics' => $ajaxFilter,
+		'order' => $sortOrder,
+		'post_status' => 'all',
+		'meta_query'  => array(
 			array(
-				'taxonomy' => 'webinartopics',
-				'field' => 'slug',
-				'terms' => $ajaxFilter
+				'key' => 'webinar_date',
+				'value' => $today,
+				'compare' => $sortCompare
 			)
-		),
-		'post_status' => $timeFilter,
+		)
 	);
-	query_posts( $args ); while ( have_posts() ) : the_post();
+	query_posts( $args ); if(have_posts()){ while ( have_posts() ) { the_post();
 		$postTitle = get_the_title();
 		$postExcerpt = get_the_excerpt();
 
-		$line=$postExcerpt;
+		/*$line=$postExcerpt;
 		if (preg_match('/^.{1,100}\b/s', $postExcerpt, $match))
 		{
 		    $postExcerpt=$match[0];
-		}
+		}*/
 
 		$postColor = '';
 		$postTime = get_the_time('M j, Y');
@@ -76,6 +92,8 @@
 			$postColor = 'grayy';
 			$postType  = 'education';
 		}
+		$teaser = get_field('teaser');
+
 
 	    $output .= '<div class="close post long columns '. $postColor .' '. $postType .' ">
 	    		<div class="graybarright"></div>
@@ -83,20 +101,30 @@
     			<div class="item-icon"><img src="'. $templateDIR .'/images/icon-'. $postType .'.png" /></div>
     			<div class="item-content">
 	    			<div class="item-header">
-	    				<h2><a href="'.$postLink.'">'. $postTitle .'</a></h2>
-	    				<span class="item-date">'. $postTime .' ||</span>
-	    				<span class="item-author">'. $postAuthor .'</span>
+	    				<h2>';
+
+	    $isPrivate = get_field('private_webinar');
+	     if($isPrivate){
+			$output .= "<div class='private-webinar $postColor'></div>";
+		 }
+	    $output .= '<a href="'.$postLink.'">'. $postTitle .'</a></h2>
+	    				<span class="item-date">'. date('M j, Y', get_field('webinar_date')) .' || '.date('g:i A T',get_field('webinar_date')).'</span>
 	    			</div>
-	    			<p>'. $postExcerpt .'<a class="more" href="'. $postLink .'"> read more &raquo; </a>
-	    			</p>';
-	    if ( get_post_status ( $ID ) == 'future' ) {
+	    			'. substr($teaser,0,140) .'
+	    			<a class="more" href="'. $postLink .'"> view more &raquo; </a>';
+	    if ( get_post_meta($post->ID, 'webinar_date', true) > $today ) {
 			$output .= '<span class="reserve button '.$postType.'"><a href='.get_field('registration_link').'>Reserve Your Spot</a></span>';
 		}
 
 	    $output .=  '<div class="item-tags">';
 	    if($postTags){
+		    $cnt = 0;
 		    foreach($postTags as $tag){
-			    $output .= '<a href="'.get_bloginfo('url').'/tag/'.$tag->slug.'">'.$tag->name.'</a>, ';
+		    	$tagSlug = $tag->slug;
+				$tagSlug = str_replace('-',' ', $tagSlug);
+				if ($cnt != 0) {$output .= ", ";}
+			    $output .= '<a href="'.get_bloginfo('url').'/tag/'.$tag->slug.'">'.$tagSlug.'</a>';
+			    $cnt++;
 		    }
 	    }
 	    $output .= '</div>
@@ -105,5 +133,17 @@
 	  		</div>';
 
 	$postCount = $postCount++;
-	endwhile; wp_reset_query();
+	} }else{
+		$output = "<div class='post long columns'>
+					<div class='graybarright'></div>
+					<div class='item-bar'></div>
+					<div class='item-content'>
+						<div class='item-header'>
+							<h2>No Entries Found</h2>
+						</div>
+						<p>Sorry, there were no entries found under $ajaxFilter. Try another filter!</p>
+					</div>
+					<div class='bot-border'></div>
+				   </div>";
+	} wp_reset_query();
 	echo $output; ?>

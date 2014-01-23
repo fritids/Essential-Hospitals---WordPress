@@ -1,5 +1,6 @@
 <div id="postBox" class="clearfix">
 	<div id="fader" class="clearfix scrollable">
+	<div id="loader-gif"> Loading more posts</div>
 			<div class="items">
 
 			<?php
@@ -71,10 +72,22 @@
 			    				<span class="item-date"><?php the_time('M j, Y'); ?> ||</span>
 			    				<span class="item-author"><?php the_author(); ?></span>
 			    			</div>
-			    			<p><?php the_excerpt(); ?><a class="more" href="<?php the_permalink(); ?>"> read more » </a>
-			    			</p>
+			    			<p><?php the_excerpt(); ?>
+			    			</p><a class="more" href="<?php the_permalink(); ?>"> view more » </a>
 			    			<div class="item-tags">
-			    				<?php the_tags(' ',' ',' '); ?>
+			    				<?php $tags = get_the_terms(get_the_ID(),'post_tag');
+			    					if($tags){
+			    						$cnt = 0;
+			    						foreach($tags as $tag)
+			    						{
+				    						$tagLink = get_term_link($tag->term_id,'post_tag');
+				    						$tagSlug = $tag->slug;
+				    						$tagSlug = str_replace('-',' ', $tagSlug);
+				    						if ($cnt != 0) echo ", ";
+					    					echo "<a href='".$tagLink."'>".$tagSlug."</a>";
+					    					$cnt++;
+					    				}
+				    				}?>
 			    			</div>
 			    		</div>
 			    		<div class="bot-border"></div>
@@ -117,11 +130,23 @@
 						{
 						    $line=$match[0];
 						}
-						echo $line; ?><a class="more" href="<?php the_permalink(); ?>"> read more » </a>
-	    			</p>
+						echo $exc; ?>
+	    			</p><a class="more" href="<?php the_permalink(); ?>"> view more » </a>
 	    			<span class="reserve button greenn quality"><a href="<?php the_field('registration_link'); ?>">Reserve Your Spot</a></span>
 	    			<div class="item-tags">
-	    				<?php the_tags(' ',' ',' '); ?>
+	    				<?php $tags = get_the_terms(get_the_ID(),'post_tag');
+			    					if($tags){
+			    						$cnt = 0;
+			    						foreach($tags as $tag)
+			    						{
+				    						$tagLink = get_term_link($tag->term_id,'post_tag');
+				    						$tagSlug = $tag->slug;
+				    						$tagSlug = str_replace('-',' ', $tagSlug);
+				    						if ($cnt != 0) echo ", ";
+					    					echo "<a href='".$tagLink."'>".$tagSlug."</a>";
+					    					$cnt++;
+					    				}
+				    				}?>
 	    			</div>
 	    		</div>
 	    		<div class="bot-border"></div>
@@ -194,10 +219,22 @@
 						{
 						    $line=$match[0];
 						}
-						echo $line; ?><a class="more" href="<?php the_permalink(); ?>"> read more » </a>
-	    			</p>
+						echo $exc; ?>
+	    			</p><a class="more" href="<?php the_permalink(); ?>"> view more » </a>
 	    			<div class="item-tags">
-	    				<?php the_tags(' ',' ',' '); ?>
+	    				<?php $tags = get_the_terms(get_the_ID(),'post_tag');
+			    					if($tags){
+			    						$cnt = 0;
+			    						foreach($tags as $tag)
+			    						{
+				    						$tagLink = get_term_link($tag->term_id,'post_tag');
+				    						$tagSlug = $tag->slug;
+				    						$tagSlug = str_replace('-',' ', $tagSlug);
+				    						if ($cnt != 0) echo ", ";
+					    					echo "<a href='".$tagLink."'>".$tagSlug."</a>";
+					    					$cnt++;
+					    				}
+				    				}?>
 	    			</div>
 	    		</div>
 	    		<div class="bot-border"></div>
@@ -268,10 +305,22 @@
 						{
 						    $line=$match[0];
 						}
-						echo $line; ?><a class="more" href="<?php the_permalink(); ?>"> read more » </a></p>
+						echo $exc; ?></p><a class="more" href="<?php the_permalink(); ?>"> view more » </a>
 					<?php } ?>
 	    			<div class="item-tags">
-	    				<?php the_tags(' ',' ',' '); ?>
+	    				<?php $tags = get_the_terms(get_the_ID(),'post_tag');
+			    					if($tags){
+			    						$cnt = 0;
+			    						foreach($tags as $tag)
+			    						{
+				    						$tagLink = get_term_link($tag->term_id,'post_tag');
+				    						$tagSlug = $tag->slug;
+				    						$tagSlug = str_replace('-',' ', $tagSlug);
+				    						if ($cnt != 0) echo ", ";
+					    					echo "<a href='".$tagLink."'>".$tagSlug."</a>";
+					    					$cnt++;
+					    				}
+				    				}?>
 	    			</div>
 	    		</div>
 	    		<div class="bot-border"></div>

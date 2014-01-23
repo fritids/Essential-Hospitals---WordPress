@@ -79,7 +79,8 @@ function firstRun(currentUser){
 	          		$('.introjs-tooltip').clone().prependTo('body');
 	          		if($('body > .introjs-tooltip .introjs-skipbutton').text() == 'Done'){
 				  		$('body > .introjs-tooltip .introjs-skipbutton').addClass('done');
-};
+				  		$('body > .introjs-tooltip .introjs-prevbutton, body > .introjs-tooltip .introjs-nextbutton').remove();
+				  	};
 	          		$( "body > .introjs-tooltip .introjs-prevbutton" ).one( "click", function() {
 		          		console.log('hey');
 					  $('.introjs-helperLayer .introjs-tooltip .introjs-prevbutton').click();

@@ -38,10 +38,40 @@
 			  		</div>
 			<?php } } wp_reset_query(); ?>
 
+
+			<?php $args = array(
+					'post_type' => 'policy',
+					'series' => 'updates',
+					'posts_per_page' => 4
+				);
+				$alerts = get_posts($args);
+				if($alerts){ ?>
+				<div class="post long columns redd policy action-alerts">
+					<div class="graybarright"></div>
+		  			<div class="item-bar"></div>
+	    			<div class="item-icon"><a href='<?php echo get_term_link( 'updates', 'series' ); ?>'>Action Alerts</a><img src="<?php bloginfo('template_directory'); ?>/images/icon-policy.png" /></div>
+	    			<div class="item-content">
+		    			<div class="item-header">
+		    				<h2 class="redd policy">Action Alerts</h2>
+		    			</div>
+				<?php foreach($alerts as $post){
+						setup_postdata($post); ?>
+						<div class="action-entry">
+							<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+						</div>
+			<?php } wp_reset_postdata(); ?>
+				<a class="read-more" href='<?php echo get_term_link( 'updates', 'series' ); ?>'>All Action Alerts &raquo;</a>
+				</div>
+	    		<div class="bot-border"></div>
+			</div>
+			<?php } ?>
+
+
 			<?php
 			$args = array(
 				'post_type' => array('policy'),
 				'meta_key' => 'sticky_topic',
+
 				'meta_value' => 'policy',
 				'meta_compare' => '='
 			);
@@ -71,10 +101,24 @@
 			    				<span class="item-date"><?php the_time('M j, Y'); ?> ||</span>
 			    				<span class="item-author"><?php the_author(); ?></span>
 			    			</div>
-			    			<p><?php the_excerpt(); ?><a class="more" href="<?php the_permalink(); ?>"> read more » </a>
+			    			<p><?php if(get_field('long_excerpt')){ the_field('long_excerpt'); } else { the_excerpt();} ?> <a class="more" href="<?php the_permalink(); ?>"> view more » </a>
 			    			</p>
+
 			    			<div class="item-tags">
-			    				<?php the_tags(' ',' ',' '); ?>
+			    				 <?php //the_tags(' ',' ',' '); ?>
+				    				<?php $tags = get_the_terms(get_the_ID(),'post_tag');
+			    					if($tags){
+			    						$cnt = 0;
+			    						foreach($tags as $tag)
+			    						{
+				    						$tagLink = get_term_link($tag->term_id,'post_tag');
+				    						$tagSlug = $tag->slug;
+				    						$tagSlug = str_replace('-',' ', $tagSlug);
+				    						if ($cnt != 0) echo ", ";
+					    					echo "<a href='".$tagLink."'>".$tagSlug."</a>";
+					    					$cnt++;
+					    				}
+				    				}?>
 			    			</div>
 			    		</div>
 			    		<div class="bot-border"></div>
@@ -116,11 +160,26 @@
 						{
 						    $line=$match[0];
 						}
-						echo $line; ?><a class="more" href="<?php the_permalink(); ?>"> read more » </a>
+						echo $exc; ?>
+
+						<a class="more" href="<?php the_permalink(); ?>"> view more » </a>
 	    			</p>
 	    			<span class="reserve button redd policy"><a href="<?php the_field('registration_link'); ?>">Reserve Your Spot</a></span>
 	    			<div class="item-tags">
-	    				<?php the_tags(' ',' ',' '); ?>
+	    				<?php //the_tags(' ',' ',' '); ?>
+	    				<?php $tags = get_the_terms(get_the_ID(),'post_tag');
+    					if($tags){
+    						$cnt = 0;
+    						foreach($tags as $tag)
+    						{
+	    						$tagLink = get_term_link($tag->term_id,'post_tag');
+	    						$tagSlug = $tag->slug;
+	    						$tagSlug = str_replace('-',' ', $tagSlug);
+	    						if ($cnt != 0) echo ", ";
+		    					echo "<a href='".$tagLink."'>".$tagSlug."</a>";
+		    					$cnt++;
+		    				}
+	    				}?>
 	    			</div>
 	    		</div>
 	    		<div class="bot-border"></div>
@@ -133,6 +192,7 @@
 		<?php
 			query_posts( array(
 				'post_type' =>  'policy',
+
 				'policytopics' => '',
 				'meta_query' => array(
 					array(
@@ -184,10 +244,26 @@
 						{
 						    $line=$match[0];
 						}
-						echo $line; ?><a class="more" href="<?php the_permalink(); ?>"> read more » </a>
+						echo $exc; ?>
+
 	    			</p>
+	    			<a class="more" href="<?php the_permalink(); ?>"> view more » </a>
 	    			<div class="item-tags">
-	    				<?php the_tags(' ',' ',' '); ?>
+	    				<?php //the_tags(' ',' ',' '); ?>
+
+    					<?php $tags = get_the_terms(get_the_ID(),'post_tag');
+    					if($tags){
+    						$cnt = 0;
+    						foreach($tags as $tag)
+    						{
+	    						$tagLink = get_term_link($tag->term_id,'post_tag');
+	    						$tagSlug = $tag->slug;
+	    						$tagSlug = str_replace('-',' ', $tagSlug);
+	    						if ($cnt != 0) echo ", ";
+		    					echo "<a href='".$tagLink."'>".$tagSlug."</a>";
+		    					$cnt++;
+		    				}
+	    				}?>
 	    			</div>
 	    		</div>
 	    		<div class="bot-border"></div>
@@ -202,6 +278,7 @@
 			<?php
 			query_posts( array(
 				'post_type' =>  array('post','policy'),
+
 				'tax_query' => array(
 					'relation' => 'IN',
 					array(
@@ -265,10 +342,28 @@
 						{
 						    $line=$match[0];
 						}
-						echo $line; ?><a class="more" href="<?php the_permalink(); ?>"> read moreX » </a></p>
+						echo $exc; ?>
+
+						<a class="more" href="<?php the_permalink(); ?>"> view more » </a>
+
+					</p>
+
 					<?php } ?>
 	    			<div class="item-tags">
-	    				<?php the_tags(' ',' ',' '); ?>
+	    				<?php //the_tags(' ',' ',' '); ?>
+	    				<?php $tags = get_the_terms(get_the_ID(),'post_tag');
+    					if($tags){
+    						$cnt = 0;
+    						foreach($tags as $tag)
+    						{
+	    						$tagLink = get_term_link($tag->term_id,'post_tag');
+	    						$tagSlug = $tag->slug;
+	    						$tagSlug = str_replace('-',' ', $tagSlug);
+	    						if ($cnt != 0) echo ", ";
+		    					echo "<a href='".$tagLink."'>".$tagSlug."</a>";
+		    					$cnt++;
+		    				}
+	    				}?>
 	    			</div>
 	    		</div>
 	    		<div class="bot-border"></div>

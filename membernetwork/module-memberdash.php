@@ -14,7 +14,7 @@ if(is_user_logged_in()){ ?>
 			<?php get_template_part( 'membernetwork/content', 'usernav' ); ?>
 		</div>
 		<div id="dashfriends">
-			<?php get_template_part( 'membernetwork/module', 'connections' ); ?>
+			<?php get_template_part( 'membernetwork/module', 'contactsMy' ); ?>
 		</div>
 		<div id="dashmessages">
 			<?php get_template_part( 'membernetwork/module', 'messages' ); ?>

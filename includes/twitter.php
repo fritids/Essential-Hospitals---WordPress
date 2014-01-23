@@ -244,9 +244,9 @@
  								$display_time = date($date_format,$tweet_time);
  							}
 							// Render the tweet.
-							$twitter_html .= '<div class="tweet-img"><a href="http://www.twitter.com/'.$tweet_handle.'"><img src="'.$tweet_ava.'" /></a></div>
+							$twitter_html .= '<div class="tweet-container"><div class="tweet-img"><a href="http://www.twitter.com/'.$tweet_handle.'"><img src="'.$tweet_ava.'" /></a></div>
 								<div class="tweet-user"><span class="twitred">'.$user_name.' </span> @'.$tweet_handle.'</div>
-								<div class="tweet-content">'.html_entity_decode($tweet_desc).'</div>';
+								<div class="tweet-content">'.html_entity_decode($tweet_desc).'</div></div>';
 
 
 						// If we have processed enough tweets, stop.

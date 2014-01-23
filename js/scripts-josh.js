@@ -2,22 +2,23 @@
 $(document).ready(function() {
 
   /*********************SMOOTH SCROLL************************/
-  
-  
+
+
       //SMOOTH SCROLL
       $("#people").smoothDivScroll({
-      	startAtElementId: "starter", 
-       hotSpotScrollingInterval: 33
+      	startAtElementId: "starter",
+	  	hotSpotScrollingInterval: 33,
+	  	touchScrolling: true,
       });
 
-      $('.people_box').mouseenter(function() 
+      $('.people_box').mouseenter(function()
         {
           $(this).find(".p_hover").show();
           }).mouseleave(function() {
             $(this).find(".p_hover").hide();
-        });  
+        });
 
- 
 
-//END DOC 
+
+//END DOC
 });

@@ -21,17 +21,18 @@
 						'depth'           => 0,
 						'walker'          => ''
 					);
-					
+
 				wp_nav_menu( $defaults ); ?>
-		<?php } ?> 
-		
+		<?php } ?>
+
 	</div>
 </nav>
 
-			<?php 
+			<?php
 			$args = array(
 				'post_type' => 'alert',
 				'posts_per_page' => 1,
+				'category_name' => 'member-network',
 			);
 			$query = new WP_Query( $args );
 			if ( $query->have_posts() ) { while ( $query->have_posts() ) { $query->the_post();
@@ -44,4 +45,3 @@
 					</div>
 				</div>
 			<?php }	} wp_reset_query(); ?>
-		

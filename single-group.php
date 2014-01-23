@@ -3,16 +3,17 @@
 <div id="membernetwork">
 	<div class="container">
 		<h1 class="title"><span class="grey">Private Group | Essential Hospitals</span> Member Network</h1>
-
-		<?php
+		<?php wp_reset_postdata();
+            global $post;
 			$memberArray = array();
 			$currentUser = get_current_user_id();
 			if($post->post_parent){
 				$parent = array_reverse(get_post_ancestors($post->ID));
-				$members = get_post_meta($parent[0], 'autp', true);
+				$members = get_post_meta($parent[0], 'autp');
 			}else{
 				$members = get_post_meta($post->ID, 'autp');
 			}
+			//print_r($members);
 				foreach($members as $member){
 					foreach($member as $user){
 						$id = $user['user_id'];
@@ -22,8 +23,55 @@
 				    $checker = true;
 				}else{
 					$checker = false;
-				}
-					?>
+				} ?>
+
+		<?php
+			if(has_nav_menu('primary-menu')){
+				$defaults = array(
+					'theme_location'  => 'primary-menu',
+					'menu'            => 'primary-menu',
+					'container'       => 'div',
+					'container_class' => '',
+					'container_id'    => 'pageNav',
+					'menu_class'      => 'quality',
+					'menu_id'         => '',
+					'echo'            => true,
+					'fallback_cb'     => 'wp_page_menu',
+					'before'          => '',
+					'after'           => '',
+					'link_before'     => '',
+					'link_after'      => '',
+					'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+					'depth'           => 2,
+					'walker'          => ''
+				); wp_nav_menu( $defaults );
+			}
+		?>
+		<div id="breadcrumbs">
+			<ul>
+				<li><a href="<?php echo home_url(); ?>">Home</a>
+					<?php
+					$defaults = array(
+					'theme_location'  => 'primary-menu',
+					'menu'            => 'primary-menu',
+					'container'       => '',
+					'container_class' => '',
+					'container_id'    => '',
+					'menu_class'      => 'menu',
+					'menu_id'         => '',
+					'echo'            => true,
+					'fallback_cb'     => 'wp_page_menu',
+					'before'          => '',
+					'after'           => '',
+					'link_before'     => '',
+					'link_after'      => '',
+					'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+					'depth'           => 0,
+					'walker'          => ''
+				); wp_nav_menu( $defaults ); ?>
+				</li>
+			</ul>
+		</div>
 
 		<div id="membercontent" class="group groupcont">
 			<div class="graybarleft"></div>
@@ -53,6 +101,27 @@
 						<h2 class="heading">Group Members</h2>
 						<?php get_template_part('membernetwork/content','groupmembers'); ?>
 					</div>
+					<?php if(is_user_logged_in() && $checker == true){ ?>
+					<?php $webinars = get_field('related_webinars');
+					if($webinars){ ?>
+					<div class="panel">
+						<h2 class="heading">Related Webinars</h2>
+						<div class="gutter">
+							<?php foreach($webinars as $post){
+								global $post;
+								setup_postdata($post);
+								echo '<div class="grouplist"><div class="gutter"><span class="title">';
+									$isPrivate = get_field('private_webinar');
+									if($isPrivate){
+										echo '<div class="private-webinar redd"></div>';
+									}
+								echo '<a href="'.get_permalink().'">'.get_the_title().'</a></span></div></div>';
+								wp_reset_postdata();
+							} ?>
+						</div>
+					</div>
+					<?php } ?>
+
 					<?php if(get_field('middle_column')){ while(has_sub_field('middle_column')){ ?>
 						<div class="panel colrepeat">
 							<h2 class="heading"><?php the_sub_field('title'); ?></h2>
@@ -61,25 +130,26 @@
 							</div>
 						</div>
 					<?php }
-					} ?>
+					} } ?>
 				</div>
+
 
 				<div class="group-resources groupcol">
 					<?php if(is_user_logged_in() && $checker == true){ ?>
-					<div class="panel subnav group">
-						<div class="gutter">
-							<ul>
-							<?php
+					<?php
 							if($post->post_parent){
+							$parent = array_reverse(get_post_ancestors($post->ID));
+							$postlink = get_permalink($parent[0]);
+							$posttitle = get_the_title($parent[0]);
 							$args = array(
 								'depth'        => 0,
 								'show_date'    => '',
 								'date_format'  => get_option('date_format'),
-								'child_of'     => $post->post_parent,
+								'child_of'     => $parent[0],
 								'exclude'      => '',
 								'include'      => '',
 								'title_li'     => '',
-								'echo'         => 1,
+								'echo'         => 0,
 								'authors'      => '',
 								'sort_column'  => 'menu_order, post_title',
 								'link_before'  => '',
@@ -88,27 +158,35 @@
 								'post_type'    => 'group',
 							    'post_status'  => 'publish'
 							); }else{
-							$args = array(
-								'depth'        => 0,
-								'show_date'    => '',
-								'date_format'  => get_option('date_format'),
-								'child_of'     => $post->ID,
-								'exclude'      => '',
-								'include'      => '',
-								'title_li'     => '',
-								'echo'         => 1,
-								'authors'      => '',
-								'sort_column'  => 'menu_order, post_title',
-								'link_before'  => '',
-								'link_after'   => '',
-								'walker'       => '',
-								'post_type'    => 'group',
-							    'post_status'  => 'publish'
-							);
-							} wp_list_pages($args); ?>
-							</ul>
-						</div>
-					</div>
+								$postlink = get_permalink($post->ID);
+								$posttitle = get_the_title($post->ID);
+								$args = array(
+									'depth'        => 0,
+									'show_date'    => '',
+									'date_format'  => get_option('date_format'),
+									'child_of'     => $post->ID,
+									'exclude'      => '',
+									'include'      => '',
+									'title_li'     => '',
+									'echo'         => 0,
+									'authors'      => '',
+									'sort_column'  => 'menu_order, post_title',
+									'link_before'  => '',
+									'link_after'   => '',
+									'walker'       => '',
+									'post_type'    => 'group',
+								    'post_status'  => 'publish'
+								);
+							}
+							$pages = wp_list_pages($args);
+								if($pages != ''){
+									echo '<div class="panel subnav group"><div class="gutter"><ul class="submenu-group">';
+									echo '<li class="parent"><a href="'.$postlink.'">'.$posttitle.'</a></li>';
+									echo wp_list_pages($args);
+									echo '</ul></div></div>';
+								}
+
+							 ?>
 
 					<?php if(get_field('right_column')){ while(has_sub_field('right_column')){ ?>
 						<div class="panel colrepeat">
@@ -159,7 +237,7 @@
 						<div class="panel signin">
 							<div class="gutter">
 								<h2>Sign In</h2>
-								<p>Sign in to register for this webinar</p>
+								<p>Sign in to access this group</p>
 								 <?php $args = array(
 						        'echo' => true,
 						        'redirect' => site_url( $_SERVER['REQUEST_URI'] ),

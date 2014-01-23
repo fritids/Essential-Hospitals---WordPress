@@ -26,11 +26,11 @@
 		$postTitle = get_the_title();
 		$postExcerpt = get_the_excerpt();
 
-		$line=$postExcerpt;
+		/*$line=$postExcerpt;
 		if (preg_match('/^.{1,100}\b/s', $postExcerpt, $match))
 		{
 		    $postExcerpt=$match[0];
-		}
+		}*/
 
 		$postColor = '';
 		$postTime = get_the_time('M j, Y');
@@ -46,7 +46,7 @@
 			$postColor = 'redd';
 		}else if($postType == 'quality'){
 			$postColor = 'greenn';
-		}else if($postType == 'education'){
+		}else if($postType == 'education' || $postType == 'webinar'){
 			$postColor = 'grayy';
 		}else if($postType == 'institute'){
 			$postColor = 'bluee';
@@ -62,19 +62,30 @@
 	    $output .= '<div class="close post long columns '. $postColor .' '. $postType .' ">
 	    		<div class="graybarright"></div>
 	  			<div class="item-bar"></div>
-    			<div class="item-icon"><a href="'.$termLink.'">'.$terms[0]->name.'</a><img src="'. $templateDIR .'/images/icon-'. $postType .'.png" /></div>
-    			<div class="item-content">
+	  			<div class="n-arr '.$postType.'"></div>';
+    	if($postType == 'webinar'){
+			$output .=	'<div class="item-icon">Webinar<img src="'. $templateDIR .'/images/icon-education.png" /></div>';
+    	}else{
+	    	$output .=	'<div class="item-icon"><a href="'.$termLink.'">'.$terms[0]->name.'</a><img src="'. $templateDIR .'/images/icon-'. $postType .'.png" /></div>';
+    	}
+
+    	$output .=	'<div class="item-content">
 	    			<div class="item-header">
 	    				<h2><a href="'. $postLink .'">'. $postTitle .'</a></h2>
 	    				<span class="item-date">'. $postTime .' ||</span>
 	    				<span class="item-author">'. $postAuthor .'</span>
 	    			</div>
-	    			<p>'. $postExcerpt .'<a class="more" href="'. $postLink .'"> read more » </a>
-	    			</p>
+	    			<p>'. $postExcerpt .'
+	    			</p><a class="more" href="'. $postLink .'"> view more » </a>
 	    			<div class="item-tags">';
 		if($postTags){
+		    $cnt = 0;
 		    foreach($postTags as $tag){
-			    $output .= '<a href="'.get_bloginfo('url').'/tag/'.$tag->slug.'">'.$tag->name.'</a>, ';
+		    	$tagSlug = $tag->slug;
+				$tagSlug = str_replace('-',' ', $tagSlug);
+				if ($cnt != 0) {$output .= ", ";}
+			    $output .= '<a href="'.get_bloginfo('url').'/tag/'.$tag->slug.'">'.$tagSlug.'</a>';
+			    $cnt++;
 		    }
 	    }
 	    $output .= '</div>

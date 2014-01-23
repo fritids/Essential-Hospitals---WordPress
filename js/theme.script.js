@@ -1,9 +1,9 @@
 $(document).ready(function($){
 
 	/////////////////////////////////////////////
-	// Connections Page Stuff							
-	/////////////////////////////////////////////	
-	
+	// Connections Page Stuff
+	/////////////////////////////////////////////
+
 	var a = {};
 	a.sortBy  = "last_name"; // last_name, first_name, job_title
 	a.pageNo  = 1;     //starting page number
@@ -11,8 +11,8 @@ $(document).ready(function($){
 	a.sortDir = "asc"; //sort ascending or descending (asc/desc)
 	a.filter  = "all"; //filter aeh = hospital members only, all = all
 	a.search  = "";    //search term. Initially blank
-	var loadingGif = "<img src='/membercenter/images/bigLoader.gif' />"; //loading animation
-		
+	var loadingGif = "<span id='MNSPAN'><img id='MNLoader' src='http://mlinson.staging.wpengine.com/wp-content/themes/EssentialHospitals/images/loaderMN.gif' />Loading Connections</span>"; //loading animation
+
 	//Default Starting Page Content
 	$("#paginationc li:first").css({'color' : '#FF0084'}).css({'border' : 'none'});
 	$("div#connectioncontent div.clisting").load(siteDir+"/membernetwork/ajax-all-members", {data: a});	// main content
@@ -31,28 +31,28 @@ $(document).ready(function($){
 		a.pageNo = this.id;
 		$("div#connectioncontent div.clisting").html(loadingGif).load(siteDir+"/membernetwork/ajax-all-members", {data: a});
 	});
-	
+
 	//job-title click
 	$(document).on("click", "table#connection-table div.job-title", function() {
 		a.sortBy = "job_title";
 		a.sortDir = toggledir(a.sortDir);
 		$("div#connectioncontent div.clisting").html(loadingGif).load(siteDir+"/membernetwork/ajax-all-members", {data: a});
 	});
-	
+
 	//last name click
 	$(document).on("click", "table#connection-table div.last-name", function() {
 		a.sortBy = "last_name";
 		a.sortDir = toggledir(a.sortDir);
 		$("div#connectioncontent div.clisting").html(loadingGif).load(siteDir+"/membernetwork/ajax-all-members", {data: a});
 	});
-	
+
 	//first name click
 	$(document).on("click", "table#connection-table div.first-name", function() {
 		a.sortBy = "first_name";
 		a.sortDir = toggledir(a.sortDir);
 		$("div#connectioncontent div.clisting").html(loadingGif).load(siteDir+"/membernetwork/ajax-all-members", {data: a});
 	});
-	
+
 	//search on change event
 	$(document).on("keypress", "input#profile-search", function(event) {
 		var keycode = (event.keyCode ? event.keyCode : event.which);
@@ -62,7 +62,7 @@ $(document).ready(function($){
 			$("div#connectioncontent div.clisting").html(loadingGif).load(siteDir+"/membernetwork/ajax-all-members", {data: a});
 		}
 	});
-	
+
 	//filter hospital v non-hospital members click
 	$(document).on("click", "div#filterstaff", function(){
 		if (a.filter == "all"){
@@ -73,14 +73,14 @@ $(document).ready(function($){
 		console.log(a.filter);
 		$("div#connectioncontent div.clisting").html(loadingGif).load(siteDir+"/membernetwork/ajax-all-members", {data: a});
 	});
-	
+
 	//change the number per page
 	$(document).on("change", "select#perpage", function() {
 		a.perPage = $("select#perpage option:selected").val();
 		a.pageNo = 1; //reset page number or else it could be pointing at non existent page
 		$("div#connectioncontent div.clisting").html(loadingGif).load(siteDir+"/membernetwork/ajax-all-members", {data: a});
 	});
-	
+
 	//add connection click
 	$(document).on("click", "div.add-connection button.add-button", function(i) {
 		var this_id = $(this).attr("alt");
@@ -90,7 +90,7 @@ $(document).ready(function($){
 			$("div#add" + this_id + " div.add-connection").empty().append(new_button);
 		});
 	});
-	
+
 	/*************************************************************************************************************************************/
 	//remove connection from member profile page click (stage 1 - create remove & cancel buttons)
 	$(document).on("click", "button#remove", function(i) {
@@ -121,7 +121,7 @@ $(document).ready(function($){
 			$("div#connectioncontent div.clisting").load(siteDir+"/membernetwork/ajax-all-members", {data: a});
 		});
 	});
-	
+
 	//deny connection click
 	$(document).on("click", "div.friendedmeicon p.friendID button", function(i) {
 		var this_id = $(this).attr("name");
@@ -131,14 +131,14 @@ $(document).ready(function($){
 			$("div#connectioncontent div.clisting").load(siteDir+"/membernetwork/ajax-all-members", {data: a});
 		});
 	});
-	
+
 	/*************************************************************************************************************************************/
 	//remove domain (stage 1 - create remove & cancel buttons)
 	$(document).on("click", "div.removedomain button.button-one", function(i) {
 		$(this).css("display","none");
-		$("div.removedomain button.button-two").css("display","inline");	
+		$("div.removedomain button.button-two").css("display","inline");
 	});
-	
+
 	//remove domain from the list
 	$(document).on("click", "div.removedomain button.button-two", function(i) {
 		var this_id = $(this).attr("id");
@@ -146,7 +146,7 @@ $(document).ready(function($){
 				$("div#domain-container").html(loadingGif).load(siteDir+"/membernetwork/ajax-get-domains");
 			});
 	});
-	
+
 	/*************************************************************************************************************************************/
 
 	function toggledir(x){
@@ -156,9 +156,9 @@ $(document).ready(function($){
 });
 
 function checkAll(formname, checktoggle){
-  var checkboxes = new Array(); 
+  var checkboxes = new Array();
   checkboxes = document[formname].getElementsByTagName('input');
- 
+
   for (var i=0; i<checkboxes.length; i++){
     if (checkboxes[i].type == 'checkbox'){
       checkboxes[i].checked = checktoggle;

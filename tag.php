@@ -1,10 +1,14 @@
 <?php get_header(); ?>
 
-<?php $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
-<div id="featured-img" class="archive tag">
+<?php 
+	  //RANDOM GENERAL PAGE BANNERS
+	  $rand = rand(1,8);
+      $speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2013/11/AEH_generalbanner" .$rand . "_222.jpg"; ?>
+
+<div id="featured-img-small" class="archive tag" style="background-image:url(<?php echo $speakerIMG; ?>);">
 	<div class="container">
 		<div id="featured-intro">
-			<h3 class="tag">Tag Archive: <?php single_tag_title(); ?></h3>
+			<h3 class="tag"><?php single_tag_title(); ?></h3>
 		</div>
 	</div>
 </div>
@@ -25,7 +29,7 @@
  			<div id="blue_btn" data-archive="<?php echo $curArch->slug; ?>" data-filter="institute" class="filter_btn ">
  				<img src="<?php bloginfo('template_directory'); ?>/images/inst.png"> <span>Institute</span>
  			</div>
- 			<div id="all" data-filter="*" class="filter_btn all"><span>Reset</a></div>
+ 			<div id="all" data-archive="<?php echo $curArch->slug; ?>" data-filter="any" class="filter_btn all"><span>Reset</a></div>
  		</div>
  	</div>
     <div class ="grayblock"></div>

@@ -1,5 +1,5 @@
 <div id="memberNews" class="clearfix">
-<h2 class="heading">My Top News</h2>
+<h2 class="heading">Headlines selected for you</h2>
 <?php
 	$userID   = get_current_user_id();
 	$usermeta = get_user_meta($userID, 'custom_news_feed', true);
@@ -31,6 +31,7 @@
 			)
 		),
 		'paged' => $paged,
+		'posts_per_page' => 6
     );
     $query = new WP_Query($args);
     // The Loop
@@ -38,8 +39,8 @@
 		while ( $query->have_posts() ) {
 			$query->the_post();
 			$postType = get_post_type( get_the_ID() );
-				
-				//check post type and apply a color	
+
+				//check post type and apply a color
 				if($postType == 'policy'){
 					$postColor = 'redd';
 				}else if($postType == 'quality'){
@@ -60,7 +61,7 @@
 	    				<span class="item-date"><?php the_time('M j, Y'); ?> ||</span>
 	    				<span class="item-author"><?php the_author(); ?></span>
 	    			</div>
-	    			<p><?php the_excerpt(); ?><a class="more" href="<?php the_permalink(); ?>"> read more » </a></p>
+	    			<p><?php the_excerpt(); ?><a class="more" href="<?php the_permalink(); ?>"> view more » </a></p>
 	    			<div class="item-tags">
 	    				<?php the_tags(' ',' ',' '); ?>
 	    			</div>
@@ -74,11 +75,11 @@
 				<span id="memberNews-next"><?php echo get_previous_posts_link( 'Newer Entries' ); ?></span>
 			</div>
 		</div>
-		<?php }  else { 
+		<?php }  else {
 		wp_reset_postdata();
-			echo "<p>No news subscribed. You can subscribe to topics that interest you <a class='orange' href='".get_permalink(310)."'>here</a></p>";
+			echo "<p>Customize this news feed. <a class='orange' href='".get_permalink(310)."'>Select your professional interest areas</a>.</p>";
 			get_template_part( 'membernetwork/module', 'allnews' );
 			 }
 	 ?>
-	
+
 </div>

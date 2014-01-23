@@ -1,5 +1,6 @@
 <div class="panel currdiscussions">
 	<div class="gutter">
+	<?php  ?>
 <?php
 	if (!empty($_POST)){
 
@@ -8,6 +9,8 @@
 	 	$newDesc  = $_POST['description'];
 	 	$catPost   = $_POST['category'];
 	 	$newID    = $_POST['userID'];
+	 	global $post;
+	    $parentID = $post->ID;
 
 	 	$postType = get_post_type();
 
@@ -25,6 +28,7 @@
 		// Insert the post into the database
 		$newID = wp_insert_post( $newpost, true );
 		add_post_meta($newID, 'mod', $mod, true);
+		add_post_meta($newID, 'parentID', $parentID, true);
 		wp_set_object_terms( $newID, $catPost, 'discussions' );
 
 	 	echo "Thank you for your submission! You can access it below.";

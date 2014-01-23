@@ -70,7 +70,7 @@
 														);
 														$comments = get_comments($args);
 														foreach($comments as $comment){ ?>
-															<span class="discussion-comment"><?php echo $comment->comment_content; ?> | <?php comment_date( 'M j, g:i a', $comment->comment_ID ); ?> <a href="<?php the_permalink(); ?>">read more &raquo;</a></span>
+															<span class="discussion-comment"><?php echo $comment->comment_content; ?> | <?php comment_date( 'M j, g:i a', $comment->comment_ID ); ?> <a href="<?php the_permalink(); ?>">view more &raquo;</a></span>
 													<?php } ?>
 												</div>
 												<div class="discussion-tax">

@@ -38,10 +38,23 @@
 						{
 						    $line=$match[0];
 						}
-						echo $line; ?><a class="more" href="<?php the_permalink(); ?>"> read more » </a>
+						echo $exc; ?>
 	    			</p>
+	    			<a class="more" href="<?php the_permalink(); ?>"> view more » </a>
 	    			<div class="item-tags">
-	    				<?php the_tags(' ',' ',' '); ?>
+	    				<?php $tags = get_the_terms(get_the_ID(),'post_tag');
+			    					if($tags){
+			    						$cnt = 0;
+			    						foreach($tags as $tag)
+			    						{
+				    						$tagLink = get_term_link($tag->term_id,'post_tag');
+				    						$tagSlug = $tag->slug;
+				    						$tagSlug = str_replace('-',' ', $tagSlug);
+				    						if ($cnt != 0) echo ", ";
+					    					echo "<a href='".$tagLink."'>".$tagSlug."</a>";
+					    					$cnt++;
+					    				}
+				    				}?>
 	    			</div>
 	    		</div>
 	    		<div class="bot-border"></div>

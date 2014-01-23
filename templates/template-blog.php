@@ -11,7 +11,18 @@ get_header(); ?>
 	</div>
 </div>
 <?php $authorID = get_the_author_id();
-	$speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
+	// $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
+  
+  $randnum = rand(0,3);
+  if ($randnum == 0){$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2013/11/Blog_option_test1.jpg";}
+  if ($randnum == 1){$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2014/01/Blog_option_test2.jpg";}
+  if ($randnum == 2){$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2014/01/Blog_option_test3.jpg";}
+  if ($randnum == 3){$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2014/01/Blog_option_test4.jpg";}
+
+  
+  ?>
+
+
 <div id="content" class="page-single blog" style="background-image:url(<?php if($speakerIMG){echo $speakerIMG; } ?>);">
 	<div class="container">
 		<div id="contentColumnWrap">
@@ -27,25 +38,20 @@ get_header(); ?>
 						'paged' => $paged
 					);
 					$query = new WP_Query($args);
+					$count = 0;
 					if ( $query->have_posts() ) { while ( $query->have_posts() ) { $query->the_post();
 						$authorID = get_the_author_id(); ?>
-						<div class="blog-post <?php if( $query->current_post == 0 && !is_paged() ) { echo "first-post"; } ?>">
+						<div class="blog-post">
 							<div class="gutter">
 								<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-								<div class="blog-postmeta"><span class="item-date"><?php the_time('M j, Y'); ?> || </span><span class="item-comments"><?php comments_number('(0) comments', '(1) comment', '(%) comments')?></span></div>
-								<div class="blog-author">
-									<div class="blog-author-avatar">
-										<?php echo get_avatar( $authorID, 37 ); ?>
-									</div>
-									<div class="blog-author-details">
-										<span class="blog-author-name"><?php the_author(); ?></span>
-										<span class="blog-author-bio"><?php the_author_meta('user_description'); ?></span>
-									</div>
-								</div>
+								<div class="blog-postmeta"><span class="item-date"><?php the_time('M j, Y'); ?> || </span>
+								<?php echo '<span class="item-comments">'.get_the_author().' || </span>'; ?><span class="item-comments"><?php comments_number('(0) comments', '(1) comment', '(%) comments');?></span></div>
+
+
 								<div class="blog-excerpt">
 									<?php if( $wp_query->current_post == 0 && !is_paged() ) {
 										the_content(); }else{ the_excerpt(); } ?>
-									<a class="readmore" href="<?php the_permalink(); ?>">read more &raquo;</a>
+									<a class="readmore" href="<?php the_permalink(); ?>">view more &raquo;</a>
 								</div>
 								<div class="blog-tax">
 									<span class="blog-cat">
@@ -53,7 +59,9 @@ get_header(); ?>
 										if($categories){
 										$catName = $categories[0]->name;
 										$catLink = get_term_link($categories[0]->slug, 'category');
-										echo "<a href='$catLink'>$catName</a>";
+											if($catName != 'Blog'){
+												echo "<a href='$catLink'>$catName</a>";
+											}
 										}
 									?>
 									</span>
@@ -61,7 +69,7 @@ get_header(); ?>
 								</div>
 							</div>
 						</div>
-					<?php }
+					<?php $count++; }
 						$big = 999999999;
 						echo '<div id="blog-pagination">';
 						echo paginate_links( array(
@@ -117,8 +125,8 @@ get_header(); ?>
 
 					<div class="blog-panel authors">
 						<h4>Authors</h4>
-						<div class="gutter">
-							<?php $authors = get_all_authors(10);
+						<div class="gutter clearfix">
+							<?php $authors = get_all_authors(5);
 							if($authors){
 							foreach($authors as $author){
 								$authName = $author['name'];
@@ -137,13 +145,11 @@ get_header(); ?>
 											<span class='blog-author-name'>
 												$authName
 											</span>
-											<span class='blog-author-bio'>
-												$authDesc
-											</span>
 										</div>
 										</a>
 									  </div>";
 							} } ?>
+						<span class="author-data-archive"><a href="<?php echo get_permalink(13808); ?>">View all authors</a></span>
 						</div>
 					</div>
 
@@ -161,16 +167,29 @@ get_header(); ?>
 						<h4>Share</h4>
 						<div class="gutter">
 							<div class="blog-social">
-								<div>
-								<span class='st_facebook_large left' displayText='Facebook'></span>
-								<span class='st_twitter_large center' displayText='Tweet'></span>
-								<span class='st_googleplus_large right' displayText='Google +'></span>
+								<!-- AddThis Button BEGIN -->
+								<div class="addthis_toolbox addthis_32x32_style" style="">
+								<a class="addthis_button_facebook"></a>
+								<a class="addthis_button_twitter"></a>
+								<a class="addthis_button_linkedin"></a>
+								<a class="addthis_button_pinterest_share"></a>
+								<a class="addthis_button_google_plusone_share"></a>
+								<a class="addthis_button_email"></a>
+								<a class="addthis_button_digg"></a>
+								<a class="addthis_button_evernote"></a>
+								<a class="addthis_button_compact"></a>
 								</div>
-								<div>
-								<span class='st_linkedin_large left' displayText='LinkedIn'></span>
-								<span class='st_email_large center' displayText='Email'></span>
-								<span class='st_sharethis_large right' displayText='Share This'></span>
-								</div>
+								<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+								<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=naphsyscom"></script>
+								<!-- AddThis Button END -->
+							</div>
+						</div>
+					</div>
+					<div class="blog-panel tweets">
+						<h4>Twitter</h4>
+						<div class="gutter clearfix">
+							<div class="blog-twitter">
+								<?php display_user_tweets('OurHospitals',3); ?>
 							</div>
 						</div>
 					</div>

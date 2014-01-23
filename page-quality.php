@@ -1,9 +1,10 @@
 <?php get_header(); ?>
+<?php while ( have_posts() ) : the_post(); ?>
 <?php $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
 <div id="featured-img" class="quality" style="background-image:url(<?php echo $speakerIMG; ?>);">
 	<div class="container">
 		<div id="featured-intro">
-			<?php while ( have_posts() ) : the_post(); ?>
+
 				<h3><span class="greenn">QUALITY</span><br><?php the_field('bannerTitle'); ?></h3>
 			<?php endwhile; // end of the loop. ?>
 		</div>
@@ -18,10 +19,10 @@
 	<div class="gutter">
 		<div class="container">
 			<?php
-				if(has_nav_menu('quality-nav')){
+				if(has_nav_menu('primary-menu')){
 					$defaults = array(
-						'theme_location'  => 'quality-nav',
-						'menu'            => 'quality-nav',
+						'theme_location'  => 'primary-menu',
+						'menu'            => 'primary-menu',
 						'container'       => 'div',
 						'container_class' => '',
 						'container_id'    => 'pageNav',
@@ -34,16 +35,40 @@
 						'link_before'     => '',
 						'link_after'      => '',
 						'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-						'depth'           => 0,
+						'depth'           => 2,
 						'walker'          => ''
-					);
-					wp_nav_menu( $defaults );
+					); wp_nav_menu( $defaults );
 				}
 			?>
+			<div id="breadcrumbs">
+				<ul>
+					<li><a href="<?php echo home_url(); ?>">Home</a>
+						<?php
+						$defaults = array(
+						'theme_location'  => 'primary-menu',
+						'menu'            => 'primary-menu',
+						'container'       => '',
+						'container_class' => '',
+						'container_id'    => '',
+						'menu_class'      => 'menu',
+						'menu_id'         => '',
+						'echo'            => true,
+						'fallback_cb'     => 'wp_page_menu',
+						'before'          => '',
+						'after'           => '',
+						'link_before'     => '',
+						'link_after'      => '',
+						'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+						'depth'           => 0,
+						'walker'          => ''
+					); wp_nav_menu( $defaults ); ?>
+					</li>
+				</ul>
+			</div>
 			<div id="contentPrimary">
 				<div class="graybar"></div>
 				<div class="gutter">
-					<span class="filterby">Filter By Topic >></span>
+					<span class="filterby">Filter By Topic >></span><div class="going-mobile" id="page-filters">Filter By Topic &raquo;</div>
 					<?php
 						$args = array(
 						    'orderby'       => 'name',
@@ -76,7 +101,7 @@
 						<?php } ?>
 				</div>
 			</div>
-			<div id="contentSecondary">
+			<div id="contentSecondary" class="nostamp">
 				<div class="graybar"></div>
 				<div class="gutter">
 					<?php get_template_part( 'partial/template', 'qualityloop' ); ?>

@@ -20,6 +20,54 @@
 				}
 					?>
 
+		<?php
+			if(has_nav_menu('primary-menu')){
+				$defaults = array(
+					'theme_location'  => 'primary-menu',
+					'menu'            => 'primary-menu',
+					'container'       => 'div',
+					'container_class' => '',
+					'container_id'    => 'pageNav',
+					'menu_class'      => 'quality',
+					'menu_id'         => '',
+					'echo'            => true,
+					'fallback_cb'     => 'wp_page_menu',
+					'before'          => '',
+					'after'           => '',
+					'link_before'     => '',
+					'link_after'      => '',
+					'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+					'depth'           => 2,
+					'walker'          => ''
+				); wp_nav_menu( $defaults );
+			}
+		?>
+		<div id="breadcrumbs">
+			<ul>
+				<li><a href="<?php echo home_url(); ?>">Home</a>
+					<?php
+					$defaults = array(
+					'theme_location'  => 'primary-menu',
+					'menu'            => 'primary-menu',
+					'container'       => '',
+					'container_class' => '',
+					'container_id'    => '',
+					'menu_class'      => 'menu',
+					'menu_id'         => '',
+					'echo'            => true,
+					'fallback_cb'     => 'wp_page_menu',
+					'before'          => '',
+					'after'           => '',
+					'link_before'     => '',
+					'link_after'      => '',
+					'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+					'depth'           => 0,
+					'walker'          => ''
+				); wp_nav_menu( $defaults ); ?>
+				</li>
+			</ul>
+		</div>
+
 		<div id="membercontent" class="group groupcont">
 			<div class="graybarleft"></div>
 			<div class="graybarright"></div>
@@ -28,7 +76,11 @@
 					<div class="panel description">
 						<h2 class="heading"><?php the_title(); ?></h2>
 							<div class="gutter">
-								<?php if(is_user_logged_in() && $checker == true){
+								<?php
+								$today = mktime(0, 0, 0, date('n'), date('j'));
+								$webDate = get_post_meta($post->ID,'webinar_date',true);
+
+								if(is_user_logged_in() && $checker == true || $today > $webDate){
 									the_content();
 								}else{
 									echo "<p>";
@@ -45,7 +97,7 @@
 
 				<div class="group-members groupcol">
 					<div class="panel">
-						<h2 class="heading">Group Members</h2>
+						<h2 class="heading">Webinar Attendees</h2>
 						<?php get_template_part('membernetwork/content','groupmembers'); ?>
 					</div>
 					<?php if(is_user_logged_in() && $checker == true){

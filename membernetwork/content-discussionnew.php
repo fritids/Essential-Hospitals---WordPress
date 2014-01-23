@@ -31,7 +31,6 @@
 				  'post_title'     => $newTitle,
 				  'post_type'      => 'discussion',
 				  'tax_input'      => array( 'discussions' => array( $catPost ) ),
-
 				);
 
 				// Insert the post into the database
@@ -49,13 +48,13 @@
 			 	<div id="newDiscussion" class="clearfix" <?php if($discuss){ echo 'style="display:block;"'; }?>>
 			 	 <h2 class="heading">Start a New Discussion</h2>
 				 <form id="addPost" method="post">
-					<input name="title" type="text" placeholder="title" />
+					<input name="title" type="text" placeholder="Discussion Title" />
 					<textarea name="description" type="textarea" placeholder="Start Discussion here"></textarea>
 					<?php echo '<input name="userID" type="hidden" value="'.$userID.'" />'; ?>
 					<?php if($isPrivate == 'hospital'){ ?>
 						<label for="public">Public</label>
 						<input type="radio" value="public" name="catPost" id="catPost" checked="checked"/>
-						<label for="public">Private</label>
+						<label for="public">Hospital Members Only</label>
 						<input type="radio" value="private" name="catPost" id="catPost" />
 					<?php } ?>
 					<input type="text" name="tagPost" placeholder="tags separated by commas. ie: this,is,the,tags" />

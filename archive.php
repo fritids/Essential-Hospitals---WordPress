@@ -1,43 +1,71 @@
 <?php get_header(); ?>
 
-<?php $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
-<div id="featured-img" class="archive tag">
+<?php $queryObject = get_queried_object();
+$speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
+<div id="featured-img-small" class="archive tag <?php echo $queryObject->taxonomy; ?>">
 	<div class="container">
 		<div id="featured-intro">
-			<h3 class="tag"><?php echo get_post_type(); ?> Archive: <?php post_type_archive_title(); ?></h3>
+			<h3 class="tag">Archive for: <?php echo $queryObject->name; ?></h3>
 		</div>
 	</div>
 </div>
 <div id="postFeatured">
-	<div class="container fullborder">
- 		<div class="eightteen columns filters">
- 			<span> FILTER WITHIN THIS <?php echo get_post_type(); ?> &rsaquo;&rsaquo;</span>
- 			<?php $curArch = get_term_by('name', single_tag_title('',FALSE) , 'post_tag'); ?>
- 			<div id="red_btn" data-archive="<?php echo $curArch->slug; ?>" data-filter="policy" class="filter_btn ">
- 				<img src="<?php bloginfo('template_directory'); ?>/images/policy.png"> <span>Action</span>
- 			</div>
- 			<div id="green_btn" data-archive="<?php echo $curArch->slug; ?>" data-filter="quality" class="filter_btn ">
- 				<img src="<?php bloginfo('template_directory'); ?>/images/quality.png"> <span>Quality</span>
- 			</div>
- 			<div id="gray_btn" data-archive="<?php echo $curArch->slug; ?>" data-filter="education" class="filter_btn ">
- 				<img src="<?php bloginfo('template_directory'); ?>/images/edu.png"> <span>Education</span>
- 			</div>
- 			<div id="blue_btn" data-archive="<?php echo $curArch->slug; ?>" data-filter="institute" class="filter_btn ">
- 				<img src="<?php bloginfo('template_directory'); ?>/images/inst.png"> <span>Institute</span>
- 			</div>
- 			<div id="all" data-filter="*" class="filter_btn all"><span>Reset</a></div>
- 		</div>
- 	</div>
     <div class ="grayblock"></div>
 
 	<div class="container twelve columns content">
 
 
-		<div id="contentWrap" class="action">
+		<div id="contentWrap" class="action archivecss <?php if(!page_in_menu('primary-menu')){echo 'default-'.$queryObject->taxonomy;} ?>">
 			<div class="gutter">
 				<div class="container">
+					<?php if(has_nav_menu('primary-menu')){
+					$defaults = array(
+						'theme_location'  => 'primary-menu',
+						'menu'            => 'primary-menu',
+						'container'       => 'div',
+						'container_class' => '',
+						'container_id'    => 'pageNav',
+						'menu_class'      => 'fallback',
+						'menu_id'         => '',
+						'echo'            => true,
+						'fallback_cb'     => 'wp_page_menu',
+						'before'          => '',
+						'after'           => '',
+						'link_before'     => '',
+						'link_after'      => '',
+						'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+						'depth'           => 0,
+						'walker'          => ''
+					);
+					wp_nav_menu( $defaults ); } ?>
+					<div id="breadcrumbs">
+						<ul>
+							<li><a href="<?php echo home_url(); ?>">Home</a>
+								<?php
+								$defaults = array(
+								'theme_location'  => 'primary-menu',
+								'menu'            => 'primary-menu',
+								'container'       => '',
+								'container_class' => '',
+								'container_id'    => '',
+								'menu_class'      => 'menu',
+								'menu_id'         => '',
+								'echo'            => true,
+								'fallback_cb'     => 'wp_page_menu',
+								'before'          => '',
+								'after'           => '',
+								'link_before'     => '',
+								'link_after'      => '',
+								'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+								'depth'           => 0,
+								'walker'          => ''
+							); wp_nav_menu( $defaults ); ?>
+							</li>
+						</ul>
+					</div>
 					<div id="contentPrimary">
 						<div class="graybar"></div>
+						<div class="graybarX"></div>
 						<div class="gutter">
 							<?php get_template_part( 'partial/template', 'archive' ); ?>
 						</div>

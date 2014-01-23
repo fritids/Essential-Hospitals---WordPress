@@ -3,7 +3,6 @@
 	<div class="container">
 		<div id="featured-intro">
 			<h3>Essential Insights</h3>
-			<h4>This will be subtext that overview this section of the site and gives the user more insight on what they can find here. You can use the word blog here to better define this section.</h4>
 		</div>
 	</div>
 </div>
@@ -14,28 +13,40 @@
 			<div id="contentPrimary" class="heightcol">
 				<div class="gutter">
 					<h2 id="blog-search"><?php $author = get_userdata( get_query_var('author') );?> All Posts by: <?php echo $author->display_name;?></h2>
+
+					<div id="author-data">
+						<div class="gutter">
+							<?php $authorAva = get_avatar($author->ID, 100 );
+								$authorDesc = get_the_author_meta('description',$author->ID); ?>
+							<div id="author-data-img">
+								<?php echo $authorAva; ?>
+							</div>
+							<div id="author-data-desc">
+								<?php echo $authorDesc; ?>
+							</div>
+						</div>
+					</div>
 					<?php if ( have_posts() ) { while ( have_posts() ) { the_post();
 						$authorID = get_the_author_id(); ?>
 						<div class="blog-post">
 							<div class="gutter">
 								<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
 								<div class="blog-postmeta"><span class="item-date"><?php the_time('M j, Y'); ?> || </span><span class="item-comments"><?php comments_number('(0) comments', '(1) comment', '(%) comments')?></span></div>
-								<div class="blog-author">
-									<div class="blog-author-avatar">
-										<?php echo get_avatar( $authorID, 37 ); ?>
-									</div>
 
-								</div>
 								<div class="blog-excerpt">
 									<?php the_excerpt(); ?>
-									<a class="readmore" href="<?php the_permalink(); ?>">read more &raquo;</a>
+									<a class="readmore" href="<?php the_permalink(); ?>">view more &raquo;</a>
 								</div>
 								<div class="blog-tax">
 									<span class="blog-cat">
 									<?php $categories = get_the_category();
+										if($categories){
 										$catName = $categories[0]->name;
 										$catLink = get_term_link($categories[0]->slug, 'category');
-										echo "<a href='$catLink'>$catName</a>"
+											if($catName != 'Blog'){
+												echo "<a href='$catLink'>$catName</a>";
+											}
+										}
 									?>
 									</span>
 									<span class="blog-tag"><?php the_tags('',','); ?></span>
@@ -88,30 +99,31 @@
 
 					<div class="blog-panel authors">
 						<h4>Authors</h4>
-						<div class="gutter">
-							<?php $authors = get_all_authors();
+						<div class="gutter clearfix">
+							<?php $authors = get_all_authors(10);
+							if($authors){
 							foreach($authors as $author){
 								$authName = $author['name'];
 								$authID = $author['ID'];
 								$authAva = get_avatar( $authID, 37 );
 								$authDesc = $author['desc'];
+								$authURL = get_author_posts_url($authID);
 								$pos = strpos($authDesc, '.');
 								$authDesc = substr($authDesc, 0, $pos+1);
-								$authLink = $author['posts_url'];
 								echo "<div class='blog-author'>
+										<a href='$authURL'>
 										<div class='blog-author-avatar'>
 											$authAva
 										</div>
 										<div class='blog-author-details'>
 											<span class='blog-author-name'>
-												<a href='$authLink'>$authName</a>
-											</span>
-											<span class='blog-author-bio'>
-												$authDesc
+												$authName
 											</span>
 										</div>
+										</a>
 									  </div>";
-							} ?>
+							} } ?>
+						<span class="author-data-archive"><a href="<?php echo get_permalink(13808); ?>">View all authors</a></span>
 						</div>
 					</div>
 
@@ -129,16 +141,29 @@
 						<h4>Share</h4>
 						<div class="gutter">
 							<div class="blog-social">
-								<div>
-								<span class='st_facebook_large left' displayText='Facebook'></span>
-								<span class='st_twitter_large center' displayText='Tweet'></span>
-								<span class='st_googleplus_large right' displayText='Google +'></span>
+								<!-- AddThis Button BEGIN -->
+								<div class="addthis_toolbox addthis_32x32_style" style="">
+								<a class="addthis_button_facebook"></a>
+								<a class="addthis_button_twitter"></a>
+								<a class="addthis_button_linkedin"></a>
+								<a class="addthis_button_pinterest_share"></a>
+								<a class="addthis_button_google_plusone_share"></a>
+								<a class="addthis_button_email"></a>
+								<a class="addthis_button_digg"></a>
+								<a class="addthis_button_evernote"></a>
+								<a class="addthis_button_compact"></a>
 								</div>
-								<div>
-								<span class='st_linkedin_large left' displayText='LinkedIn'></span>
-								<span class='st_email_large center' displayText='Email'></span>
-								<span class='st_sharethis_large right' displayText='Share This'></span>
-								</div>
+								<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+								<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=naphsyscom"></script>
+								<!-- AddThis Button END -->
+							</div>
+						</div>
+					</div>
+					<div class="blog-panel tweets">
+						<h4>Twitter</h4>
+						<div class="gutter clearfix">
+							<div class="blog-twitter">
+								<?php display_user_tweets('OurHospitals',3); ?>
 							</div>
 						</div>
 					</div>

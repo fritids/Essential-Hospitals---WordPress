@@ -2,17 +2,17 @@
 if (!is_user_logged_in()){
 	header('Location: '.get_bloginfo('url').'/membernetwork/member-login/');
 }
-get_header(); ?>
+get_header();
+$currentUser = get_current_user_id();
+$isPrivate   = get_user_meta($currentUser, 'aeh_member_type', true); ?>
 
-<div id="membernetwork">
+<div id="membernetwork" class="<?php echo $isPrivate; ?>">
 	<div class="container">
 		<h1 class="title"><span class="grey">Essential Hospitals</span> Member Network | Discussions</h1>
 
 		<?php get_template_part('membernetwork/content','usernav'); ?>
 
-		<?php $memberArray = array();
-			$currentUser = get_current_user_id();
-			$isPrivate   = get_user_meta($currentUser, 'aeh_member_type', true); ?>
+		<?php $memberArray = array(); ?>
 
 		<?php if(is_user_logged_in()){ ?>
 
@@ -35,9 +35,10 @@ get_header(); ?>
 							<p class="topic"><strong>POPULAR TOPICS</strong></p>
 								<ul id="discussiontags">
 							 <?php $tags = wp_tag_cloud( array( 'taxonomy' => 'discussion_tags', 'orderby' => 'count', 'format' => 'array', 'smallest' => 11, 'largest' => 11, 'unit' => 'px' ) );
+								 if($tags){
 								 foreach($tags as $tag){ ?>
 								 	<li><?php echo $tag; ?></li>
-								 <?php } ?>
+								 <?php } } ?>
 								</ul>
 						</div>
 					</div>
@@ -104,7 +105,7 @@ get_header(); ?>
 														);
 														$comments = get_comments($args);
 														foreach($comments as $comment){ ?>
-															<span class="discussion-comment"><?php echo $comment->comment_content; ?> | <?php comment_date( 'M j, g:i a', $comment->comment_ID ); ?> <a href="<?php the_permalink(); ?>">read more &raquo;</a></span>
+															<span class="discussion-comment"><?php echo $comment->comment_content; ?> | <?php comment_date( 'M j, g:i a', $comment->comment_ID ); ?> <a href="<?php the_permalink(); ?>">view more &raquo;</a></span>
 													<?php } ?>
 												</div>
 												<div class="discussion-tax">

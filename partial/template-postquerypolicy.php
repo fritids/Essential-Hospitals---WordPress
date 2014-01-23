@@ -15,7 +15,7 @@
 	$postCount = 0;
 	$output = '';
 
-	if($ajaxFilter == 'health-insurance-marketplaces' || $ajaxFilter == 'medicaid-waivers'){
+	if($ajaxFilter == 'medicaid-waivers'){
 		$templateDIR = get_bloginfo('template_directory');
 		$output .= '<div class="close post long columns redd policy question tall">
 	    		<div class="graybarright"></div>
@@ -23,7 +23,7 @@
     			<div class="item-icon"><img src="'. $templateDIR .'/images/icon-policy.png" /></div>
     			<div class="item-content">
 	    			<div class="item-header">
-	    				<h2>Ask a Question</h2>
+	    				<h2>Ask Our Experts About Waivers</h2>
 	    			</div>
 	    			'.do_shortcode('[formidable id=6]').'
 	    			<div class="item-tags"></div>
@@ -42,11 +42,11 @@
 		$postTitle = get_the_title();
 		$postExcerpt = get_the_excerpt();
 
-		$line=$postExcerpt;
+		/*$line=$postExcerpt;
 		if (preg_match('/^.{1,100}\b/s', $postExcerpt, $match))
 		{
 		    $postExcerpt=$match[0];
-		}
+		}*/
 
 		$postColor = '';
 		$postTime = get_the_time('M j, Y');
@@ -62,7 +62,7 @@
 			$postColor = 'redd';
 		}else if($postType == 'quality'){
 			$postColor = 'greenn';
-		}else if($postType == 'education'){
+		}else if($postType == 'education' || $postType == 'webinar'){
 			$postColor = 'grayy';
 		}else if($postType == 'institute'){
 			$postColor = 'bluee';
@@ -78,19 +78,30 @@
 	    $output .= '<div class="close post long columns '. $postColor .' '. $postType .' ">
 	    		<div class="graybarright"></div>
 	  			<div class="item-bar"></div>
-    			<div class="item-icon"><a href="'.$termLink.'">'.$terms[0]->name.'</a><img src="'. $templateDIR .'/images/icon-'. $postType .'.png" /></div>
-    			<div class="item-content">
+	  			<div class="n-arr '.$postType.'"></div>';
+    	if($postType == 'webinar'){
+			$output .=	'<div class="item-icon">Webinar<img src="'. $templateDIR .'/images/icon-education.png" /></div>';
+    	}else{
+	    	$output .=	'<div class="item-icon"><a href="'.$termLink.'">'.$terms[0]->name.'</a><img src="'. $templateDIR .'/images/icon-'. $postType .'.png" /></div>';
+    	}
+
+    	$output .=	'<div class="item-content">
 	    			<div class="item-header">
 	    				<h2><a href="'. $postLink .'">'. $postTitle .'</a></h2>
 	    				<span class="item-date">'. $postTime .' ||</span>
 	    				<span class="item-author">'. $postAuthor .'</span>
 	    			</div>
-	    			<p>'. $postExcerpt .'<a class="more" href="'. $postLink .'"> read more » </a>
-	    			</p>
+	    			<p>'. $postExcerpt .'
+	    			</p><a class="more" href="'. $postLink .'"> view more » </a>
 	    			<div class="item-tags">';
 		if($postTags){
+		    $cnt = 0;
 		    foreach($postTags as $tag){
-			    $output .= '<a href="'.get_bloginfo('url').'/tag/'.$tag->slug.'">'.$tag->name.'</a>, ';
+		    	$tagSlug = $tag->slug;
+				$tagSlug = str_replace('-',' ', $tagSlug);
+				if ($cnt != 0) {$output .= ", ";}
+			    $output .= '<a href="'.get_bloginfo('url').'/tag/'.$tag->slug.'">'.$tagSlug.'</a>';
+			    $cnt++;
 		    }
 	    }
 	    $output .= '</div>
@@ -100,16 +111,16 @@
 
 	$postCount = $postCount++;
 	} }else{
-		$output = '<div class="close post long columns redd policy">
-		    		<div class="graybarright"></div>
-		  			<div class="item-bar"></div>
-	    			<div class="item-content">
-		    			<div class="item-header">
-		    				<h2>No Articles Found</h2>
-		    			</div>
-		    			<p>No articles were found with under that Topic. Try another topic.</a>
-		    			</p>
-		    		</div>
-	    		</div>';
+		$output = "<div class='post long columns'>
+					<div class='graybarright'></div>
+					<div class='item-bar'></div>
+					<div class='item-content'>
+						<div class='item-header'>
+							<h2>No Entries Found</h2>
+						</div>
+						<p>Sorry, there were no entries found under $ajaxFilter. Try another filter!</p>
+					</div>
+					<div class='bot-border'></div>
+				   </div>";
 	} wp_reset_query();
 	echo $output; ?>

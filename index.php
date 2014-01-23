@@ -3,7 +3,7 @@
 	<div class="container">
 		<div id="featured-intro">
 			<h3>Essential Insights</h3>
-			<h4>This will be subtext that overview this section of the site and gives the user more insight on what they can find here. You can use the word blog here to better define this section.</h4>
+			<h4>This, will be subtext that overview this section of the site and gives the user more insight on what they can find here. You can use the word blog here to better define this section.</h4>
 		</div>
 	</div>
 </div>
@@ -17,7 +17,7 @@
 				<div class="gutter">
 					<?php if ( have_posts() ) { while ( have_posts() ) { the_post();
 						$authorID = get_the_author_id(); ?>
-						<div class="blog-post <?php if( $wp_query->current_post == 0 && !is_paged() ) { echo "first-post"; } ?>">
+						<div class="blog-post">
 							<div class="gutter">
 								<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
 								<div class="blog-postmeta"><span class="item-date"><?php the_time('M j, Y'); ?> || </span><span class="item-comments"><?php comments_number('(0) comments', '(1) comment', '(%) comments')?></span></div>
@@ -25,17 +25,11 @@
 									<div class="blog-author-avatar">
 										<?php echo get_avatar( $authorID, 37 ); ?>
 									</div>
-									<?php if( $wp_query->current_post == 0 && !is_paged() ) { ?>
-										<div class="blog-author-details">
-											<span class="blog-author-name"><?php the_author(); ?></span>
-											<span class="blog-author-bio"><?php the_author_meta('user_description'); ?></span>
-										</div>
-									<?php } ?>
 								</div>
 								<div class="blog-excerpt">
 									<?php if( $wp_query->current_post == 0 && !is_paged() ) {
 										the_content(); }else{ the_excerpt(); } ?>
-									<a class="readmore" href="<?php the_permalink(); ?>">read more &raquo;</a>
+									<a class="readmore" href="<?php the_permalink(); ?>">view more &raquo;</a>
 								</div>
 								<div class="blog-tax">
 									<span class="blog-cat">

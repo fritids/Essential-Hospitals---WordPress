@@ -41,7 +41,7 @@
 				<div class="threefourth disc-content">
 					<div class="panel">
 						<div class="gutter clearfix">
-							<h2 class="heading quality"><?php the_title(); ?></h2>
+							<h2 class="heading quality"><?php the_title(); ?> <span class="back-to-disc"><a href="<?php echo get_permalink(257); ?>">&laquo; Back to Discussions</a></span></h2>
 							<div id="disc-content" class="orig">
 								<div class="gutter clearfix">
 									<span class="tags"><?php $posttags = wp_get_post_terms( $postID, 'discussion_tags' );
@@ -58,19 +58,18 @@
 
 												      } } ?> </span>
 									<h2>Original Post:</h2>
+									<div class="reply sendto">Reply</div>
 									<div class="disc-author">
 										<?php $authorID = get_the_author_meta('ID');
 											$author = get_userdata($authorID);
 											$authAv = get_avatar($authorID, 78); ?>
 										<div class="group-memberavatar">
 											<span class="group-membername"><?php echo $author->user_firstname; ?> <?php echo $author->user_lastname; ?></span>
-											<?php echo $authAv; ?>
+											<a href="<?php echo get_permalink(276); ?>?member=<?php echo $authorID;?>"><?php echo $authAv; ?></a>
 										</div>
 									</div>
 									<div class="disc-info">
 										<div class="gutter">
-
-
 											<div class="auth-meta">
 												<span class="date"><?php the_time('M j, g:i a');?></span>
 

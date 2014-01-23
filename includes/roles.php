@@ -10,64 +10,12 @@
 		remove_role($role);
 	}
 
-	// ----- Create new roles
-	//VP
-	$capabilities = array(
-	    'read'                 => true,
-	    'edit_posts'           => true,
-	    'delete_posts'         => true,
-	    'edit_others_posts'    => true,
-	    'read_private_posts'   => true,
-	    'upload_files'         => true,
-	    'edit_pages'           => true,
-	    'edit_published_posts' => true,
-	    'publish_posts'		   => true,
-	    'delete_published_posts'=> true,
-	    'read_private_pages'   => true,
-	    'edit_private_pages'   => true,
-	    'delete_private_pages' => true,
-	    'read_private_posts'   => true,
-	    'edit_private_posts'   => true,
-	    'delete_private_posts' => true,
-	    'moderate_comments'    => true,
-	    /*'edit_pages'           => true,
-	    'edit_others_pages'	   => true,
-	    'edit_published_pages' => true,*/
-	    'level_2' => true,);
-	add_role(vp, 'VP', $capabilities );
-
-	//AVP
-	$capabilities = array(
-	    'read'                 => true,
-	    'edit_posts'           => true,
-	    'delete_posts'         => true,
-	    'edit_others_posts'    => true,
-	    'read_private_posts'   => true,
-	    'upload_files'         => true,
-	    'edit_pages'           => true,
-	    'edit_published_posts' => true,
-	    'publish_posts'		   => true,
-	    'delete_published_posts'=> true,
-	    'read_private_pages'   => true,
-	    'edit_private_pages'   => true,
-	    'delete_private_pages' => true,
-	    'read_private_posts'   => true,
-	    'edit_private_posts'   => true,
-	    'delete_private_posts' => true,
-	    'moderate_comments'    => true,
-	    /*'edit_pages'           => true,
-	    'edit_others_pages'	   => true,
-	    'edit_published_pages' => true,*/
-	    'level_2' => true,);
-	add_role(avp, 'AVP', $capabilities );
-
 	//Content Creator
 	$capabilities = array(
 	    'delete_posts'			   => true,
 		'delete_published_posts'   => true,
 		'edit_posts'			   => true,
 		'edit_published_posts'	   => true,
-		'publish_posts'			   => true,
 		'read'					   => true,
 		'upload_files'			   => true,
 		'moderate_comments'		   => true,
@@ -104,7 +52,7 @@ function AEH_user_fields( $user ) {
 	$userRole = implode(', ',$user->roles);
 
 	if($adminRole == 'administrator'){
-		if($userRole == 'vp' || $userRole == 'avp' || $userRole == 'content_creator'){ ?>
+		if($userRole == 'content_creator'){ ?>
 		<h3>Staff permissions</h3>
 
 		<table class="form-table">

@@ -22,6 +22,7 @@
 	<meta property="og:type" content="article" />
 	<meta property="og:image" content="<?php bloginfo('template_url' );?>/images/logo.png" />
 
+
 	<!-- if page is others -->
 	<?php } else { ?>
 	<meta property="og:site_name" content="<?php bloginfo('name'); ?>" />
@@ -42,11 +43,14 @@
 
 	<!-- FONTS
 	================================================== -->
-	  <link href='http://fonts.googleapis.com/css?family=Cabin:400,600,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Cabin:400,600,700' rel='stylesheet' type='text/css'>
 
 	<!-- CSS (* with Edge Inspect Fix)
     ================================================== -->
 	<link rel="stylesheet" type="text/css" media="all" href="<?php echo get_stylesheet_uri(); ?>" />
+	<?php if(is_single()){ ?>
+		<link rel="stylesheet" type="text/css" media="print" href="<?php bloginfo('template_directory'); ?>/css/print.css" />
+	<?php } ?>
 
 	<!-- Favicons
 	================================================== -->
@@ -55,18 +59,80 @@
 	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
 	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
 
-	<script type="text/javascript">var switchTo5x=true;</script>
-	<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-	<script type="text/javascript">stLight.options({publisher: "457e6d5d-5f44-4df8-9c1d-ec560a221bb7", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+
 	<?php wp_head(); ?>
 
 
 	<!--[if lt IE 9]>
 		<script src="<?php bloginfo('template_directory'); ?>/js/html5shiv.js"></script>
+		<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo('template_directory'); ?>/css/ie.css" />
 	<![endif]-->
 
 </head>
 <body <?php body_class();?>>
+
+<!-- Mobile Menu !-->
+<div id="mobileHeader">
+	<div id="slidePane">
+		<div id="mobile-login">
+			<?php if(is_user_logged_in()){ ?>
+		 		<div id="login" class="login"><a id="memNetwork" href="#">My Dashboard</a></div>
+		 	<?php }else{ ?>
+				<div id="login" class="login"><a href="<?php bloginfo('url');?>/membernetwork/registration"><img src="<?php bloginfo('template_directory'); ?>/images/signup.png" /></a><img id="loginButton" src="<?php bloginfo('template_directory'); ?>/images/login.png" /></div>
+		 	<?php } ?>
+		</div>
+		<div id="mobile-main">
+			<?php
+			global $post;
+			$thePostID = $post->ID;
+
+		    $menu_name = 'primary-menu';
+
+		    if ( ( $locations = get_nav_menu_locations() ) && isset( $locations[ $menu_name ] ) ) {
+			$menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
+
+			$menu_items = wp_get_nav_menu_items($menu->term_id);
+
+			$menu_list = '<ul id="menu-' . $menu_name . '">';
+
+			foreach ( (array) $menu_items as $key => $menu_item ) {
+				if($thePostID == $menu_item->object_id){
+					$activeClass = 'active';
+				}else{
+					$activeClass = '';
+				}
+			    $title = $menu_item->title;
+			    $url = $menu_item->url;
+			    $desc = $menu_item->description;
+			    $menuClass = $menu_item->classes;
+			    $menu_list .= '<li class="';
+			    if($menuClass){
+				    foreach($menuClass as $class){
+					    $menu_list .= $class.' ';
+				    }
+			    }
+			    $menu_list .= $activeClass.'"><a href="' . $url . '">' . $title . '<span>'.$desc.'</span></a></li>';
+			}
+			$menu_list .= '</ul>';
+		    } else {
+			$menu_list = '<ul><li>Menu "' . $menu_name . '" not defined.</li></ul>';
+		    }
+		    echo $menu_list;
+			?>
+		</div>
+		<div id="mobile-search">
+			<?php get_template_part( 'membernetwork/module', 'searchform' ); ?>
+		</div>
+		<div id="mobile-utility">
+			<?php
+	 		if(has_nav_menu('utility-menu')){
+		 		wp_nav_menu( array( 'menu_id' => 'utils-nav', 'theme_location' => 'utility-menu', 'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>'));
+	 		} ?>
+		</div>
+	</div>
+</div>
+
+
 <?php get_template_part( 'membernetwork/module', 'memberdash' ); ?>
 <div id="siteWrap" class="clearfix">
 <?php $currentUser = get_current_user_id(); ?>
@@ -89,7 +155,7 @@
 			 		</div>
 
 			 		<?php if(is_user_logged_in()){ ?>
-				 		<div id="login" class="login"><a id="memNetwork" href="#">Member Network</a></div>
+				 		<div id="login" class="login"><a id="memNetwork" href="#">My Dashboard</a></div>
 				 	<?php }else{ ?>
 						<div id="login" class="login"><a href="<?php bloginfo('url');?>/membernetwork/registration"><img src="<?php bloginfo('template_directory'); ?>/images/signup.png" /></a><img id="loginButton" src="<?php bloginfo('template_directory'); ?>/images/login.png" /></div>
 				 	<?php } ?>
@@ -107,54 +173,36 @@
 	<div id="header" class="fullwidth">
 		<div class="container">
 			 <div class="logo">
-			 	<?php
-			 	while ( have_posts() ) : the_post();
-			 	$pageTheme = get_field('theme');
-			 	endwhile;
-			 	if(is_page_template('templates/template-institute.php') || is_post_type_archive('institute') || is_tax('centers') || is_singular('institute') || $pageTheme == 'institute'){ ?>
-			 		<a href="<?php bloginfo( 'url' );?>/institute" title="<?php bloginfo( 'name' );?>"><img src="<?php bloginfo('template_url' );?>/images/instituteLogo.png" title="<?php bloginfo( 'name' );?>"></a>
-				<?php }else{ ?>
-					<a href="<?php bloginfo( 'url' );?>" title="<?php bloginfo( 'name' );?>"><img src="<?php bloginfo('template_url' );?>/images/logo.png" title="<?php bloginfo( 'name' );?>"></a>
-				<?php } ?>
+				<a href="<?php bloginfo( 'url' );?>" title="<?php bloginfo( 'name' );?>"><img src="<?php bloginfo('template_url' );?>/images/logo.png" title="<?php bloginfo( 'name' );?>"></a>
 			</div>
-			<div class="twelve columns navigation">
-				<?php
-				global $post;
-				$thePostID = $post->ID;
+			<a id="mobile-slide">Menu</a>
 
-			    $menu_name = 'primary-menu';
 
-			    if ( ( $locations = get_nav_menu_locations() ) && isset( $locations[ $menu_name ] ) ) {
-				$menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
 
-				$menu_items = wp_get_nav_menu_items($menu->term_id);
 
-				$menu_list = '<ul id="menu-' . $menu_name . '">';
 
-				foreach ( (array) $menu_items as $key => $menu_item ) {
-					if($thePostID == $menu_item->object_id){
-						$activeClass = 'active';
-					}else{
-						$activeClass = '';
-					}
-				    $title = $menu_item->title;
-				    $url = $menu_item->url;
-				    $desc = $menu_item->description;
-				    $menuClass = $menu_item->classes;
-				    $menu_list .= '<li class="';
-				    if($menuClass){
-					    foreach($menuClass as $class){
-						    $menu_list .= $class.' ';
-					    }
-				    }
-				    $menu_list .= $activeClass.'"><a href="' . $url . '">' . $title . '<span>'.$desc.'</span></a></li>';
-				}
-				$menu_list .= '</ul>';
-			    } else {
-				$menu_list = '<ul><li>Menu "' . $menu_name . '" not defined.</li></ul>';
-			    }
-			    echo $menu_list;
-				?>
+
+			<div class="twelve columns navigation <?php if(!page_in_menu('primary-menu')){echo 'default-'.get_post_type($postID);} ?>">
+				<?php $walker = new Menu_With_Description;
+				$defaults = array(
+					'theme_location'  => 'primary-menu',
+					'menu'            => 'primary-menu',
+					'container'       => '',
+					'container_class' => '',
+					'container_id'    => '',
+					'menu_class'      => '',
+					'menu_id'         => 'menu-primary-menu',
+					'echo'            => true,
+					'fallback_cb'     => 'wp_page_menu',
+					'before'          => '',
+					'after'           => '<div class="colorswipe"></div>',
+					'link_before'     => '',
+					'link_after'      => '',
+					'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+					'depth'           => 1,
+					'walker'          => $walker
+				);
+				wp_nav_menu( $defaults ); ?>
 			</div>
       	    <div class="clear"></div>
 		</div><!-- End of Container -->

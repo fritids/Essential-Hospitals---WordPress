@@ -18,8 +18,7 @@
            </div>
           <div id="newsletter">
             <form>
-              <span>Essential Hospitals news in your inbox:</span>
-              <input type="text" class="newsletter_btn_input" value="Enter Email Here"><input class="newsletter_btn"  type="submit" >
+              <?php echo do_shortcode('[constantcontactapi formid="1" lists="1"]'); ?>
               <div class="clear"></div>
             </form>
             <div class="clear"></div>
@@ -29,18 +28,29 @@
 
 
 				 <div id="footer_contact" class="four columns element"><div class="gutter">
-          <span class="footHead">Media Inquiries</span><br />
-          <span class="serif">Carl Graziano | 202.585.0102</span>
-          <br /><br />
-          <span class="footHead">Association Membership</span><br />
-          <span class="serif">Kristine Metter | 202.585.0573</span>
-          <br /><br />
-          <span class="footHead">Meetings and Conferences</span><br />
-          <span class="serif">Nneka St. Gerard | 202.585.0131</span>
-          <br /><br />
-          <span class="footHead">Website Admin and<br />
-          Sign in Questions</span><br />
-          <span class="serif">Maeceon Lewis | 202.585.0559</span>
+				 	<div class="contact-section">
+			          <span class="footHead">Media Inquiries</span><br />
+			          <span class="serif">Carl Graziano | 202.585.0102</span>
+			          <br /><br />
+				 	</div>
+				 	<div class="contact-section">
+
+			          <span class="footHead">Association Membership</span><br />
+			          <span class="serif">Kristine Metter | 202.585.0573</span>
+			          <br /><br />
+				 	</div>
+				 	<div class="contact-section">
+
+			          <span class="footHead">Meetings and Conferences</span><br />
+			          <span class="serif">Nneka St. Gerard | 202.585.0131</span>
+			          <br /><br />
+				 	</div>
+				 	<div class="contact-section">
+
+			          <span class="footHead">Website Admin and<br />
+			          Sign in Questions</span><br />
+			          <span class="serif">Maeceon Lewis | 202.585.0559</span>
+				 	</div>
 
 				 </div></div>
 
@@ -103,20 +113,24 @@
 
 				</div></div>
 
-        <div id="footer_logo">
-          <a href="<?php echo site_url(); ?>"><img src="<?php bloginfo('template_directory'); ?>/images/footer_logo.png" /></a>
-        </div>
+        <div id="footer-brandSocial">
+	        <div id="footer_logo">
+	          <a href="<?php echo site_url(); ?>"><img src="<?php bloginfo('template_directory'); ?>/images/footer_logo.png" /></a>
+	        </div>
 
 
-        <div id="social">
-          <a id="icon_linkedin" href="#">Linked In</a>
-          <a id="icon_facebook" href="#">Facebook</a>
-          <a id="icon_twitter" href="#">Twitter</a>
-          <a id="icon_share" href="#">Share This</a>
-          <a id="icon_email" href="#">Email</a>
-        </div>
-
-
+	        <div id="social">
+	          <div class="addthis_toolbox addthis_32x32_style" style="">
+	          	<a class="addthis_button_linkedin"></a>
+				<a class="addthis_button_facebook"></a>
+				<a class="addthis_button_twitter"></a>
+				<a class="addthis_button_email"></a>
+				<a class="addthis_button_compact"></a>
+			  </div>
+				<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+				<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=naphsyscom"></script>
+	        </div>
+		</div>
 
         <div class="clear"></div>
 
@@ -130,12 +144,16 @@
 
 	<?php wp_footer(); ?>
 
-	<script src="<?php bloginfo('template_url' );?>/js/jquery-ui-1.8.23.js" type="text/javascript"></script>
-	<script src="<?php bloginfo('template_url' );?>/js/jquery.mousewheel.min.js"></script>
-	<script src="<?php bloginfo('template_url' );?>/js/smoothdivscroll.js"></script>
+	<script src="<?php bloginfo('template_url'); ?>/js/jquery-ui-1.8.23.js" type="text/javascript"></script>
+	<script src="<?php bloginfo('template_url'); ?>/js/jquery.mousewheel.min.js"></script>
+	<script src="<?php bloginfo('template_url'); ?>/js/smoothdivscroll.js"></script>
 
-	<script src="<?php bloginfo('template_url' );?>/js/scripts-josh.js"></script>
-
+	<script src="<?php bloginfo('template_url'); ?>/js/scripts-josh.js"></script>
+	​<script type="text/javascript">
+		var addthis_config = addthis_config||{};
+		addthis_config.data_track_addressbar = false;
+		addthis_config.data_track_clickback = false;
+	</script>
 
 </body>
 </html>

@@ -11,7 +11,8 @@
         <span class="orange">
           <em>Essential People</em><br />
           <em>Essential Communities</em> <br />
-          <span class="bold">Essential Hospitals</span> <br />
+          <span class="bold">Essential Hospitals</span>
+          <span class="secondary"><a href="<?php bloginfo('url') ?>/branded-content-faces">These are the faces<br>and stories behind<br>our essential hospitals<br>across the country </a></span>
         </span>
         
         <br />

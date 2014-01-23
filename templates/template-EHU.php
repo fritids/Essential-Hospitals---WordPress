@@ -2,7 +2,7 @@
 /* Template Name: VirtualEd */
 get_header();
 while ( have_posts() ) : the_post();
-$speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
+$speakerIMG = wp_get_attachment_url( get_post_thumbnail_id(472) ); ?>
 <div id="featured-img" class="education short ehu" style="background-image:url(<?php echo $speakerIMG; ?>);">
 	<div class="container">
 		<div id="featured-intro">
@@ -16,14 +16,38 @@ $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
 	<div class="gutter">
 		<div class="container">
 			<?php
-				if(has_nav_menu('education-nav')){
+				if(has_nav_menu('primary-menu')){
 					$defaults = array(
-						'theme_location'  => 'education-nav',
-						'menu'            => 'education-nav',
+						'theme_location'  => 'primary-menu',
+						'menu'            => 'primary-menu',
 						'container'       => 'div',
 						'container_class' => '',
 						'container_id'    => 'pageNav',
-						'menu_class'      => 'institute',
+						'menu_class'      => 'quality',
+						'menu_id'         => '',
+						'echo'            => true,
+						'fallback_cb'     => 'wp_page_menu',
+						'before'          => '',
+						'after'           => '',
+						'link_before'     => '',
+						'link_after'      => '',
+						'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+						'depth'           => 2,
+						'walker'          => ''
+					); wp_nav_menu( $defaults );
+				}
+			?>
+			<div id="breadcrumbs">
+				<ul>
+					<li><a href="<?php echo home_url(); ?>">Home</a>
+						<?php
+						$defaults = array(
+						'theme_location'  => 'primary-menu',
+						'menu'            => 'primary-menu',
+						'container'       => '',
+						'container_class' => '',
+						'container_id'    => '',
+						'menu_class'      => 'menu',
 						'menu_id'         => '',
 						'echo'            => true,
 						'fallback_cb'     => 'wp_page_menu',
@@ -34,40 +58,7 @@ $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
 						'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
 						'depth'           => 0,
 						'walker'          => ''
-					);
-					wp_nav_menu( $defaults );
-				}
-			?>
-			<div id="breadcrumbs">
-				<ul>
-					<li><a href="<?php echo site_url(); ?>">Home</a>
-						<ul>
-							<li><a href="<?php get_permalink(472); ?>">Training</a>
-								<?php
-									if(has_nav_menu('education-nav')){
-										$defaults = array(
-											'theme_location'  => 'education-nav',
-											'menu'            => 'education-nav',
-											'container'       => '',
-											'container_class' => '',
-											'container_id'    => '',
-											'menu_class'      => 'institute-breadcrumbs',
-											'menu_id'         => '',
-											'echo'            => true,
-											'fallback_cb'     => 'wp_page_menu',
-											'before'          => '',
-											'after'           => '',
-											'link_before'     => '',
-											'link_after'      => '',
-											'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-											'depth'           => 0,
-											'walker'          => ''
-										);
-										wp_nav_menu( $defaults );
-									}
-								?>
-							</li>
-						</ul>
+					); wp_nav_menu( $defaults ); ?>
 					</li>
 				</ul>
 			</div>
@@ -165,12 +156,13 @@ $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
 							</div>
 							<?php } ?>
 
-							<div class="panel contact">
-								<div class="gutter">
-									<h2>Contact<br>Essential Hospitals U</h2>
-									<a href="#">for more information &raquo;</a>
-								</div>
+							<div class="panel ask">
+							<div class="gutter clearfix">
+								<h2>Ask a Question</h2>
+								<p>Contact our team for more information or with suggestions about our education and training opportunities.</p>
+								<?php echo do_shortcode('[formidable id=6]'); ?>
 							</div>
+						</div>
 						</div>
 
 						<div class="stamp">
@@ -178,11 +170,23 @@ $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
 								<div class="item-icon bluee">Upcoming Webinars
 								<img src="<?php bloginfo('template_directory'); ?>/images/icon-education.png" />
 								<img src="<?php bloginfo('template_directory'); ?>/images/icon-institute.png" /></div>
-								<?php $args = array(
-										'post_type'       => 'webinar',
+								<?php
+									$today = mktime(0, 0, 0, date('n'), date('j'));
+									$args = array(
+										'post_type' => array('webinar'),
 										'posts_per_page'  => 3,
-										'post_status'     => 'future'
-										);
+										'post_status' => 'all',
+										'orderby' => 'meta_value',
+										'meta_key' => 'webinar_date',
+										'order' => 'asc',
+										'meta_query'  => array(
+											array(
+												'key' => 'webinar_date',
+												'value' => $today,
+												'compare' => '>='
+											)
+										)
+									);
 								$query = new WP_Query($args);
 								if ( $query->have_posts() ) { while ( $query->have_posts() ) { $query->the_post();
 								$postType = get_the_terms($post, 'webinartopics');
@@ -271,7 +275,7 @@ $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
 						</div>
 						<?php endwhile; ?>
 
-						<div class="panel post short">
+						<div class="panel post short archweb">
 							<div class="graybarright"></div>
 							<div class="item-bar"></div>
 							<div class="item-icon redd">Archived Webinars
@@ -361,7 +365,7 @@ $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
 					    				<span class="item-date"><?php the_time('M j, Y'); ?> ||</span>
 					    				<span class="item-author"><?php the_author(); ?></span>
 					    			</div>
-					    			<p><?php $exc = get_the_excerpt(); echo substr($exc, 0, 100); ?><a class="more" href="<?php the_permalink(); ?>"> read more » </a>
+					    			<p><?php $exc = get_the_excerpt(); echo substr($exc, 0, 100); ?><a class="more" href="<?php the_permalink(); ?>"> view more » </a>
 					    			</p>
 					    			<div class="item-tags">
 					    				<?php the_tags(' ',' ',' '); ?>
