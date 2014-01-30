@@ -1,9 +1,20 @@
 <?php get_header();
 	if ( have_posts() ) { while ( have_posts() ) { the_post();  ?>
-<div id="membernetwork">
-	<div class="container">
-		<h1 class="title"><span class="grey">Essential Hospitals</span> Webinars | <?php the_title(); ?></h1>
 
+	<?php $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id(472) ); ?>
+<div id="membernetwork" class="mnbanner">
+
+	<div id="featured-img" class="page-single education" style="background-image:url(<?php echo $speakerIMG; ?>); ">
+		<div class="container">
+			<div id="featured-intro">
+				<!--<h3><?php if($bannerTitle != '') echo $bannerTitle; else{ the_title(); }?></h3>-->
+				<h3><span class="grey">EDUCATION</span> <br/> <?php the_title(); ?></h3>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="container">
 		<?php
 			$memberArray = array();
 			$currentUser = get_current_user_id();
@@ -18,9 +29,6 @@
 				}else{
 					$checker = false;
 				}
-					?>
-
-		<?php
 			if(has_nav_menu('primary-menu')){
 				$defaults = array(
 					'theme_location'  => 'primary-menu',
@@ -80,8 +88,9 @@
 								$today = mktime(0, 0, 0, date('n'), date('j'));
 								$webDate = get_post_meta($post->ID,'webinar_date',true);
 
-								if(is_user_logged_in() && $checker == true || $today > $webDate){
+								if(is_user_logged_in() && $checker == true && $today < $webDate){
 									the_content();
+									echo '<span class="education reserve button single-webinar"><a href="'.get_field('registration_link').'">Reserve Your Spot</a></span>';
 								}else{
 									echo "<p>";
 									the_field('teaser');
@@ -100,7 +109,7 @@
 						<h2 class="heading">Webinar Attendees</h2>
 						<?php get_template_part('membernetwork/content','groupmembers'); ?>
 					</div>
-					<?php if(is_user_logged_in() && $checker == true){
+					<?php if(is_user_logged_in() && $checker == true || $today > $webDate){
 					if(get_field('middle_column')){ while(has_sub_field('middle_column')){ ?>
 						<div class="panel colrepeat">
 							<h2 class="heading"><?php the_sub_field('title'); ?></h2>
@@ -195,6 +204,25 @@
 								</div>
 							</div>
 						</div>
+
+
+
+
+					<?php if($today > $webDate){ ?>
+						<?php if(get_field('right_column')){ while(has_sub_field('right_column')){ ?>
+							<div class="panel colrepeat">
+								<h2 class="heading"><?php the_sub_field('title'); ?></h2>
+								<div class="gutter">
+									<?php the_sub_field('content'); ?>
+								</div>
+							</div>
+						<?php } ?>
+					<?php } } ?>
+
+
+
+
+
 					<?php }else{ ?>
 						<div class="panel signin">
 							<div class="gutter">
@@ -218,6 +246,24 @@
 						        wp_login_form($args); ?>
 							</div>
 						</div>
+
+
+
+
+						<?php if($today > $webDate){ ?>
+						<?php if(get_field('right_column')){ while(has_sub_field('right_column')){ ?>
+							<div class="panel colrepeat">
+								<h2 class="heading"><?php the_sub_field('title'); ?></h2>
+								<div class="gutter">
+									<?php the_sub_field('content'); ?>
+								</div>
+							</div>
+						<?php } ?>
+					<?php } } ?>
+
+
+
+
 					<?php } ?>
 				</div>
 			</div>

@@ -18,16 +18,22 @@
 	if($ajaxFilter == ''){
 		$ajaxFilter = $webinars;
 	}
+	if(!isset($ajaxFilter)){
+		$ajaxFilter = $webinars;
+	}
 
 	if($timeFilter == 'future'){
 		 $sortCompare = '>=';
 		 $sortOrder = 'asc';
+		 $timeEx = 'upcoming webinars';
 	 }elseif($timeFilter == 'publish'){
 		 $sortCompare = '<=';
 		 $sortOrder = 'desc';
+		 $timeEx = 'recorded webinars';
 	 }else{
 		 $sortCompare = '!=';
 		 $sortOrder = 'desc';
+		 $timeEx = 'webinars';
 	 }
 	 $today = mktime(0, 0, 0, date('n'), date('j'));
 
@@ -39,8 +45,6 @@
 
 	$args = array(
 		'post_type' => 'webinar',
-		'orderby' => 'meta_value',
-		'webinartopics' => $ajaxFilter,
 		'order' => $sortOrder,
 		'post_status' => 'all',
 		'meta_query'  => array(
@@ -49,8 +53,18 @@
 				'value' => $today,
 				'compare' => $sortCompare
 			)
-		)
+		),
+		'tax_query' => array(
+			array(
+				'taxonomy' => 'webinartopics',
+				'field' => 'slug',
+				'terms' => $ajaxFilter
+			)
+		),
+		'orderby' => 'meta_value',
+		'meta_key' => 'webinar_date',
 	);
+	//print_r($args);
 	query_posts( $args ); if(have_posts()){ while ( have_posts() ) { the_post();
 		$postTitle = get_the_title();
 		$postExcerpt = get_the_excerpt();
@@ -95,7 +109,7 @@
 		$teaser = get_field('teaser');
 
 
-	    $output .= '<div class="close post long columns '. $postColor .' '. $postType .' ">
+	    $output .= '<div class="post long columns tall '. $postColor .' '. $postType .' ">
 	    		<div class="graybarright"></div>
 	  			<div class="item-bar"></div>
     			<div class="item-icon"><img src="'. $templateDIR .'/images/icon-'. $postType .'.png" /></div>
@@ -110,10 +124,12 @@
 	    $output .= '<a href="'.$postLink.'">'. $postTitle .'</a></h2>
 	    				<span class="item-date">'. date('M j, Y', get_field('webinar_date')) .' || '.date('g:i A T',get_field('webinar_date')).'</span>
 	    			</div>
-	    			'. substr($teaser,0,140) .'
+	    			'. get_the_excerpt() .'
 	    			<a class="more" href="'. $postLink .'"> view more &raquo; </a>';
 	    if ( get_post_meta($post->ID, 'webinar_date', true) > $today ) {
 			$output .= '<span class="reserve button '.$postType.'"><a href='.get_field('registration_link').'>Reserve Your Spot</a></span>';
+		}else{
+			$output .= '<span class="reserve button '.$postType.'"><a href='.$postLink.'>Reserve Your Spot</a></span>';
 		}
 
 	    $output .=  '<div class="item-tags">';
@@ -139,9 +155,9 @@
 					<div class='item-bar'></div>
 					<div class='item-content'>
 						<div class='item-header'>
-							<h2>No Entries Found</h2>
+							<h2>No Webinars Found</h2>
 						</div>
-						<p>Sorry, there were no entries found under $ajaxFilter. Try another filter!</p>
+						<p>Sorry, there were no $timeEx found under $ajaxFilter. Try another filter!</p>
 					</div>
 					<div class='bot-border'></div>
 				   </div>";

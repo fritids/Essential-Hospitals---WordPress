@@ -20,8 +20,8 @@
 	$usermeta  = get_user_meta($userID, $metakey, TRUE);
 
 ?>
-	<h2 class='heading'>My Custom News Feed</h1>
-		<span class="termgroup">Current News Subscriptions</span>
+	<h2 class='heading'>Customize your content feed</h1>
+		<span class="termgroup">Interest areas:</span>
 		<div id="curr-news">
 		<?php
 		// no default values. using these as examples
@@ -59,7 +59,7 @@
 			</div>
 		<?php } }
 		}else{
-			echo "You haven't subscribed to any news topics";
+			echo "Select topics of interest to create a feed.";
 		} echo "</div><div id='change-news'>";
 		if ($_SERVER['REQUEST_METHOD'] == "POST"){
 			// no default values. using these as examples
@@ -110,7 +110,7 @@
 		<p>Customize your news feed by selecting categories you would like to receive articles on</p>
 
 		<?php if($usermeta){
-			echo '<button id="showmore">Add More News</button>';
+			echo '<button id="showmore">Edit Preferences</button>';
 		} ?>
 
 		<form id="addNews" method="post" name="customnews" <?php if($usermeta){ echo 'data-filter="meta"';} ?>>

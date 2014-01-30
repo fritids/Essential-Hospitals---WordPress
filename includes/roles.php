@@ -16,6 +16,7 @@
 		'delete_published_posts'   => true,
 		'edit_posts'			   => true,
 		'edit_published_posts'	   => true,
+		'edit_others_posts'		   => true,
 		'read'					   => true,
 		'upload_files'			   => true,
 		'moderate_comments'		   => true,

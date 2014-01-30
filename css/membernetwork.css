@@ -44,9 +44,10 @@
 .colrepeat .gutter{padding:0 10px !important;}
 .groupcol .panel{margin:0 0 15px 0;}
 #membernetwork{border-top:8px solid #2e2e2e;padding:56px 0 0 0;margin:-12px 0 0 0;float:left;width:100%;position:relative;z-index:2;}
+#membernetwork.mnbanner{border-top:0px;padding:0px 0 0 0; margin:0px 0 0 0;}
 	#membernetwork a{color:#f05135;}
 		#membernetwork a:hover{color:#5A5A5A; opacity: 0.7}
-	#membernetwork h1.title{margin:0 0 34px 0;color:#000;text-transform: none;}
+	#membernetwork h1.title{margin:0 0 34px 0;color:#000;text-transform: uppercase;}
 	#membernetwork h1.title .grey{color:#565656;}
 	#memberdash h2.heading,#membernetwork h2.heading{font-size:22px;font-weight:normal;color:#e7e7e7;background:#2e2e2e;text-transform: none;padding:2px 7px;margin:0 0 16px 0;display:block;clear:both;}
 
@@ -268,7 +269,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', e
 
 		.bump{padding-left:10px;text-transform: uppercase;}
 		#discussiontags{}
-			#discussiontags li{padding-left:40px;}
+			#discussiontags li{padding-left:40px;margin: 5px 0;line-height: 14px;}
 			#discussiontags li a{}
 
 	#wrapDisc{}
@@ -383,6 +384,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', e
 			.friendedmeicon:hover .deny-button,.friendedmeicon:hover .approveme{display:block;}
 				.deny-button:hover,.approveme:hover{opacity: .7;cursor: pointer;}
 	.member-meta .hospMem{left: 102px;right: auto;top: 4px;}
+	.my-connection, .requestedConnection, pendingConnection{float:left;width:100%;}
 
 /* ----- Guest Blogger ----- */
 .hideme{display:none;}
@@ -397,13 +399,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', e
 
 
 /* ----- Additional ----- */
-#memReg #wpmem_login, input[name="aeh_visibility"], label[for="aeh_visibility"], input.buttons[name="reset"]{display:none;}
+#memReg #wpmem_login, /*input[name="aeh_visibility"], label[for="aeh_visibility"],*/ input.buttons[name="reset"]{display:none;}
 
 body.search{left:0;padding:0;margin:0;}
 #siteWrap{position:relative;transition:.3s all;-webkit-transition:.3s all;-moz-transition:.3s all;-ms-transition:.3s all;-o-transition:.3s all;z-index:2;background:#fff;}
 #memNetwork{color: #FFFFFF;line-height: 24px;padding: 0 0 0 10px;text-align: center;}
 
-.post .item-tags a{color:#a2a2a2 !important;margin:0 0px;} 
+.post .item-tags a{color:#a2a2a2 !important;margin:0 0px;}
 .post .graybarright {position: absolute;right: -5px;top: 0;height: 98%;}
 
 #profilecontent, #connectioncontent, #profilecontent {width: 75%;float: left;}
@@ -474,7 +476,7 @@ ul#paginationc{float:left;width:100%;text-align:right;}
 .clisting #filterstaff, #contact-forms #filterstaff{float:right;}
 .clisting #connection-table, #contact-forms #contact-table{float:left;width:100%;}
 	.clisting #connection-table input#profile-search, #contact-forms #contact-table input#profile-search{background: url(../images/search-icon.png) 98% center no-repeat;margin: 15px 0;padding: 4px 2%;width: 96%;}
-	.clisting .job-title, .clisting .last-name, #contact-forms .job-title, #contact-forms .last-name{background: #f05135;border: medium none;color: #FFFFFF;padding: 5px 10px;text-transform: uppercase;border-radius: 3px;margin: 0 auto;display: inline-block;}
+	.clisting .job-title, .clisting .last-name, #contact-forms .job-title, #contact-forms .last-name{background: #f05135;border: medium none;color: #FFFFFF;padding: 5px 10px;text-transform: uppercase;border-radius: 3px;margin: 0 auto;display: inline-block;white-space:nowrap;}
 		.clisting .job-title:hover, .clisting .last-name:hover, #contact-forms .job-title:hover, #contact-forms .last-name:hover{opacity: .7;}
 	.clisting .profilesearch, #contact-forms .profilesearch{width:52%;}
 	.clisting .sortby, #contact-forms .sortby{width:20%;text-align:right;}
@@ -729,3 +731,9 @@ ul#paginationc{float:left;width:100%;text-align:right;}
 div.profile-interests, div.profile-description{float:left;width:100%;margin:4px 0;}
 div.div_textarea #description {line-height: 15px;}
 #membernetwork.public li.members-only{display:none;}
+
+
+
+#mem-redirect{width:100%;float:left;}
+	#mem-redirect #wpmem_login{width:45%;margin:0 auto;}
+	#mem-redirect #wpmem_reg{width:45%;float:right;display:none;}

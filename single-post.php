@@ -1,16 +1,21 @@
-<?php get_header(); ?>
-<div id="featured-img" class="blog" >
+<?php get_header();
+$randnum = rand(0,3);
+  if ($randnum == 0){$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2013/11/Blog_option_test1.jpg";}
+  if ($randnum == 1){$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2014/01/Blog_option_test2.jpg";}
+  if ($randnum == 2){$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2014/01/Blog_option_test3.jpg";}
+  if ($randnum == 3){$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2014/01/Blog_option_test4.jpg";} ?>
+<div id="featured-img" class="blog">
 	<div class="container">
 		<div id="featured-intro">
 			<h3>Essential Insights</h3>
-			<h4>This will be subtext that overview this section of the site and gives the user more insight on what they can find here. You can use the word blog here to better define this section.</h4>
+			<h4><?php echo get_field('bannerTitle',562); ?></h4>
 		</div>
 	</div>
 </div>
 
 <?php if ( have_posts() ) { while ( have_posts() ) { the_post();
 	$authorID = get_the_author_id(); ?>
-<div id="content" class="page-single blog">
+<div id="content" class="page-single blog" style="background-image:url(<?php if($speakerIMG){echo $speakerIMG;} ?>);">
 	<div class="container">
 		<div id="contentColumnWrap">
 			<div id="contentPrimary" class="heightcol">

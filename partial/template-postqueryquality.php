@@ -50,7 +50,6 @@
 			$postColor = 'grayy';
 		}else if($postType == 'institute'){
 			$postColor = 'bluee';
-			$postType = 'instafade';
 		}else{
 			$postColor = 'bluee';
 		}
@@ -59,25 +58,29 @@
 			$termLink = get_term_link($terms[0], 'series');
 		}
 
-	    $output .= '<div class="close post long columns '. $postColor .' '. $postType .' ">
+	     $output .= '<div class="close post long columns '. $postColor .' '. $postType .' ">
 	    		<div class="graybarright"></div>
 	  			<div class="item-bar"></div>
-	  			<div class="n-arr '.$postType.'"></div>';
-    	if($postType == 'webinar'){
-			$output .=	'<div class="item-icon">Webinar<img src="'. $templateDIR .'/images/icon-education.png" /></div>';
-    	}else{
-	    	$output .=	'<div class="item-icon"><a href="'.$termLink.'">'.$terms[0]->name.'</a><img src="'. $templateDIR .'/images/icon-'. $postType .'.png" /></div>';
-    	}
-
-    	$output .=	'<div class="item-content">
+    			<div class="item-icon"><a href="'.$termLink.'">'.$terms[0]->name.'</a><img src="'. $templateDIR .'/images/icon-'. $postType .'.png" /></div>
+    			<div class="item-content">
 	    			<div class="item-header">
-	    				<h2><a href="'. $postLink .'">'. $postTitle .'</a></h2>
+	    				<h2><a href="';
+	    if(get_field('link_to_media')){
+			$output .= get_field('uploaded_file');
+	    }else{
+		    $output .= $postLink;
+	    }
+	    $output .= '">'. $postTitle .'</a></h2>
 	    				<span class="item-date">'. $postTime .' ||</span>
 	    				<span class="item-author">'. $postAuthor .'</span>
-	    			</div>
-	    			<p>'. $postExcerpt .'
-	    			</p><a class="more" href="'. $postLink .'"> view more » </a>
-	    			<div class="item-tags">';
+	    			</div>';
+	    if(get_field('link_to_media')){
+	    	$output .= "<a href='". get_field('uploaded_file')."'><img src='".get_bloginfo('template_directory')."/images/".$postType."-doc.png' /></a>";
+	    }else{
+		 	$output .= '<p>'. $postExcerpt .'
+	    			</p><a class="more" href="'. $postLink .'"> view more » </a>';
+	    }
+	    $output .= '<div class="item-tags">';
 		if($postTags){
 		    $cnt = 0;
 		    foreach($postTags as $tag){

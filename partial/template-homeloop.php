@@ -56,7 +56,7 @@
 
       	</div>
 	<div id="fader" class="clearfix scrollable">
-	<div id="loader-gif"> Loading more posts</div>
+	<div id="loader-gif"> Loading more articles</div>
 			<div class="items">
 			<?php get_template_part( 'partial/loop', 'announcement' ); ?>
 

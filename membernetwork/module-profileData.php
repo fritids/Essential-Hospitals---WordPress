@@ -17,7 +17,15 @@ if($aeh_staff == 'Y'){
                                 </ul>
                             </div>
                             <div id="profile-right">
-                                <h2 id="profile-name"><?php echo "$firstname $lastname"; ?></h2><span class="profile-position"><?php echo $jobtitle; ?></span> <span class="profile-employer"><?php echo $employer; ?></span> <?php if ($twitter) { ?> <span class="profile-twitter"><span class="pre">twitter</span><a href="http://www.twitter.com/&lt;?php echo $twitter; ?&gt;">twitter</a></span> <?php } ?> <?php if ($facebook) { ?> <span class="profile-facebook"><span class="pre">facebook</span><a href="http://www.&lt;?php echo $facebook; ?&gt;">facebook</a></span> <?php } ?> <?php if ($linkedin) { ?> <span class="profile-linkedin"><span class="pre">linkedin</span><a href="http://www.&lt;?php echo $linkedin; ?&gt;">linkedin</a></span> <?php } ?>
+                                <h2 id="profile-name"><?php echo "$firstname $lastname"; ?></h2>
+                                <span class="profile-position"><?php echo $jobtitle; ?></span>
+                                <span class="profile-employer"><?php echo $employer; ?></span>
+                                <?php if ($twitter) { ?>
+                                	<span class="profile-twitter"><span class="pre">twitter</span><a href="http://www.twitter.com/<?php echo $twitter; ?>">twitter</a></span>
+                                <?php } ?>
+                                <?php if ($facebook) { ?>
+                                	<span class="profile-facebook"><span class="pre">facebook</span><a href="http:<?php echo $facebook; ?>">facebook</a></span> <?php } ?> <?php if ($linkedin) { ?> <span class="profile-linkedin"><span class="pre">linkedin</span><a href="http://<?php echo $linkedin; ?>">linkedin</a></span>
+                                	<?php } ?>
                                 <div class="profile-interests">
                                     <?php if($newsinterest){ ?><span class="pre">Interested in:</span> <?php foreach($newsinterest as $news){
 		$result = $wpdb->get_row("SELECT `name` FROM `wp_terms` WHERE `slug` = '$news'");

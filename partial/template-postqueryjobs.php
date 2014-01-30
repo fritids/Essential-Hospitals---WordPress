@@ -8,7 +8,9 @@
 
 	//Determine if filter is being reset
 	if($ajaxFilter == 'all'){
-		$ajaxFilter = '';
+		$ajaxFilter = array('at-americas-essential-hospitals','at-our-member-hospitals');
+	}else{
+		$term = get_term_by('slug', $ajaxFilter, 'series');
 	}
 
 	//Count our posts and set the $output variable
@@ -16,11 +18,18 @@
 	$output = '';
 
 	$args = array(
-		'posts_per_page' => '-1',
-		'post_type' 	 => 'general',
-		'series'		 => $ajaxFilter,
+		'posts_per_page' => -1,
+		'post_type'		 => 'general',
+		'tax_query'		 => array(
+			array(
+				'taxonomy' => 'series',
+				'field' => 'slug',
+				'terms' => $ajaxFilter
+			)
+		)
 	);
-	query_posts( $args ); if(have_posts()){ while ( have_posts() ) { the_post();
+
+	$query = new WP_Query($args); if($query->have_posts()){ while ( $query->have_posts() ) { $query->the_post();
 		$postTitle = get_the_title();
 		$postExcerpt = get_the_excerpt();
 
@@ -49,7 +58,7 @@
 		}else if($postType == 'institute'){
 			$postColor = 'bluee';
 		}else{
-			$postColor = 'bluee';
+			$postColor = 'redd';
 		}
 		$terms = wp_get_post_terms(get_the_ID(), 'series');
 		if($terms){
@@ -93,7 +102,9 @@
 						<div class='item-header'>
 							<h2>No Entries Found</h2>
 						</div>
-						<p>Sorry, there were no entries found under $ajaxFilter. Try another filter!</p>
+						<p>Sorry, there were no entries found under ";
+		$output .= $term->name;
+		$output .= ". Try another filter!</p>
 					</div>
 					<div class='bot-border'></div>
 				   </div>";

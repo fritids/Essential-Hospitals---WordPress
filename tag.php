@@ -5,7 +5,7 @@
 	  $rand = rand(1,8);
       $speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2013/11/AEH_generalbanner" .$rand . "_222.jpg"; ?>
 
-<div id="featured-img-small" class="archive tag" style="background-image:url(<?php echo $speakerIMG; ?>);">
+<div id="featured-img" class="archive tag" style="background-image:url(<?php echo $speakerIMG; ?>);">
 	<div class="container">
 		<div id="featured-intro">
 			<h3 class="tag"><?php single_tag_title(); ?></h3>

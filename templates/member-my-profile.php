@@ -5,9 +5,7 @@ Template Name: Member Network - My Profile
 // this page displays your own profile information and allows you to edit it
 include ("includes/aeh_config.php");
 include ("includes/aeh-functions.php");
-if (!is_user_logged_in()){
-	header('Location: '.site_url().'/membernetwork/member-login/');
-}
+
 global $wpdb;
 $currentUser = get_current_user_id();
 $user_info = get_userdata($currentUser);
@@ -36,20 +34,25 @@ $newsinterest = get_user_meta($userID, 'custom_news_feed', true); ?>
         <div class="container">
             <h1 class="title"><span class="grey">Essential Hospitals</span> Member Network | My Profile</h1>
             <?php get_template_part('membernetwork/content','usernav'); $output = "";?>
-            <div class="group-details groupcol clearfix">
-                <?php include(locate_template('/membernetwork/module-profileData.php'));
-                echo $aeh_member; ?>
+            <div <?php if(!is_user_logged_in()){echo "id='mem-redirect'";} ?> class="groupcol clearfix <?php if(!is_user_logged_in()){echo "floatleft fullwidth";}else{echo "group-details";}?>">
+                <?php if(is_user_logged_in()){
+                	include(locate_template('/membernetwork/module-profileData.php'));
+                }else{
+	                the_content();
+                } ?>
             </div>
 
-            <?php if($aeh_member == 'hospital'){
+            <?php if(is_user_logged_in()){
+	            if($aeh_member == 'hospital'){
             	echo '<div class="group-members groupcol">';
             	include(locate_template('/membernetwork/module-profileContacts.php'));
-            	echo '</div>'; } ?>
+            	echo '</div>'; } } ?>
 
+			<?php if(is_user_logged_in()){ ?>
             <div class="group-resources groupcol">
                 <?php include(locate_template('/membernetwork/module-profileDiscussions.php')); ?>
                 <?php if($aeh_member == 'hospital'){
-                	include(locate_template('/membernetwork/module-profileGroups.php')); } ?>
+                	include(locate_template('/membernetwork/module-profileGroups.php')); } } ?>
             </div>
         </div>
 <?php get_footer('sans'); ?>

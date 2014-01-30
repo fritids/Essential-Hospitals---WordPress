@@ -39,7 +39,7 @@ jQuery(document).ready(function($){
 		        	$('#infinitescroll').remove();
 		            $('#contactRender').html(msg).fadeIn(200);
 		            $('#loader-gif').removeClass('active');
-		            $('#queryholder').attr('data-search',$search).attr('data-offset',$offset).attr('data-sortby',$sortby).attr('data-page','0');
+		            $('#queryholder').attr('data-search',$search).attr('data-offset',$offset).attr('data-sortby',$sortby).attr('data-page','0').attr('data-action','sortby');
 		        }
 		    });
 		});
@@ -86,7 +86,7 @@ jQuery(document).ready(function($){
 			        	$('#infinitescroll').remove();
 			            $('#contactRender').html(msg).fadeIn(200);
 			            $('#loader-gif').removeClass('active');
-			            $('#queryholder').attr('data-search',$search).attr('data-offset',$offset).attr('data-sortby','').attr('data-page','0');
+			            $('#queryholder').attr('data-search',$search).attr('data-offset',$offset).attr('data-sortby','').attr('data-page','0').attr('data-action','search');
 			        }
 			    });
 		    }
@@ -103,20 +103,23 @@ jQuery(document).ready(function($){
 		    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
 		}
 		function infinitescroll(){
-			scrollcheck = isScrolledIntoView('#infinitescroll');
+			if($('#infinitescroll').length > 0){
+				scrollcheck = isScrolledIntoView('#infinitescroll');
+			}
 			if(scrollcheck){
 				//Unbind the scroll event
 				$(window).unbind('scroll');
 				$offset = $('#queryholder').attr('data-offset');
 				$search = $('#queryholder').attr('data-search');
 				$sortby = $('#queryholder').attr('data-sortby');
+				$action = $('#queryholder').attr('data-action');
 				$page = $('#queryholder').attr('data-page');
 					$page = parseInt($page);
 					$page++;
 				$.ajax({
 			        type: 'POST',
 			        url: '/wp-content/themes/EssentialHospitals/membernetwork/contactquery.php',
-			        data: {coffset : $offset, cpage : $page, csort : $sortby, caction : 'paginate'},
+			        data: {coffset : $offset, cpage : $page, csort : $sortby, caction : $action},
 			        success: function(msg) {
 			        	console.log(msg);
 			            $(msg).insertBefore('#contactRender #infinitescroll');
@@ -136,8 +139,9 @@ jQuery(document).ready(function($){
 		//Reset Filters
 		$('.styled-reset #reset-btn').click(function(){
 			$sortby = '';
-			$offset = '';
+			$offset = 20;
 			$search = '';
+			$page = 0;
 			$('#contactRender').fadeOut(200,function(){
 				$(this).empty();
 			});
@@ -150,7 +154,7 @@ jQuery(document).ready(function($){
 		        	$('#infinitescroll').remove();
 		            $('#contactRender').html(msg).fadeIn(200);
 		            $('#loader-gif').removeClass('active');
-		            $('#queryholder').attr('data-search',$search).attr('data-offset',$offset).attr('data-sortby',$sortby).attr('data-page',0);
+		            $('#queryholder').attr('data-search',$search).attr('data-offset',$offset).attr('data-sortby',$sortby).attr('data-page',$page);
 		        }
 		    });
 		});
@@ -158,7 +162,8 @@ jQuery(document).ready(function($){
 
 
 	//----- Add Contact
-	$('#contactRender .contact-add').click(function(){
+	$(document).on('click','#contactRender .contact-add',function(){
+		$elem = $(this);
 		$uid = $(this).attr('data-uid');
 		$curid = $(this).attr('data-curid');
 		$.ajax({
@@ -166,13 +171,14 @@ jQuery(document).ready(function($){
 	        url: '/wp-content/themes/EssentialHospitals/membernetwork/contactprocquery.php',
 	        data: {curid : $curid , uid : $uid , action : 'add'},
 	        success: function(msg) {
-				console.log(msg);
+				$elem.removeClass('add-button').addClass('added-button').text(msg);
+				$('#pending-contacts').empty().load('/wp-content/themes/EssentialHospitals/membernetwork/contactpendingquery.php');
 	        }
 	    });
 	});
 
 	//----- Approve Contact
-	$('.pending-contact .approve').click(function(){
+	$(document).on('click','.pending-contact .approve',function(){
 		$uid = $(this).attr('data-uid');
 		$curid = $(this).attr('data-curid');
 		$.ajax({
@@ -180,7 +186,8 @@ jQuery(document).ready(function($){
 	        url: '/wp-content/themes/EssentialHospitals/membernetwork/contactprocquery.php',
 	        data: {curid : $curid , uid : $uid , action : 'approve'},
 	        success: function(msg) {
-				console.log(msg);
+				$('#request-contacts').empty().load('/wp-content/themes/EssentialHospitals/membernetwork/contactrequestquery.php');
+				$('#MyConnections #my-contacts').empty().load('/wp-content/themes/EssentialHospitals/membernetwork/contactmyquery.php');
 	        }
 	    });
 	});
@@ -189,7 +196,7 @@ jQuery(document).ready(function($){
 
 
 	//----- Deny Contact
-	$('.pending-contact .deny').click(function(){
+	$(document).on('click','.pending-contact .deny',function(){
 		$uid = $(this).attr('data-uid');
 		$curid = $(this).attr('data-curid');
 		$.ajax({
@@ -197,7 +204,8 @@ jQuery(document).ready(function($){
 	        url: '/wp-content/themes/EssentialHospitals/membernetwork/contactprocquery.php',
 	        data: {curid : $curid , uid : $uid , action : 'deny'},
 	        success: function(msg) {
-				console.log(msg);
+				$('#request-contacts').empty().load('/wp-content/themes/EssentialHospitals/membernetwork/contactrequestquery.php');
+				$('#MyConnections #my-contacts').empty().load('/wp-content/themes/EssentialHospitals/membernetwork/contactmyquery.php');
 	        }
 	    });
 	});

@@ -51,7 +51,7 @@
 		}else if($postType == 'institute'){
 			$postColor = 'bluee';
 		}else{
-			$postColor = 'bluee';
+			$postColor = 'redd';
 		}
 $terms = wp_get_post_terms(get_the_ID(), 'series');
 		if($terms){

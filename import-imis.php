@@ -43,24 +43,91 @@ if ($user_ID == 321){ // check for Super Admin ID
 	if ($result['status'] == 'ok'){
 	 
 		// Print headers 
-		echo $result['header']; 
+		echo $result['header']; echo "<br><br>";
 		
 		//$thexml = html_entity_decode($result['content']);				// convert the xml into real characters instead of entities
-		$thexml = $result['content'];
+		$entries = simplexml_load_string($result['content']);
+		echo $result['content'];exit;
+		    $entries->registerXPathNamespace('c', 'urn:schemas-microsoft-com:xml-diffgram-v1');
+    $result = $entries->xpath("//c:diffgr");
+	
+	
+var_dump($entries);exit;
+
+
+if(count($entries)):
+    //echo "<pre>";print_r($entries);die;
+    //alternate way other than registring NameSpace
+    //$asin = $asins->xpath("//*[local-name() = 'ASIN']");
+
+    $entries->registerXPathNamespace('c', 'urn:schemas-microsoft-com:xml-diffgram-v1');
+    $result = $entries->xpath("//c:diffgr");
+	
+	
+print_r($result);exit;
+
+foreach ($result as $title) {
+  echo $title . "\n";
+}
+    //echo count($asin);
+    //echo "<pre>";print_r($result);die;
+    foreach ($result as $entry):
+        //echo "<pre>";print_r($entry);die;
+        $dc = $entry->children('urn:schemas-microsoft-com:xml-msdata');
+        echo $dc->ID."<br/>";
+        echo $dc->FIRST_NAME."<br/>";
+        echo "<hr>";
+    endforeach;
+endif;
+
 		
-		//file_put_contents('testxml.txt', $thexml);
+		EXIT;
+		//$start = strpos($thexml, '<NewDataSet');
+		//$e = '</NewDataSet>';
+		//$end = strpos($thexml, $e) + strlen($e);
+		//$length = $end - $start;
+		//$xml = simplexml_load_string(substr ($thexml, $start, $length));
+		
+		//	  $namespaces = $xml->getNameSpaces(true);
+		//	  $ns = $xml->children($namespaces['diffgr']);
+		
+		if (1){
+			foreach ($thexml->NewDataSet as $entry){
+
+			  $namespaces = $entry->getNameSpaces(true);
+			  //Now we don't have the URL hard-coded
+			  $dc = $entry->children($namespaces['diffgr']); 
+			  echo $dc->ID;echo ", ";
+			  echo $dc->FIRST_NAME;
+			  echo "<br />";
+			}
+		}
+		exit;
 		
 		
-		//print_r($thexml); exit;
+		
+		//$thexml = substr($thexml, strpos($thexml, '<NewDataSet',-25));
+		//file_put_contents('testxml.txt', $thexml);exit;
+		
+		//echo "ZZZZZZZZZZZZZZZZZZZZZZZZ<br>$start, $end, $length"; exit;
+
 		//$thexml = substr($thexml, strpos($thexml, '<Rows>'),-19); 		// reduce the xml to <Rows> as the root element
 
-		$xml    = simplexml_load_string($thexml);						// create an xml object containing all the fields
-	
+		//$xml    = simplexml_load_string($thexml);						// create an xml object containing all the fields
+		//echo $xml->asXML(); exit;
+		
+		//echo $xml->getName() . "<br>";
+
+foreach($xml->NewDataSet as $child)
+  {
+  echo $child->ID . ": " . $child . "<br><br>";
+  }
+   exit;
 		
 		echo "<br />";
 		echo "<br />";
 		echo "<br />";
-echo $xml->(0); exit;
+
 		$n = 1; $i = 0; $err = 0;
 		
 		foreach($xml->newdataset as $user){

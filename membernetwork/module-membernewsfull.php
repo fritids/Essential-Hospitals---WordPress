@@ -1,5 +1,5 @@
 <div id="memberNews" class="clearfix">
-<h2 class="heading">My Top News</h2>
+<h2 class="heading">Headlines selected for you</h2>
 <?php
 	$userID   = get_current_user_id();
 	$usermeta = get_user_meta($userID, 'custom_news_feed', true);
@@ -38,8 +38,8 @@
 		while ( $query->have_posts() ) {
 			$query->the_post();
 			$postType = get_post_type( get_the_ID() );
-				
-				//check post type and apply a color	
+
+				//check post type and apply a color
 				if($postType == 'policy'){
 					$postColor = 'redd';
 				}else if($postType == 'quality'){
@@ -74,11 +74,11 @@
 				<span id="memberNews-next"><?php echo get_previous_posts_link( 'Newer Entries' ); ?></span>
 			</div>
 		</div>
-		<?php }  else { 
+		<?php }  else {
 		wp_reset_postdata();
-			echo "<p>You haven't subscribed to any news. Use the panel to the right to subscribe to topics of interest.</p>";
+			echo "<p>Customize this article feed. In the right panel, select your interest areas.</p>";
 			get_template_part( 'membernetwork/module', 'allnews' );
 			 }
 	 ?>
-	
+
 </div>

@@ -23,24 +23,12 @@ function firstRun(currentUser){
                 intro: "<span style='font-size:30px; line-height:36px;' >Your custom content feed</span><br>You can easily customize your dashboard to show the latest headlines from your interest areas (“Headlines selected for you”). Just below your customized feed, “All Recent” displays the most recent articles published by America’s Essential Hospitals. Content can include critical updates, learning opportunities, feature articles, and more."
               },
               {
-                element: '#run-groups',
-                intro: "<span style='font-size:30px; line-height:36px;' >Your programs and groups</span><br>If you're part of a learning network, collaborative team, or another America’s Essential Hospitals closed group, you can access it from here. You can also request to initiate your own private group. Explore a specific topic, plan an effort, or share resources with only the people you invite."
-              },
-              {
                 element: '#run-disccomm',
                 intro: "<span style='font-size:30px; line-height:36px;' >Community discussions & content comments</span><br>After you’ve contributed to or started a community discussion, you can revisit the conversation right from your dashboard. The most recent message posted to each discussion where you participated show here. Just below, see what people are talking about today on the whole website. The \"recent comments on content\" area contains the latest comments readers have posted on sitewide articles and media."
               },
               {
                 element: '#userProfile',
                 intro: "<span style='font-size:30px; line-height:36px;' >View and edit your profile</span><br>This is a preview of your profile. After this tour, click on the image or the \"edit profile\" button to add or change your photo, edit details, and publish a bio."
-              },
-              {
-                element: '#run-webinars',
-                intro: "<span style='font-size:30px; line-height:36px;' >Your upcoming webinars</span><br>If you’re registered for one or more VirtualEd webinars, reminders and links appear here."
-              },
-              {
-                element: '#run-connect',
-                intro: "<span style='font-size:30px; line-height:36px;' >Private messages</span><br>The heart of the Member Network is in finding professionals like you from all across the U.S. Learn from and support one another, and make crucial connections in your field. Access your Member Network private messages inbox here."
               },
               {
                 element: '#membernetwork',

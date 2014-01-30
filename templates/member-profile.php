@@ -17,6 +17,10 @@ $currentUser = get_current_user_id();
 $user_info = get_userdata($currentUser);
 $user_avatar = get_avatar($currentUser);
 
+if($_GET['member'] == get_current_user_id()){
+	header('Location: '.site_url().'/membernetwork/my-profile/');
+}
+
 $memberID = 0; $member = "No Member Specified";
 if (isset($_GET['member'])){
 	if ($_GET['member']!=""){
@@ -238,7 +242,7 @@ if ($memberID){
 									</div>
 								</div>
 						<?php } } else { ?>
-							<p>You haven't joined any discussions. Get on it, skippy!</p>
+							<p>You haven't joined any discussions.</p>
 					<?php } wp_reset_postdata(); }else{
 						echo "<p>You haven't joined any discussions</p>";
 					} ?>

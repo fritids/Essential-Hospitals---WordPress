@@ -1,12 +1,41 @@
+<?php $queryObject = get_queried_object();
+	$user = get_userdata($queryObject->ID);
+	$authAva = get_avatar($queryObject->ID, 160);
+	$userPosition = get_user_meta($queryObject->ID, 'job_title', true);
+	$userEmployer = get_user_meta($queryObject->ID, 'employer', true);
+?>
 <div id="postBox" class="clearfix">
-
 	<div id="fader" class="clearfix scrollable">
-	<div id="loader-gif"> Loading more articles</div>
+	<div id="loader-gif"> Loading more posts</div>
 			<div class="items">
-			<?php
+			<div class="post long columns redd policy bio">
+				<div id="author-article-info">
+					<div class="gutter">
+						<div class="author-article-ava">
+							<a href="<?php echo get_permalink(276); ?>?member=<?php echo $user->ID; ?>"><?php echo $authAva; ?></a>
+						</div>
+						<div class="author-article-data">
+							<h2 id="profile-name"><?php echo $user->first_name.' '.$user->last_name; ?></h2>
+							<?php if($userPosition){ ?>
+								<span class="profile-position"><?php echo $userPosition; ?></span>
+							<?php } ?>
+							<?php if($userEmployer){ ?>
+								<span class="profile-employer"><?php echo $userEmployer; ?></span>
+							<?php } ?>
+							<span class="proflie-about"><?php echo $user->description; ?></span>
+						</div>
+					</div>
+				</div>
+	    		<div class="bot-border"></div>
+	  		</div>
 
- 
-			if ( have_posts() ) while ( have_posts() ) : the_post();
+			<?php
+				$args = array(
+					'post_type' => array('policy','quality','institute'),
+					'author' => $queryObject->ID
+				);
+				$query = new WP_Query($args);
+			if ( $query->have_posts() ) while ( $query->have_posts() ) : $query->the_post();
 				$postType = get_post_type( get_the_ID() );
 
 				//check post type and apply a color
@@ -19,24 +48,22 @@
 				}else if($postType == 'institute'){
 					$postColor = 'bluee';
 				}else{
-					$postColor = 'redd';
-					$seriesType = "general";
+					$postColor = 'bluee';
 				}
 			?>
-
-			<div class="post long columns <?php echo $postColor; ?>  <?php echo get_post_type( get_the_ID() ); ?> ">
+			<div class="post long columns <?php echo $postColor; ?>  <?php echo $postType; ?> ">
 				<div class="graybarright"></div>
 	  			<div class="item-bar"></div>
     			<div class="item-icon">
-    				<?php if($seriesType != "general"){ ?>
     				<?php $terms = wp_get_post_terms(get_the_ID(), 'series');
     					if($terms){
 	    					$termLink = get_term_link($terms[0], 'series');
 		    				echo "<a href='".$termLink."'>".$terms[0]->name."</a>";
 	    				}
     				?>
-    				<img src="<?php bloginfo('template_directory'); ?>/images/icon-<?php echo $postType; ?>.png" />
-					<?php }?>
+					<?php if($postType != 'post'){ ?>
+	    				<img src="<?php bloginfo('template_directory'); ?>/images/icon-<?php echo $postType; ?>.png" />
+    				<?php } ?>
     			</div>
     			<div class="item-content">
 	    			<div class="item-header">
@@ -67,7 +94,6 @@
 				    						$tagSlug = str_replace('-',' ', $tagSlug);
 				    						if ($cnt != 0) echo ", ";
 					    					echo "<a href='".$tagLink."'>".$tagSlug."</a>";
-					    					if($cnt == 3){break;}
 					    					$cnt++;
 					    				}
 				    				}?>

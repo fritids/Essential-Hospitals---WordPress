@@ -8,7 +8,7 @@ function onsave_moderation($post_id){
 	}
 	//Check post type
 	$postType = get_post_type($post_id);
-	$typeArray = array('policy','quality','institute','post','page');
+	$typeArray = array('policy','quality','institute','post','page','webinar','group');
 	$editorID = $_POST['editor'];
 	$curEditor = get_post_meta($post_id,'curEdit',true);
 	if(in_array($postType, $typeArray) && get_post_status($post_id) != 'publish' && $editorID != $curEditor){
@@ -38,7 +38,7 @@ function next_editor(){
 	$userRole = implode(', ',$current_user->roles);
 	$postType = $post->post_type;
 	$curEdit = get_post_meta($post->ID,'curEdit',true);
-	$typeArray = array('policy','quality','institute','post','page');
+	$typeArray = array('policy','quality','institute','post','page','webinar','group');
 	if(in_array($postType, $typeArray)){
 		$output .= "<div class='misc-pub-section'><label for='editor'>Editor: </label>";
 			$editors = get_users('role=content_creator');

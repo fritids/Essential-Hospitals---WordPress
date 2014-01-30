@@ -21,16 +21,20 @@
 		 $sortCompare = '!=';
 		 $sortOrder = 'desc';
 	 }
+
+	 $uid = get_current_user_id();
+	 $mem = get_user_meta($uid, 'aeh_member_type', true);
 ?>
 <div id="postBox" class="clearfix">
 	<div id="fader" class="clearfix scrollable">
-	<div id="loader-gif"> Loading more posts</div>
+	<div id="loader-gif"> Loading more webinars</div>
 			<div class="items">
 			<?php
 				$today = mktime(0, 0, 0, date('n'), date('j'));
 				$args = array(
 					'post_type' => 'webinar',
 					'orderby' => 'meta_value',
+					'meta_key' => 'webinar_date',
 					'order' => $sortOrder,
 					'post_status' => 'all',
 					'meta_query'  => array(
@@ -85,11 +89,13 @@
 		    			</div>
 
 		    			<?php
-			    			if ( get_post_meta($post->ID, 'webinar_date', true) > $today ) {
-								echo '<span class="reserve button '.$postType.'"><a href="'.get_field('registration_link').'">Reserve Your Spot</a></span>';
-							}else{ ?>
-								<?php $teaser = get_field('teaser'); echo html_cut($teaser,140); ?> - <a class="more" href="<?php the_permalink(); ?>">view more &raquo;</a>
-						<?php } ?>
+			    			if ( get_post_meta($post->ID, 'webinar_date', true) > $today  && $mem == 'hospital') {
+								echo get_the_excerpt().'<span class="reserve button '.$postType.'"><a href="'.get_field('registration_link').'">Reserve Your Spot</a></span>';
+							}elseif(get_post_meta($post->ID, 'webinar_date', true) > $today  && $mem != 'hospital'){
+								echo get_the_excerpt().'<span class="reserve button '.$postType.'"><a href="'.get_permalink().'">Reserve Your Spot</a></span>';
+							}else{
+								echo get_the_excerpt().'<span class="readmore"><a href="'.get_permalink().'">read more &raquo;</a></span>';
+							} ?>
 
 		    			<div class="item-tags">
 		    				<?php $tags = get_the_terms(get_the_ID(),'post_tag');

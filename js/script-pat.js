@@ -80,12 +80,25 @@ $(document).ready(function(){
 		taglayout1[6] = 'short';
 	var taglayoutarray = new Array();
 		taglayoutarray[0] = taglayout1;
+
+	var authorlayout1 = new Array();
+		authorlayout1[0] = 'wide';
+		authorlayout1[1] = 'short';
+		authorlayout1[2] = 'tall';
+		authorlayout1[3] = 'wide';
+		authorlayout1[4] = 'tall';
+		authorlayout1[5] = 'wide';
+		authorlayout1[6] = 'short';
+	var authorlayoutarray = new Array();
+		authorlayoutarray[0] = authorlayout1;
 	//Page filter
 	//Initial Masonry and Slider
 	postDiv = $('#fader .items').children('div.post');
 	if($('body.home').size()){
 		wrapNum = 5;
 	}else if($('body.tag').size() || $('body.tax-series').size() || $('body.page-template-templatestemplate-authorfeed-php').size()){
+		wrapNum = 7;
+	}else if($('body.author.archive').size()){
 		wrapNum = 7;
 	}else{
 		wrapNum = 5;
@@ -99,7 +112,9 @@ $(document).ready(function(){
 	    		var randomItem = layoutarray[Math.floor(Math.random()*layoutarray.length)];
     		}else if($('body.tag').size() || $('body.tax-series').size() || $('body.page-template-templatestemplate-authorfeed-php').size()){
     			var randomItem = taglayoutarray[Math.floor(Math.random()*taglayoutarray.length)];
-    		}else{
+    		}else if($('body.author.archive').size()){
+				var randomItem = authorlayoutarray[Math.floor(Math.random()*authorlayoutarray.length)];
+			}else{
 	    		var randomItem = intlayoutarray[Math.floor(Math.random()*intlayoutarray.length)];
     		}
 		    $(this).children('.post').each(function(i){

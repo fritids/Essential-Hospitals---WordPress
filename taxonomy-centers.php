@@ -5,7 +5,8 @@
 <div id="featured-img" class="institute" style="background-image:url(<?php echo $speakerIMG; ?>);">
 	<div class="container">
 		<div id="featured-intro">
-			<h3><?php single_cat_title(); ?></h3>
+
+			<h3><span>Essential Hospitals Institute </span><br /><?php single_cat_title(); ?></h3>
 		</div>
 	</div>
 </div>
@@ -185,22 +186,16 @@
 							<?php if ( $query->have_posts() ) { while ( $query->have_posts() ) { $query->the_post(); ?>
 								<div class="panel webinar stamp">
 									<div class="item-bar"></div>
-									<div class="item-icon">Upcoming Webinar <img src="<?php bloginfo('template_directory'); ?>/images/icon-institute.png" /></div>
+									<div class="item-icon">Upcoming Webinar <img src="<?php bloginfo('template_directory'); ?>/images/icon-education.png" /></div>
 									<div class="item-content clearfix">
 										<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-										<?php the_excerpt(); ?>
-										<?php
-							    			if ( get_post_status ( $ID ) == 'future' ) {
-												echo '<span class="institute reserve button '.$postType.'"><a>Reserve Your Spot</a></span>';
-											}
-						    			?>
+										<?php the_excerpt();
+											echo '<span class="institute reserve button institute"><a href="'.get_field('registration_link').'">Reserve Your Spot</a></span>'; ?>
 									</div>
 									<div class="bot-border"></div>
 								</div>
 							<?php }  ?>
 						<?php } } wp_reset_query(); ?>
-
-
 
 
 

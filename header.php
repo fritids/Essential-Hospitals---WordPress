@@ -69,7 +69,7 @@
 	<![endif]-->
 
 </head>
-<body <?php body_class();?>>
+<body <?php body_class();?> id="<?php if(is_user_logged_in()){echo 'logged-in';}else{echo 'logged-out';}?>">
 
 <!-- Mobile Menu !-->
 <div id="mobileHeader">
@@ -150,7 +150,7 @@
 
 			 	<div id="searchlogin">
 			 		<div id="search" class="search">
-			 			<img src="<?php bloginfo('template_directory'); ?>/images/search.png" />
+			 			<img src="<?php bloginfo('template_directory'); ?>/images/search<?php if(is_user_logged_in()){echo '-loggedin';} ?>.png" />
 			 			<?php get_template_part( 'membernetwork/module', 'searchform' ); ?>
 			 		</div>
 
@@ -176,12 +176,6 @@
 				<a href="<?php bloginfo( 'url' );?>" title="<?php bloginfo( 'name' );?>"><img src="<?php bloginfo('template_url' );?>/images/logo.png" title="<?php bloginfo( 'name' );?>"></a>
 			</div>
 			<a id="mobile-slide">Menu</a>
-
-
-
-
-
-
 			<div class="twelve columns navigation <?php if(!page_in_menu('primary-menu')){echo 'default-'.get_post_type($postID);} ?>">
 				<?php $walker = new Menu_With_Description;
 				$defaults = array(

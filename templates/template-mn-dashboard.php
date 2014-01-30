@@ -14,12 +14,21 @@
 	$firstrun = get_user_meta($currentUser, 'firstrun', true);
 	$aeh_member = get_user_meta($currentUser,'aeh_member_type',true);
 	if(!$firstrun){
-		echo '<script src="'.get_bloginfo('template_url').'/js/intro.js"></script>';
-		echo '<script src="'.get_bloginfo('template_url').'/js/firstrun.js"></script>';
-		echo '<script>
-			$(window).bind("load", function() {
-			   firstRun('.$currentUser.');
-			});</script>';
+		if($aeh_member == 'hospital'){
+			echo '<script src="'.get_bloginfo('template_url').'/js/intro.js"></script>';
+			echo '<script src="'.get_bloginfo('template_url').'/js/firstrun.js"></script>';
+			echo '<script>
+				$(window).bind("load", function() {
+				   firstRun('.$currentUser.');
+				});</script>';
+		}else{
+			echo '<script src="'.get_bloginfo('template_url').'/js/intro.js"></script>';
+			echo '<script src="'.get_bloginfo('template_url').'/js/firstrunPublic.js"></script>';
+			echo '<script>
+				$(window).bind("load", function() {
+				   firstRun('.$currentUser.');
+				});</script>';
+		}
 	}
 	 ?>
 
@@ -42,8 +51,10 @@
 						include(locate_template('/membernetwork/module-dashGroups.php')); } ?>
 					<?php if($aeh_member == 'hospital'){
 						get_template_part( 'membernetwork/module', 'educationtopics' ); } ?>
-					<?php include(locate_template('/membernetwork/module-dashDiscussion.php')); ?>
-					<?php include(locate_template('/membernetwork/module-dashComments.php')); ?>
+					<div id="run-disccomm">
+						<?php include(locate_template('/membernetwork/module-dashDiscussion.php')); ?>
+						<?php include(locate_template('/membernetwork/module-dashComments.php')); ?>
+					</div>
 				</div>
 
 				<div class="group-resources groupcol">

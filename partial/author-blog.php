@@ -1,51 +1,48 @@
-<?php
-	/* Template Name: Blog */
-get_header(); ?>
+<?php $randnum = rand(0,3);
+  if ($randnum == 0){$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2013/11/Blog_option_test1.jpg";}
+  if ($randnum == 1){$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2014/01/Blog_option_test2.jpg";}
+  if ($randnum == 2){$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2014/01/Blog_option_test3.jpg";}
+  if ($randnum == 3){$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2014/01/Blog_option_test4.jpg";} ?>
+
 <div id="featured-img" class="blog" >
 	<div class="container">
 		<div id="featured-intro">
-		<?php if ( have_posts() ) { while ( have_posts() ) { the_post(); ?>
 			<h3>Essential Insights</h3>
-			<h4><?php the_field('bannerTitle'); ?></h4>
+			<h4><?php echo get_field('bannerTitle',562); ?></h4>
 		</div>
 	</div>
 </div>
-<?php $authorID = get_the_author_id();
-	  $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
-  
-  
-  
-  ?>
 
-
-<div id="content" class="page-single blog" style="background-image:url(<?php if($speakerIMG){echo $speakerIMG; } ?>);">
+<div id="content" class="page-single blog" style="background-image:url(<?php if($speakerIMG){echo $speakerIMG;} ?>);">
 	<div class="container">
 		<div id="contentColumnWrap">
-			<?php } } ?>
-
 			<div id="contentPrimary" class="heightcol">
 				<div class="gutter">
-					<?php
-					$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-					$args = array(
-						'post_type' => 'post',
-						'posts_per_page' => 5,
-						'paged' => $paged
-					);
-					$query = new WP_Query($args);
-					$count = 0;
-					if ( $query->have_posts() ) { while ( $query->have_posts() ) { $query->the_post();
+					<div id="author-archive-info">
+						<div class="gutter">
+							<div id="author-data">
+								<div class="gutter">
+								<?php $author = get_userdata( get_query_var('author') );?>
+									<?php $authorAva = get_avatar($author->ID, 100 );
+										$authorDesc = get_the_author_meta('description',$author->ID); ?>
+									<div id="author-data-img">
+										<?php echo $authorAva; ?>
+									</div>
+								</div>
+							</div>
+							<h2 id="blog-search"> All Posts by: <?php echo $author->display_name;?>
+								<a href="?prof=article">View bio and articles written by <?php echo $author->display_name; ?></a></h2>
+						</div>
+					</div>
+					<?php if ( have_posts() ) { while ( have_posts() ) { the_post();
 						$authorID = get_the_author_id(); ?>
 						<div class="blog-post">
 							<div class="gutter">
 								<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-								<div class="blog-postmeta"><span class="item-date"><?php the_time('M j, Y'); ?> || </span>
-								<?php echo '<span class="item-comments">'.get_the_author().' || </span>'; ?><span class="item-comments"><?php comments_number('(0) comments', '(1) comment', '(%) comments');?></span></div>
-
+								<div class="blog-postmeta"><span class="item-date"><?php the_time('M j, Y'); ?> || </span><span class="item-comments"><?php comments_number('(0) comments', '(1) comment', '(%) comments')?></span></div>
 
 								<div class="blog-excerpt">
-									<?php if( $wp_query->current_post == 0 && !is_paged() ) {
-										the_content(); }else{ the_excerpt(); } ?>
+									<?php the_excerpt(); ?>
 									<a class="readmore" href="<?php the_permalink(); ?>">view more &raquo;</a>
 								</div>
 								<div class="blog-tax">
@@ -64,17 +61,7 @@ get_header(); ?>
 								</div>
 							</div>
 						</div>
-					<?php $count++; }
-						$big = 999999999;
-						echo '<div id="blog-pagination">';
-						echo paginate_links( array(
-							'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
-							'format' => '?paged=%#%',
-							'current' => max( 1, get_query_var('paged') ),
-							'total' => $query->max_num_pages
-						) );
-						echo '</div>';
-					} ?>
+					<?php } } ?>
 				</div>
 			</div>
 
@@ -121,7 +108,7 @@ get_header(); ?>
 					<div class="blog-panel authors">
 						<h4>Authors</h4>
 						<div class="gutter clearfix">
-							<?php $authors = get_all_authors(5);
+							<?php $authors = get_all_authors(10);
 							if($authors){
 							foreach($authors as $author){
 								$authName = $author['name'];
@@ -193,5 +180,3 @@ get_header(); ?>
 		</div>
 	</div>
 </div>
-
-<?php get_footer('sans'); ?>

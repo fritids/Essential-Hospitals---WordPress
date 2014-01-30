@@ -8,7 +8,7 @@
 <div id="featured-img" class="institute" style="background-image:url(<?php echo $speakerIMG; ?>);">
 	<div class="container">
 		<div id="featured-intro">
-			<h3><span class="bluee">INSTITUTE</span><br><?php the_field('bannerTitle'); ?></h3>
+			<h3><span class="bluee">ESSENTIAL HOSPITALS INSTITUTE</span><br><?php the_field('bannerTitle'); ?></h3>
 		</div>
 	</div>
 </div>
@@ -391,11 +391,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="prev" title="Show previous"> </div>
-	<div id="next" title="Show more Articles"> </div>
 
-	<a id="prevbtn" title="Show previous">  </a>
-	<a id="nextbtn" title="Show more">  </a>
 </div>
 <?php
 	get_footer();

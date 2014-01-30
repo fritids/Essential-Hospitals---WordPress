@@ -1,8 +1,60 @@
 <?php /* Template for Group custom post type */
-	get_header(); ?>
-<div id="membernetwork">
+	get_header(); 
+	
+
+	$pageTheme = get_field('theme');
+	$mnclass = "mnbanner";
+
+	//Get featuredIMG
+		if($pageTheme == 'policy'){
+			$fPID = 62;
+			$speakerIMG  = wp_get_attachment_url( get_post_thumbnail_id(62) );
+			$pageTitle = "Action";
+		}elseif($pageTheme == 'quality'){
+			$fPID = 64;
+			$speakerIMG = wp_get_attachment_url( get_post_thumbnail_id(64) );
+		$pageTitle = "Quality";
+		}elseif($pageTheme == 'institute'){
+			$fPID = 621;
+			$speakerIMG = wp_get_attachment_url( get_post_thumbnail_id(621) );
+			$pageTitle = "Essential Hospitals Institute" ;
+		}elseif($pageTheme == 'education'){
+			$fPID = 472;
+			$speakerIMG = wp_get_attachment_url( get_post_thumbnail_id(472) );
+			$pageTitle = "Education" ;
+		}else{
+			$pageTitle = ''; 
+			$mnclass = "";
+		}
+
+
+
+	?>
+
+
+<div id="membernetwork" class="<?php echo $mnclass; ?>">
+
+
+	<?php if($pageTitle != '') { ?>
+	<div id="featured-img" class="page-single <?php echo $pageTheme; ?> " style="background-image:url(<?php echo $speakerIMG; ?>); ">
+		<div class="container">
+			<div id="featured-intro">
+				<h3>  
+					<span><?php echo $pageTitle; ?> </span><br /> <?php the_title(); ?>
+				</h3>	
+			</div>
+		</div>
+	</div>
+	<?php } ?>
+
 	<div class="container">
-		<h1 class="title"><span class="grey">Private Group | Essential Hospitals</span> Member Network</h1>
+	
+	<?php if ($pageTitle == '') {?>
+		  
+		 <h1 class="title"><span class="grey">Essential Hospitals</span> Member Network </h1>
+	<?php } ?>
+
+		 
 		<?php wp_reset_postdata();
             global $post;
 			$memberArray = array();
@@ -26,6 +78,7 @@
 				} ?>
 
 		<?php
+		if ($pageTitle != ''){
 			if(has_nav_menu('primary-menu')){
 				$defaults = array(
 					'theme_location'  => 'primary-menu',
@@ -45,33 +98,39 @@
 					'depth'           => 2,
 					'walker'          => ''
 				); wp_nav_menu( $defaults );
-			}
+			} ?>
+			<div id="breadcrumbs">
+				<ul>
+					<li><a href="<?php echo home_url(); ?>">Home</a>
+						<?php
+						$defaults = array(
+						'theme_location'  => 'primary-menu',
+						'menu'            => 'primary-menu',
+						'container'       => '',
+						'container_class' => '',
+						'container_id'    => '',
+						'menu_class'      => 'menu',
+						'menu_id'         => '',
+						'echo'            => true,
+						'fallback_cb'     => 'wp_page_menu',
+						'before'          => '',
+						'after'           => '',
+						'link_before'     => '',
+						'link_after'      => '',
+						'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+						'depth'           => 0,
+						'walker'          => ''
+					); wp_nav_menu( $defaults ); ?>
+					</li>
+				</ul>
+			</div>
+		<?php 
+		}
+		else{
+			get_template_part('membernetwork/content','usernav'); 
+		}
 		?>
-		<div id="breadcrumbs">
-			<ul>
-				<li><a href="<?php echo home_url(); ?>">Home</a>
-					<?php
-					$defaults = array(
-					'theme_location'  => 'primary-menu',
-					'menu'            => 'primary-menu',
-					'container'       => '',
-					'container_class' => '',
-					'container_id'    => '',
-					'menu_class'      => 'menu',
-					'menu_id'         => '',
-					'echo'            => true,
-					'fallback_cb'     => 'wp_page_menu',
-					'before'          => '',
-					'after'           => '',
-					'link_before'     => '',
-					'link_after'      => '',
-					'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-					'depth'           => 0,
-					'walker'          => ''
-				); wp_nav_menu( $defaults ); ?>
-				</li>
-			</ul>
-		</div>
+		
 
 		<div id="membercontent" class="group groupcont">
 			<div class="graybarleft"></div>
@@ -237,7 +296,7 @@
 						<div class="panel signin">
 							<div class="gutter">
 								<h2>Sign In</h2>
-								<p>Sign in to access this group</p>
+								<p>Sign in to register for this webinar</p>
 								 <?php $args = array(
 						        'echo' => true,
 						        'redirect' => site_url( $_SERVER['REQUEST_URI'] ),

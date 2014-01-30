@@ -1,12 +1,12 @@
 <?php
 	get_header();
 ?>
- 
-<?php  $speakerIMG = get_field('small_banner', 472); ?>
-<div id="featured-img-small" class="education webinar archive" style="background-image:url(<?php echo $speakerIMG ?>);">
+
+<?php  $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id(472) );   ?>
+<div id="featured-img" class="education webinar archive" style="background-image:url(<?php echo $speakerIMG ?>);">
 	<div class="container">
 		<div id="featured-intro">
-				<h3>Webinars</h3>
+				<h3><span>EDUCATION</span><br/>Webinars</h3>
 		</div>
 	</div>
 </div>
@@ -113,7 +113,7 @@
 							<?php foreach($terms as $term){ ?>
 								<li data-filter="<?php echo $term->slug; ?>"><a><?php echo $term->name; ?></a></li>
 							<?php } ?>
-								<li class="last"><a>Show All Topics</a></li>
+								<li data-filter="all" class="last"><a>Show All Topics</a></li>
 							</ul>
 						<?php } ?>
 				</div>

@@ -57,6 +57,27 @@
 			<div class="gutter">
 			<?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
 				<h1><?php the_title(); ?></h1>
+				<div id="singlestream">
+				<?php $postType = get_post_type( get_the_ID() );
+				if($postType == 'policy'){
+					$postColor = 'redd';
+				}else if($postType == 'quality'){
+					$postColor = 'greenn';
+				}else if($postType == 'education'){
+					$postColor = 'grayy';
+				}else if($postType == 'institute'){
+					$postColor = 'bluee';
+				}else{
+					$postColor = 'bluee';
+				}
+				?>
+				<img src="<?php bloginfo('template_directory'); ?>/images/icon-<?php echo $postType; ?>.png" />
+				<?php $terms = wp_get_post_terms(get_the_ID(), 'series');
+    					if($terms){
+	    					$termLink = get_term_link($terms[0], 'series');
+		    				echo "<a href='".$termLink."'>".$terms[0]->name."</a>";
+	    				}
+    				?></div>
 				<div id="printbtn"><a href="javascript:print();"><em>Print</em></a></div>
 				<div id="postmeta">
 					<span class="postmeta"><?php the_time('F, j'); ?> || <em><?php the_author(); ?></em></span><span class="postcomments"><?php comments_number( ' || (0) comments', ' || (1) comment', ' || (%) comments' ); ?></span>
