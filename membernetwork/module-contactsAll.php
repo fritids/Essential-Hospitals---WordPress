@@ -27,6 +27,41 @@
 	}
 	$renderStart = $page * $offset;
 
+	//Get pending/requested/my contacts
+	$contacts = $wpdb->get_results("SELECT user_id, friend_id
+											FROM wp_aeh_connections
+											WHERE user_ID = $curID
+											AND consent_date > 0
+											OR friend_id = $curID
+											AND consent_date > 0");
+	$myContacts = array();
+	foreach($contacts as $contact){
+		if($contact->user_id = $curID){
+			array_push($myContacts, $contact->friend_id);
+		}else{
+			array_push($myContacts,$contact->user_id);
+		}
+	}
+	$contacts = $wpdb->get_results("SELECT user_id, friend_id
+											FROM wp_aeh_connections
+											WHERE friend_ID = $curID
+											AND consent_date = 0");
+	$pendingContacts = array();
+	foreach($contacts as $contact){
+		array_push($pendingContacts,$contact->user_id);
+	}
+	$curID = get_current_user_id();
+			//echo $curID;
+			//Get contacts for current user
+			$contacts = $wpdb->get_results("SELECT user_id, friend_id
+											FROM wp_aeh_connections
+											WHERE user_ID = $curID
+											AND consent_date = 0");
+	$requestedContacts = array();
+	foreach($contacts as $contact){
+		array_push($requestedContacts, $contact->friend_id);
+	}
+
 	//Query users
 	$membercount = $wpdb->get_results("SELECT ID
 								 FROM $wpdb->users
@@ -50,7 +85,8 @@
 				<tr>
 					<th class="profilesearch"><input type="text" id="profile-search" value="" placeholder="Search by Name or Job Title"></th>
 					<th class="sortby">Sort By:</th>
-					<th class="sortby-btn"><div data-sortby="job_title" class="job-title">Job Title</div></th>
+					<th class="sortby-btn"><div data-sortby="aeh_staff" class="job-title">Association Staff</div></th>
+					<th class="sortby-btn"><div data-sortby="job_title" class="job-title">Job Function</div></th>
 					<th class="sortby-btn"><div data-sortby="last_name" class="last-name">Last Name</div></th>
 				</tr>
 			</thead>
@@ -96,8 +132,24 @@
 					<div class="job-style"><?php echo $title; ?></div>
 					<div class="org-style"></div>
 				</a>
-				<div class="add-connection">
-				<button data-curid="<?php echo get_current_user_id(); ?>" data-uid="<?php echo $user->ID; ?>" title="add <?php echo $fName; ?> to your connections" class="add-button contact-add">Add <?php echo $fName; ?> as a Contact</button></div>
+
+				<?php if(in_array($user->ID, $myContacts)){ ?>
+						<div class="my-connection">
+							<button class="added-button"><?php echo $fName; ?> is a Contact</button>
+						</div>
+				<?php	}elseif(in_array($user->ID, $pendingContacts)){ ?>
+						<div class="pending-connection">
+							<button class="added-button"><?php echo $fName; ?> has added you</button>
+						</div>
+				<?php	}elseif(in_array($user->ID, $requestedContacts)){ ?>
+						<div class="requested-connection">
+							<button class="added-button">You have requested <?php echo $fName; ?></button>
+						</div>
+				<?php	}else{ ?>
+						<div class="add-connection">
+							<button data-curid="<?php echo get_current_user_id(); ?>" data-uid="<?php echo $user->ID; ?>" title="add <?php echo $fName; ?> to your connections" class="add-button contact-add">Add <?php echo $fName; ?> to Contacts</button>
+						</div>
+				<?php	} ?>
 			</div>
 		<?php } ?>
 			<div id="infinitescroll"></div>

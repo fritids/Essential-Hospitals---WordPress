@@ -35,6 +35,7 @@
 
 				// Insert the post into the database
 				$newID = wp_insert_post( $newpost, true );
+				add_post_meta($newID, 'frontend', true);
 				wp_set_object_terms( $newID, $catPost, 'discussions' );
 				wp_set_object_terms( $newID, $tagPost, 'discussion_tags' );
 

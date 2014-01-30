@@ -1,6 +1,7 @@
 <div class="panel" id="MyConnections">
 	<h2 class="heading">My Contacts</h2>
 	<div class="gutter">
+		<div id="my-contacts">
 		<?php global $wpdb;
 			$curID = get_current_user_id();
 			//echo $curID;
@@ -15,7 +16,7 @@
 			//Create ID array from contacts; exclude currentuser ID
 			$myCont = array();
 			foreach($contacts as $contact){
-				if($contact->user_id = $curID){
+				if($contact->user_id == $curID){
 					array_push($myCont, $contact->friend_id);
 				}else{
 					array_push($myCont,$contact->user_id);
@@ -23,6 +24,7 @@
 			}
 			//print_r($myCont);
 			//Loop through IDs
+			if(count($myCont) > 0){
 			foreach($myCont as $user){
 				$uData = get_userdata($user);
 				$fName = $uData->first_name;
@@ -36,6 +38,7 @@
 						<?php echo $ava; ?>
 					</div>
 				</a>
-		<?php } ?>
+		<?php } }else{echo 'No contacts yet';} ?>
+		</div>
 	</div>
 </div>

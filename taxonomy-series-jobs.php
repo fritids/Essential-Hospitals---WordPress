@@ -1,12 +1,12 @@
 <?php get_header(); ?>
 
 <?php 
-$rand = rand(1,8);
+$rand = rand(1,9);
 $bannerImg = "http://mlinson.staging.wpengine.com/wp-content/uploads/2013/11/AEH_generalbanner" .$rand . "_222.jpg"; ?>
-<div id="featured-img-small" class="archive series jobs" style="background-image:url(<?php echo $bannerImg; ?>);">
+<div id="featured-img" class="archive series policy jobs" style="background-image:url(<?php echo $bannerImg; ?>);">
 	<div class="container">
 		<div id="featured-intro">
-			<h3 class="tag"><?php single_tag_title(); ?></h3>
+			<h3><span>ABOUT</span><br /><?php single_tag_title(); ?></h3>
 		</div>
 	</div>
 </div>

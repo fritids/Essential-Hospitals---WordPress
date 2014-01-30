@@ -31,9 +31,10 @@
 							<p class="topic"><strong>POPULAR TOPICS</strong></p>
 								<ul id="discussiontags">
 							 <?php $tags = wp_tag_cloud( array( 'taxonomy' => 'discussion_tags', 'orderby' => 'count', 'format' => 'array', 'smallest' => 11, 'largest' => 11, 'unit' => 'px' ) );
+							 	if($tags){
 								 foreach($tags as $tag){ ?>
 								 	<li><?php echo $tag; ?></li>
-								 <?php } ?>
+								 <?php } } ?>
 								</ul>
 						</div>
 					</div>

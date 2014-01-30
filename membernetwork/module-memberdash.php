@@ -7,8 +7,8 @@ if(is_user_logged_in()){ ?>
 			<a id="logout" href="<?php echo wp_logout_url( home_url() ); ?>" title="Logout">Logout</a>
 			<?php
 			global $current_user;
-			get_currentuserinfo();
-			if(!user_can($current_user,'member')){ ?>
+			$cuser = get_currentuserinfo();
+			if(current_user_can('edit_published_pages')){ ?>
 				<a id="admin" href="<?php echo admin_url();?>" title="Dashboard">Admin</a>
 			<?php } ?>
 			<?php get_template_part( 'membernetwork/content', 'usernav' ); ?>

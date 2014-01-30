@@ -1576,7 +1576,7 @@ global $wpdb;
 	update_user_meta( $user_id, 'tos', 'agree');
 	delete_user_meta( $user_id, 'password'); //remove the plaintext password from the DB
 }
-add_action('profile_update', 'aeh_member', 10, 2);
+add_action('user_register', 'aeh_member', 10, 2);
 //add_action('bp_core_signup_user', 'aeh_member', 10, 2);
 
 define ("CUSTOM_NEWS_URL", home_url("custom-news-feed/"));
@@ -1787,6 +1787,7 @@ function commentWalker($comment, $args, $depth) {
 				<option <?php if($term_meta['section'] == 'quality'){ echo 'selected="checked"'; } ?>value="quality">Quality</option>
 				<option <?php if($term_meta['section'] == 'education'){ echo 'selected="checked"'; } ?>value="education">Education</option>
 				<option <?php if($term_meta['section'] == 'institute'){ echo 'selected="checked"'; } ?>value="institute">Institute</option>
+        <option <?php if($term_meta['section'] == 'utility'){ echo 'selected="checked"'; } ?>value="utility">General</option>
 			</select><br />
 			<span class="description">Which section is this Stream/Series a part of?</span>
 		</td>
@@ -1900,5 +1901,16 @@ function show_private($query) {
   }
 }
 add_action('pre_get_posts','show_private');
+
+
+//wpmembers stuff
+add_filter( 'wpmem_login_form', 'remove_wpmem_txt' );
+add_filter( 'wpmem_register_form', 'remove_wpmem_txt' );
+
+function remove_wpmem_txt( $form ) {
+	$old = array( '[wpmem_txt]', '<p>', '[/wpmem_txt]');
+	$new = array( "" );
+	return str_replace( $old, $new, $form );
+}
 
 ?>

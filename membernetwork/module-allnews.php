@@ -1,5 +1,5 @@
 <div id="memberNews" class="clearfix">
-<h2 class="heading">All News</h2>
+<h2 class="heading">All recent news</h2>
 <?php
 	$userID   = get_current_user_id();
 	$usermeta = get_user_meta($userID, 'custom_news_feed', true);
@@ -15,8 +15,8 @@
 		while ( $query->have_posts() ) {
 			$query->the_post();
 			$postType = get_post_type( get_the_ID() );
-				
-				//check post type and apply a color	
+
+				//check post type and apply a color
 				if($postType == 'policy'){
 					$postColor = 'redd';
 				}else if($postType == 'quality'){
@@ -52,5 +52,5 @@
 			</div>
 		</div>
 		<?php } wp_reset_postdata(); ?>
-	
+
 </div>

@@ -17,33 +17,38 @@
 		}elseif($pageTheme != 'policy'){
 			$menu = $pageTheme;
 		}
+ 
 
 		//Get featuredIMG
 		if($pageTheme == 'policy'){
 			$fPID = 62;
-			$speakerIMG = get_field('small_banner', $fPID);
-			$bannerSize = "-small"; 
+			$speakerIMG  = wp_get_attachment_url( get_post_thumbnail_id(62) );
+			$pageTitle = "Action";
 		}elseif($pageTheme == 'quality'){
 			$fPID = 64;
-			$speakerIMG = get_field('small_banner', $fPID); 
-			$bannerSize = "-small";
+			$speakerIMG = wp_get_attachment_url( get_post_thumbnail_id(64) );
+		$pageTitle = "Quality";
 		}elseif($pageTheme == 'institute'){
 			$fPID = 621;
-			$speakerIMG = get_field('small_banner', $fPID); 
-			$bannerSize = "-small";
+			$speakerIMG = wp_get_attachment_url( get_post_thumbnail_id(621) );
+			$pageTitle = "Essential Hospitals Institute" ;
 		}elseif($pageTheme == 'education'){
 			$fPID = 472;
-			$speakerIMG = get_field('small_banner', $fPID); 
-			$bannerSize = "-small";
+			$speakerIMG = wp_get_attachment_url( get_post_thumbnail_id(472) );
+			$pageTitle = "Education" ;
 		}else{
 			$fPID = 645;
-			$rand = rand(1,8);
+			$rand = rand(1,9);
 			$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2013/11/AEH_generalbanner" .$rand . "_222.jpg";
+			$pageTheme == 'policy';
 			$bannerSize = "";
 			$parents = get_post_ancestors( $post->ID );
-			$parent_id = ($parents) ? $parents[count($parents)-1]: 0;
-			if($parent_id == 645)
-				{$bannerSize = "-small";}
+			$chck_id = ($parents) ? $parents[count($parents)-1]: $parent_id;
+			$pageTitle = "ABOUT"; 
+			$pageTheme = 'policy';
+
+			if($chck_id == 645)
+				{$bannerSize = ""; $pageTitle = "ABOUT"; $pageTheme = 'policy';}
 		}
 
 		//$speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($fPID) );
@@ -53,10 +58,10 @@
 
 		 ?>
  
-		<div id="featured-img<?php echo $bannerSize;?>" class="page-single  <?php echo $pageTheme; ?>" style="background-image:url(<?php echo $speakerIMG; ?>); ">
+		<div id="featured-img" class="page-single  <?php echo $pageTheme; ?>" style="background-image:url(<?php echo $speakerIMG; ?>); ">
 			<div class="container">
 				<div id="featured-intro">
-					<h3><?php if($bannerTitle != '') echo $bannerTitle; else{ the_title(); }?></h3>
+					<h3> <span><?php echo $pageTitle; ?> </span> <?php if($bannerTitle != ''){ echo $bannerTitle; }else{ the_title(); }?> </h3> 
 				</div>
 			</div>
 		</div>
@@ -124,6 +129,26 @@
 								wp_nav_menu( $defaults );
 							?>
 							<div class="gutter">
+								<div class="panel">
+									<h3 id="sharetitle">Share</h3>
+									<div id="share">
+										<!-- AddThis Button BEGIN -->
+										<div class="addthis_toolbox addthis_32x32_style" style="">
+										<a class="addthis_button_facebook"></a>
+										<a class="addthis_button_twitter"></a>
+										<a class="addthis_button_linkedin"></a>
+										<a class="addthis_button_pinterest_share"></a>
+										<a class="addthis_button_google_plusone_share"></a>
+										<a class="addthis_button_email"></a>
+										<a class="addthis_button_digg"></a>
+										<a class="addthis_button_evernote"></a>
+										<a class="addthis_button_compact"></a>
+										</div>
+										<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+										<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=naphsyscom"></script>
+										<!-- AddThis Button END -->
+									</div>
+								</div>
 								<?php the_field('thirdColumn'); ?>
 							</div>
 						</div>
@@ -143,32 +168,34 @@
 			$menu = $pageTheme;
 		}
 
-		//Get featuredIMG
 		if($pageTheme == 'policy'){
 			$fPID = 62;
-			$speakerIMG = get_field('small_banner', $fPID);
-			$bannerSize = "-small"; 
+			$speakerIMG  = wp_get_attachment_url( get_post_thumbnail_id(62) );
+			$pageTitle = "Action";
 		}elseif($pageTheme == 'quality'){
 			$fPID = 64;
-			$speakerIMG = get_field('small_banner', $fPID); 
-			$bannerSize = "-small";
+			$speakerIMG = wp_get_attachment_url( get_post_thumbnail_id(64) );
+			$pageTitle = "Quality";
 		}elseif($pageTheme == 'institute'){
 			$fPID = 621;
-			$speakerIMG = get_field('small_banner', $fPID); 
-			$bannerSize = "-small";
+			$speakerIMG = wp_get_attachment_url( get_post_thumbnail_id(621) );
+			$pageTitle = "Essential Hospitals Institute" ;
 		}elseif($pageTheme == 'education'){
 			$fPID = 472;
-			$speakerIMG = get_field('small_banner', $fPID); 
-			$bannerSize = "-small";
+			$speakerIMG = wp_get_attachment_url( get_post_thumbnail_id(472) );
+			$pageTitle = "Education" ;
 		}else{
 			$fPID = 645;
-			$rand = rand(1,8);
+			$rand = rand(1,9);
 			$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2013/11/AEH_generalbanner" .$rand . "_222.jpg";
 			$bannerSize = "";
 			$parents = get_post_ancestors( $post->ID );
-			$parent_id = ($parents) ? $parents[count($parents)-1]: 0;
-			if($parent_id == 645)
-				{$bannerSize = "-small";}
+			$chck_id = ($parents) ? $parents[count($parents)-1]: $parent_id;
+			$pageTitle = "ABOUT"; 
+			$pageTheme = 'policy';
+
+			if($chck_id == 645)
+				{$bannerSize = ""; $pageTitle = "ABOUT"; $pageTheme = 'policy';}
 		}
 
 		//$speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($fPID) );
@@ -178,10 +205,10 @@
 
 		 ?>
  
-		<div id="featured-img<?php echo $bannerSize;?>" class="page-single  <?php echo $pageTheme; ?>" style="background-image:url(<?php echo $speakerIMG; ?>); ">
+		<div id="featured-img" class="page-single  <?php echo $pageTheme; ?>" style="background-image:url(<?php echo $speakerIMG; ?>); ">
 			<div class="container">
 				<div id="featured-intro">
-					<h3><?php if($bannerTitle != '') echo $bannerTitle; else{ the_title(); }?></h3>
+					<h3> <span><?php echo $pageTitle; ?> </span> <?php if($bannerTitle != ''){ echo $bannerTitle; }else{ the_title(); }?> </h3> 
 				</div>
 			</div>
 		</div>
@@ -276,43 +303,45 @@
 		//Get featuredIMG
 		if($pageTheme == 'policy'){
 			$fPID = 62;
-			$speakerIMG = get_field('small_banner', $fPID);
-			$bannerSize = "-small"; 
+			$speakerIMG  = wp_get_attachment_url( get_post_thumbnail_id(62) );
+			$bannerTitle = "Action";
 		}elseif($pageTheme == 'quality'){
 			$fPID = 64;
-			$speakerIMG = get_field('small_banner', $fPID); 
-			$bannerSize = "-small";
+			$speakerIMG = wp_get_attachment_url( get_post_thumbnail_id(64) );
+			$pageTitle= "Quality";
 		}elseif($pageTheme == 'institute'){
 			$fPID = 621;
-			$speakerIMG = get_field('small_banner', $fPID); 
-			$bannerSize = "-small";
+			$speakerIMG = wp_get_attachment_url( get_post_thumbnail_id(621) );
+			$pageTitle = "Essential Hospitals Institute" ;
 		}elseif($pageTheme == 'education'){
 			$fPID = 472;
-			$speakerIMG = get_field('small_banner', $fPID); 
-			$bannerSize = "-small";
+			$speakerIMG = wp_get_attachment_url( get_post_thumbnail_id(472) );
+			$pageTitle = "Education" ;
 		}else{
 			$fPID = 645;
-			$rand = rand(1,8);
+			$rand = rand(1,9);
 			$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2013/11/AEH_generalbanner" .$rand . "_222.jpg";
 			$bannerSize = "";
 			$parents = get_post_ancestors( $post->ID );
 			$chck_id = ($parents) ? $parents[count($parents)-1]: $parent_id;
+			$pageTitle = "ABOUT"; 
+			$pageTheme = 'policy';
 
 			if($chck_id == 645)
-				{$bannerSize = "";}
+				{$bannerSize = ""; $pageTitle = "ABOUT"; $pageTheme = 'policy';}
 		}
 
 		//$speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($fPID) );
-		$bannerTitle = get_field('bannerTitle');  
+		 $bannerTitle = get_field('bannerTitle');  
 
 
 
 		 ?>
  
-		<div id="featured-img<?php echo $bannerSize;?>" class="page-single  <?php echo $pageTheme; ?>" style="background-image:url(<?php echo $speakerIMG; ?>); ">
+		<div id="featured-img" class="page-single  <?php echo $pageTheme; ?>" style="background-image:url(<?php echo $speakerIMG; ?>); ">
 			<div class="container">
 				<div id="featured-intro">
-					<h3><?php if($bannerTitle != '') echo $bannerTitle; else{ the_title(); }?></h3>
+					<h3> <span><?php echo $pageTitle; ?> </span><br /> <?php if($bannerTitle != ''){ echo $bannerTitle; }else{ the_title(); }?> </h3> 
 				</div>
 			</div>
 		</div>
@@ -404,6 +433,26 @@
 							wp_nav_menu( $defaults );
 						?>
 						<div class="gutter">
+							<div class="panel">
+								<h3 id="sharetitle">Share</h3>
+								<div id="share">
+									<!-- AddThis Button BEGIN -->
+									<div class="addthis_toolbox addthis_32x32_style" style="">
+									<a class="addthis_button_facebook"></a>
+									<a class="addthis_button_twitter"></a>
+									<a class="addthis_button_linkedin"></a>
+									<a class="addthis_button_pinterest_share"></a>
+									<a class="addthis_button_google_plusone_share"></a>
+									<a class="addthis_button_email"></a>
+									<a class="addthis_button_digg"></a>
+									<a class="addthis_button_evernote"></a>
+									<a class="addthis_button_compact"></a>
+									</div>
+									<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+									<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=naphsyscom"></script>
+									<!-- AddThis Button END -->
+								</div>
+							</div>
 							<?php the_field('thirdColumn'); ?>
 						</div>
 					</div>

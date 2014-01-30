@@ -1,6 +1,6 @@
 <div id="postBox" class="clearfix">
 	<div id="fader" class="clearfix scrollable">
-	<div id="loader-gif"> Loading more posts</div>
+	<div id="loader-gif"> Loading more articles</div>
 			<div class="items">
 
 			<?php
@@ -70,7 +70,7 @@
 			    			<div class="item-header">
 			    				<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 			    				<span class="item-date"><?php the_time('M j, Y'); ?> ||</span>
-			    				<span class="item-author"><?php the_author(); ?></span>
+			    				<span class="item-author"><a href="<?php echo get_author_posts_url(get_the_author_meta('ID')); ?>/?prof=article"><?php the_author(); ?></a></span>
 			    			</div>
 			    			<p><?php the_excerpt(); ?>
 			    			</p><a class="more" href="<?php the_permalink(); ?>"> view more » </a>
@@ -96,19 +96,30 @@
 
 
 			<?php
-			query_posts( array(
-				'post_type'         => 'webinar',
-				'webinartopics'     => 'policy',
-				'posts_per_page'    => 1,
-				'post_status'		=> 'future',
-				'meta_query' => array(
+			$today = mktime(0, 0, 0, date('n'), date('j'));
+			$args = array(
+				'post_type' => 'webinar',
+				'posts_per_page' => 1,
+				'order' => 'asc',
+				'post_status' => 'all',
+				'meta_query'  => array(
 					array(
-						'key' => 'sticky_topic',
-						'compare' => 'NOT EXISTS'
+						'key' => 'webinar_date',
+						'value' => $today,
+						'compare' => '>='
 					)
-				)
-			) );
-			if ( have_posts() ) while ( have_posts() ) : the_post();
+				),
+				'tax_query' => array(
+					array(
+						'taxonomy' => 'webinartopics',
+						'field' => 'slug',
+						'terms' => 'quality'
+					)
+				),
+				'orderby' => 'meta_value',
+				'meta_key' => 'webinar_date',
+			);
+			query_posts( $args ); if(have_posts()){ while ( have_posts() ) { the_post();
 			?>
 
 			<div class="post long columns greenn webinar">
@@ -121,7 +132,7 @@
     			<div class="item-content">
 	    			<div class="item-header">
 	    				<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-	    				<span class="item-date"><?php the_time('M j, Y'); ?></span>
+	    				<span class="item-date"><?php echo date('M j, Y', get_field('webinar_date')); ?></span>
 	    			</div>
 	    			<p><?php
 						$exc = get_the_excerpt();
@@ -146,14 +157,14 @@
 					    					echo "<a href='".$tagLink."'>".$tagSlug."</a>";
 					    					$cnt++;
 					    				}
-				    				}?>
+				    				} ?>
 	    			</div>
 	    		</div>
 	    		<div class="bot-border"></div>
 	  		</div>
 
 
-		<?php endwhile; wp_reset_query();?>
+		<?php } } wp_reset_query();?>
 
 
 		<?php
@@ -210,7 +221,7 @@
 	    			<div class="item-header">
 	    				<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 	    				<span class="item-date"><?php the_time('M j, Y'); ?> ||</span>
-	    				<span class="item-author"><?php the_author(); ?></span>
+	    				<span class="item-author"><a href="<?php echo get_author_posts_url(get_the_author_meta('ID')); ?>/?prof=article"><?php the_author(); ?></a></span>
 	    			</div>
 	    			<p><?php
 						$exc = get_the_excerpt();
@@ -293,7 +304,7 @@
 	    			<div class="item-header">
 	    				<h2><a href="<?php if(get_field('link_to_media')){the_field('uploaded_file');}else{the_permalink();} ?>"><?php the_title(); ?></a></h2>
 	    				<span class="item-date"><?php the_time('M j, Y'); ?> ||</span>
-	    				<span class="item-author"><?php the_author(); ?></span>
+	    				<span class="item-author"><a href="<?php echo get_author_posts_url(get_the_author_meta('ID')); ?>/?prof=article"><?php the_author(); ?></a></span>
 	    			</div>
 	    			<?php if(get_field('link_to_media')){ ?>
 						<a href="<?php the_field('uploaded_file'); ?>"><img src="<?php bloginfo('template_directory'); ?>/images/<?php echo $postType; ?>-doc.png" /></a>

@@ -7,24 +7,34 @@
     $postType = $term_meta['section'];
 
     if($postType == 'policy'){
-		$bannerImg  = get_field('small_banner', 62);
+		$bannerImg  = wp_get_attachment_url( get_post_thumbnail_id(62) );
+		$bannerTitle = "Action";
 	}elseif($postType == 'quality'){
-		$bannerImg  = get_field('small_banner', 64);
+		$bannerImg  = wp_get_attachment_url( get_post_thumbnail_id(64) );
+		$bannerTitle = "Quality";
 	}elseif($postType == 'institute'){
-		$bannerImg  = get_field('small_banner', 621);
+		$bannerImg  = wp_get_attachment_url( get_post_thumbnail_id(621) );
+		$bannerTitle = "Essential Hospitals Institute" ;
+	}
+	elseif($postType == 'education'){
+		$bannerImg  = wp_get_attachment_url( get_post_thumbnail_id(475) );
+		$bannerTitle = "Education" ;
 	}else{
-		$bannerImg  = '';
+		$postType = 'policy'; //About/general
+		$bannerTitle = "About" ;
+		$rand = rand(1,9);
+			 $bannerImg = "http://mlinson.staging.wpengine.com/wp-content/uploads/2013/11/AEH_generalbanner" .$rand . "_222.jpg";
 	}
 
 
 
 
 ?>
-<?php $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
-<div id="featured-img-small" class="archive series <?php echo $term_meta['section']; ?>" style="background-image:url(<?php echo $bannerImg; ?>);">
+<?php //$speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
+<div id="featured-img" class="archive series <?php echo $postType ?>" style="background-image:url(<?php echo $bannerImg; ?>);">
 	<div class="container">
-		<div id="featured-intro">
-			<h3 class="tag"> <?php single_tag_title(); ?></h3>
+		<div id="featured-intro" class="<?php echo $postType ?>">
+			<h3><span><?php echo $bannerTitle; ?></span><br /> <?php single_tag_title(); ?></h3>
 		</div>
 	</div>
 </div>
@@ -35,7 +45,7 @@
 	<div class="container twelve columns content">
 
 
-		<div id="contentWrap" class="action <?php echo $term_meta['section']; ?>">
+		<div id="contentWrap" class="action default-<?php echo $term_meta['section']; ?>">
 			<div class="gutter">
 				<div class="container">
 					<?php
@@ -86,9 +96,9 @@
 						</ul>
 					</div>
 
+
 					<div id="contentPrimary" class="stream-<?php echo $term_meta['section']; ?>">
 						<div class="graybar"></div>
-						<div class="graybarX"></div>
 						<div class="gutter">
 						<?php
 							$cUser = wp_get_current_user();

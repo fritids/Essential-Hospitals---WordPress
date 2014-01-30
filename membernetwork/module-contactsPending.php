@@ -1,28 +1,26 @@
 <div class="panel" id="PendingConnections">
-	<h2 class="heading">Pending Contacts</h2>
-	<div class="gutter">
-		<div id="pending-contacts">
-			<?php global $wpdb;
-				$curID = get_current_user_id();
-				//echo $curID;
-				//Get contacts for current user
-				$contacts = $wpdb->get_results("SELECT user_id, friend_id
-												FROM wp_aeh_connections
-												WHERE user_ID = $curID
-												AND consent_date = 0
-												OR friend_id = $curID
-												AND consent_date = 0");
-				//print_r($contacts);
-				//Create ID array from contacts; exclude currentuser ID
-				$myCont = array();
-				foreach($contacts as $contact){
-					if($contact->user_id = $curID){
-						array_push($myCont, $contact->friend_id);
-					}else{
-						array_push($myCont,$contact->user_id);
-					}
-				}
-				//print_r($myCont);
+	<h2 class="heading">Requests Received</h2>
+		<div class="gutter">
+			<div id="request-contacts">
+	<?php global $wpdb;
+			$curID = get_current_user_id();
+			//echo $curID;
+			//Get contacts for current user
+			$contacts = $wpdb->get_results("SELECT user_id, friend_id
+											FROM wp_aeh_connections
+											WHERE friend_ID = $curID
+											AND consent_date = 0");
+			//print_r($contacts);
+			//Create ID array from contacts; exclude currentuser ID
+			$myCont = array();
+			foreach($contacts as $contact){
+				array_push($myCont,$contact->user_id);
+			}
+
+			if(count($myCont) > 0){ ?>
+
+
+			<?php //print_r($myCont);
 				//Loop through IDs
 				foreach($myCont as $user){
 					$uData = get_userdata($user);
@@ -45,5 +43,7 @@
 					</div>
 			<?php } ?>
 		</div>
+
+	<?php }else{echo "<p>You haven't received any requests</p>";} ?>
 	</div>
 </div>

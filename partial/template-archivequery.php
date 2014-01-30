@@ -67,7 +67,7 @@
 	    			<div class="item-header">
 	    				<h2><a href="'. $postLink .'">'. $postTitle .'</a></h2>
 	    				<span class="item-date">'. $postTime .' ||</span>
-	    				<span class="item-author">'. $postAuthor .'</span>
+	    				<span class="item-author"><a href="'.get_author_posts_url(get_the_author_meta("ID")).'/?prof=article">'. $postAuthor .'</a></span>
 	    			</div>
 	    			<p>'. $postExcerpt .'
 	    			</p><a class="more" href="'. $postLink .'"> view more » </a>

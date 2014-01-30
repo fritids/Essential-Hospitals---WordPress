@@ -11,14 +11,9 @@ get_header(); ?>
 	</div>
 </div>
 <?php $authorID = get_the_author_id();
-	// $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
+	  $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
   
-  $randnum = rand(0,3);
-  if ($randnum == 0){$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2013/11/Blog_option_test1.jpg";}
-  if ($randnum == 1){$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2014/01/Blog_option_test2.jpg";}
-  if ($randnum == 2){$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2014/01/Blog_option_test3.jpg";}
-  if ($randnum == 3){$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2014/01/Blog_option_test4.jpg";}
-
+  
   
   ?>
 

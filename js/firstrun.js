@@ -12,43 +12,41 @@ function firstRun(currentUser){
             steps: [
               {
                 element: '#membernetwork h1.title',
-                intro: "<span style='font-size:30px; line-height:36px;' >Welcome to the Member Network</span><br> Let us walk you through a few things to get started."
+                intro: "<span style='font-size:24px; line-height:30px;' >Welcome to the Member Network</span><br>Take a quick walkthrough of your new accountaccount's features (click \"next\")"
+              },
+              {
+                element: '#membernetwork',
+                intro: "<span style='font-size:24px; line-height:30px;' >This is your dashboard</span><br>Use the black navigation bar to access all of your account features. Build your profile, customize content, have discussions, access your program groups, and make connections."
               },
               {
                 element: '#run-news',
-                intro: "Here is where you'll find any news you've subscibed to. You currently haven't subscribed to any news, but you can use the link in this section to register, or go to <em>My News</em> in the nav bar above"
+                intro: "<span style='font-size:24px; line-height:30px;' >Your custom content feed</span><br>Customize your dashboard to show the latest headlines from your interest areas. Content can include critical updates, learning opportunities, feature articles, and more."
               },
               {
                 element: '#run-groups',
-                intro: "This is where any private groups you're a member of will be stored. If you want, you can even request to create a group using the <em>Start a Private Group</em> button"
+                intro: "<span style='font-size:24px; line-height:30px;' >Your programs and groups</span><br>Access the virtual classrooms for your programs here. You can also request to initiate your own private group: explore a topic, plan an effort, or share resources with only the people you invite."
               },
               {
-                element: '#run-discussion',
-                intro: "Any discussions you have commented on will be listed here with the latest comment made. This way you can easily go back to a conversation you were having"
-              },
-              {
-                element: '#run-comments',
-                intro: "The latest conversations within AEH articles will be listed here and color coded based on their topics, similar to the top navigation"
+                element: '#run-disccomm',
+                intro: "<span style='font-size:24px; line-height:30px;' >Community discussions & content comments</span><br>Revisit a conversation you started or joined right from your dashboard. Just below, see the latest comments readers have posted on sitewide articles and media."
+
               },
               {
                 element: '#userProfile',
-                intro: "This is your profile. You can easily edit it, view it, whatever you like by either clicking the <em>[edit profile]</em> link or clicking your profile image"
+                intro: "<span style='font-size:24px; line-height:30px;' >View and edit your profile.</span><br>This is a preview of your profile. After this tour, click on the image or the \"edit profile\" button to add or change your photo, edit details, and publish a bio."
               },
               {
                 element: '#run-webinars',
-                intro: "If you are subscribed to any webinars then they will be listed here for easy access as well"
+                intro: "<span style='font-size:24px; line-height:30px;' >Your upcoming webinars</span><br>If you’re registered for one or more webinars, quick links appear here."
               },
               {
                 element: '#run-connect',
-                intro: "The heart of the AEH Member Network: people. Anyone you've befriended on the Member Network will be listed here for easy access"
+                intro: "<span style='font-size:24px; line-height:30px;' >Private messages</span><br>The heart of the Member Network is in connecting with other professionals like you from across the U.S. Access your Member Network private messages inbox here.
+"
               },
               {
-                element: '#login',
-                intro: "Clicking this will give you access to your Member Dashboard from wherever you are on the AEH site. Give it a click to see for yourself"
-              },
-              {
-                element: '#membernetwork h1.title',
-                intro: "That's it! We hope you enjoy the AEH Member Network!"
+                element: '#membernetwork',
+                intro: "America's Essential Hospitals is here to support and bring together people dedicated to higher quality, more accessible health care. Make good use of your new community! You can always access dashboard in the upper right corner from anywhere on the site.  For any questions or comments, contact help@essentialhospitals.org"
               },
 
             ]

@@ -18,27 +18,27 @@ $isPrivate   = get_user_meta($currentUser, 'aeh_member_type', true); ?>
 
 		<div id="membercontent" class="group">
 			<div class="gutter clearfix">
-				<h2 class="heading">Discussions</h2>
 				<div class="onefourth disc-dashboard">
 					<div class="panel">
 						<div class="gutter clearfix">
 							<?php get_template_part('membernetwork/searchform','discussion'); ?>
 						</div>
 					</div>
-					<div class="panel date">
-						<div class="gutter clearfix">
-							<span class="bump sortdate"><a href="<?php echo get_permalink(257); ?>">Sort by Date &raquo;</a></span>
-						</div>
-					</div>
 					<div class="panel topic">
 						<div class="gutter clearfix">
 							<p class="topic"><strong>POPULAR TOPICS</strong></p>
 								<ul id="discussiontags">
-							 <?php $tags = wp_tag_cloud( array( 'taxonomy' => 'discussion_tags', 'orderby' => 'count', 'format' => 'array', 'smallest' => 11, 'largest' => 11, 'unit' => 'px' ) );
+								<?php $tags = wp_tag_cloud( array( 'taxonomy' => 'discussion_tags', 'orderby' => 'count', 'format' => 'array', 'smallest' => 11, 'largest' => 11, 'unit' => 'px' ) );
 								 if($tags){
 								 foreach($tags as $tag){ ?>
 								 	<li><?php echo $tag; ?></li>
 								 <?php } } ?>
+								 <li><a href="<?php echo get_permalink(257); ?>">View all Community Discussions</a></li>
+								 	<?php
+										if($isPrivate == 'hospital'){
+											echo '<li><a href="'.get_permalink(257).'/?assocmem=true">View all Community Discussions for association members</a></li>';
+										}
+								 	?>
 								</ul>
 						</div>
 					</div>
@@ -52,16 +52,29 @@ $isPrivate   = get_user_meta($currentUser, 'aeh_member_type', true); ?>
 							<div id="wrapDisc">
 								<?php
 									if($isPrivate == 'hospital'){
-										$args = array( 'post_type' => 'discussion',
-													   'posts_per_page' => 10,
-													   'tax_query' => array(
-													   		'relation' => 'IN',
-															array(
-																'taxonomy' => 'discussions',
-																'field' => 'slug',
-																'terms' => array('private','public'),
-															)
-														) );
+										if(isset($_GET['assocmem'])){
+											$args = array( 'post_type' => 'discussion',
+														   'posts_per_page' => 10,
+														   'tax_query' => array(
+														   		'relation' => 'IN',
+																array(
+																	'taxonomy' => 'discussions',
+																	'field' => 'slug',
+																	'terms' => array('private'),
+																)
+															) );
+										}else{
+											$args = array( 'post_type' => 'discussion',
+														   'posts_per_page' => 10,
+														   'tax_query' => array(
+														   		'relation' => 'IN',
+																array(
+																	'taxonomy' => 'discussions',
+																	'field' => 'slug',
+																	'terms' => array('private','public'),
+																)
+															) );
+										}
 									}else{
 										$args = array( 'post_type' => 'discussion',
 													   'posts_per_page' => 10,

@@ -24,6 +24,7 @@ $currentUser = get_current_user_id();
 		</div>
 		<div id='contact-secondary'>
 			<?php get_template_part( 'membernetwork/module', 'contactsPending' ); ?>
+			<?php get_template_part( 'membernetwork/module', 'contactsRequested' ); ?>
 			<?php get_template_part( 'membernetwork/module', 'contactsMy' ); ?>
 		</div>
 		<?php }else{

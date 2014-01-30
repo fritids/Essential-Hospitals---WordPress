@@ -149,19 +149,19 @@ $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
 								<?php
 									$today = mktime(0, 0, 0, date('n'), date('j'));
 									$args = array(
-										'post_type' => array('webinar'),
-										'posts_per_page'  => 3,
-										'post_status' => 'all',
-										'orderby' => 'meta_value',
-										'meta_key' => 'webinar_date',
+										'post_type' => 'webinar',
+										'posts_per_page' => 3,
 										'order' => 'asc',
+										'post_status' => 'all',
 										'meta_query'  => array(
 											array(
 												'key' => 'webinar_date',
 												'value' => $today,
 												'compare' => '>='
 											)
-										)
+										),
+										'orderby' => 'meta_value',
+										'meta_key' => 'webinar_date',
 									);
 								$query = new WP_Query($args);
 								if ( $query->have_posts() ) { while ( $query->have_posts() ) { $query->the_post();
@@ -190,7 +190,7 @@ $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
 												<div class="lock"></div>
 											</div>
 											<div class="entry-content">
-												<p><span class="title <?php echo $postColor; ?>"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></span> | <span class="date"><?php the_time('M j, g A'); ?></span> | <span class="excerpt"><?php $exc = get_the_excerpt(); echo substr($exc, 0, 50); ?></span></p>
+												<p><span class="title <?php echo $postColor; ?>"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></span> | <span class="date"><?php echo date('M j, Y', get_field('webinar_date')); ?></span> | <span class="excerpt"><?php $exc = get_the_excerpt(); echo substr($exc, 0, 50); ?></span></p>
 											</div>
 										</div>
 									</div>
@@ -201,7 +201,7 @@ $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
 							<?php
 							$args = array(
 								'post_type' => 'alert',
-								'posts_per_page'=> 1,
+								'posts_per_page'=> 3,
 								'orderby'   => 'date',
 								'order'     => 'asc',
 								'tax_query' => array(
@@ -228,13 +228,15 @@ $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
 							);
 							$query = new WP_Query($args);
 							if ( $query->have_posts() ) { while ( $query->have_posts() ) { $query->the_post(); ?>
-								<div class="panel announcement">
-									<div class="bottombar"></div>
-									<div class="next"><img src="<?php bloginfo('template_directory'); ?>/images/instituteAnnouncement.png" /></div>
+								<div class="panel announcement education-alert grey">
+									<div class="item-icon grayy">Updates
+										<img src="<?php bloginfo('template_directory'); ?>/images/icon-education.png" />
+									</div>
 									<div class="gutter">
-										<h2><?php the_field('heading'); ?></h2>
+										<h2><a href="<?php the_field('link'); ?>"><?php the_field('heading'); ?></a></h2>
 										<a href="<?php the_field('link'); ?>"><?php the_field('label'); ?> &raquo;</a>
 									</div>
+									<div class="bot-border"></div>
 								</div>
 							<?php } } wp_reset_query(); ?>
 						</div>
@@ -261,19 +263,19 @@ $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
 							</div>
 							<?php $today = mktime(0, 0, 0, date('n'), date('j'));
 							$args = array(
-								'post_type' => array('webinar'),
-								'posts_per_page'  => 3,
-								'post_status' => 'all',
-								'orderby' => 'meta_value',
-								'meta_key' => 'webinar_date',
+								'post_type' => 'webinar',
+								'posts_per_page' => 3,
 								'order' => 'desc',
+								'post_status' => 'all',
 								'meta_query'  => array(
 									array(
 										'key' => 'webinar_date',
 										'value' => $today,
 										'compare' => '<='
 									)
-								)
+								),
+								'orderby' => 'meta_value',
+								'meta_key' => 'webinar_date',
 							);
 							$query = new WP_Query($args);
 							if ( $query->have_posts() ) { while ( $query->have_posts() ) { $query->the_post();

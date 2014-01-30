@@ -12,7 +12,7 @@
 			        <span class="orange">
 			          <em>Essential People</em><br />
 			          <em>Essential Communities</em> <br />
-			          <span class="bold">Essential Hospitals</span>  
+			          <span class="bold">Essential Hospitals</span>
 			        </span>
  					 <span class="secondary"><a href="<?php bloginfo('url') ?>/branded-content-faces">These are the faces<br>and stories behind<br>our essential hospitals<br>across the country </a></span>
 
@@ -33,7 +33,7 @@
 			  setup_postdata($post); ?>
 
 			  <a class="people_box" href="<?php echo get_permalink(12084); ?>/?loc=<?php echo $post->ID; ?>">
-				<?php $image = wp_get_attachment_image_src( get_field('portrait'), 'home-faces' );?>
+				<?php $image = wp_get_attachment_image_src( get_field('portrait'), 'story-home' );?>
 	        	<img src="<?php echo $image[0]; ?>" id="starter" />
 	        	<div class="p_hover">
 	        		<div class="p_name">
