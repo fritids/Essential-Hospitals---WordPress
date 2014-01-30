@@ -10,29 +10,30 @@ function firstRun(currentUser){
 	var intro = introJs();
           intro.setOptions({
             steps: [
-              {
+               {
                 element: '#membernetwork h1.title',
-                intro: "<span style='font-size:30px; line-height:36px;' >Welcome to the Member Network</span><br>Take a quick walkthrough of your new account’s features (click “next”)"
+                intro: "<span style='font-size:24px; line-height:30px;' >Welcome to the Member Network</span><br>Take a quick walkthrough of your new account's features (click \"next\")"
               },
               {
                 element: '#membernetwork',
-                intro: "<span style='font-size:30px; line-height:36px;' >This is your dashboard</span><br>Use the black navigation bar to access all the features of your account. Build your profile, view and customize your content of interest, post questions and discussions, quickly access your collaborative program groups and webinars, and make connections with fellow members. When you’re signed in, the \"My Dashboard\" button in the upper right corner will be visible on any part of the website you visit. One click gives you access to all of this information."
+                intro: "<span style='font-size:24px; line-height:30px;' >This is your dashboard</span><br>Use the black navigation bar to access all of your account features. Build your profile, customize content, have discussions, access your program groups, and make connections."
               },
               {
                 element: '#run-news',
-                intro: "<span style='font-size:30px; line-height:36px;' >Your custom content feed</span><br>You can easily customize your dashboard to show the latest headlines from your interest areas (“Headlines selected for you”). Just below your customized feed, “All Recent” displays the most recent articles published by America’s Essential Hospitals. Content can include critical updates, learning opportunities, feature articles, and more."
+                intro: "<span style='font-size:24px; line-height:30px;' >Your custom content feed</span><br>Customize your dashboard to show the latest headlines from your interest areas. Content can include critical updates, learning opportunities, feature articles, and more."
               },
               {
                 element: '#run-disccomm',
-                intro: "<span style='font-size:30px; line-height:36px;' >Community discussions & content comments</span><br>After you’ve contributed to or started a community discussion, you can revisit the conversation right from your dashboard. The most recent message posted to each discussion where you participated show here. Just below, see what people are talking about today on the whole website. The \"recent comments on content\" area contains the latest comments readers have posted on sitewide articles and media."
+                intro: "<span style='font-size:24px; line-height:30px;' >Community discussions & content comments</span><br>Revisit a conversation you started or joined right from your dashboard. Just below, see the latest comments readers have posted on sitewide articles and media."
+
               },
               {
                 element: '#userProfile',
-                intro: "<span style='font-size:30px; line-height:36px;' >View and edit your profile</span><br>This is a preview of your profile. After this tour, click on the image or the \"edit profile\" button to add or change your photo, edit details, and publish a bio."
+                intro: "<span style='font-size:24px; line-height:30px;' >View and edit your profile.</span><br>This is a preview of your profile. After this tour, click on the image or the \"edit profile\" button to add or change your photo, edit details, and publish a bio."
               },
               {
                 element: '#membernetwork',
-                intro: "America's Essential Hospitals is here to support and bring together people dedicated to higher quality, more accessible health care. Make good use of your new community!"
+                intro: "America's Essential Hospitals is here to support and bring together people dedicated to higher quality, more accessible health care. Make good use of your new community! You can always access dashboard in the upper right corner from anywhere on the site.  For any questions or comments, contact help@essentialhospitals.org"
               },
 
             ]

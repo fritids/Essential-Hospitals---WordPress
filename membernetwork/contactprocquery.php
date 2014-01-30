@@ -64,6 +64,7 @@
 														'last_contact' => '0'
 													));
 				echo "Request Sent to $firstname";
+				contact_request($uid,$curID);
 			}
 
 		}elseif($action == 'remove'){

@@ -22,7 +22,7 @@
 	}else{
 		$postType = 'policy'; //About/general
 		$bannerTitle = "About" ;
-		$rand = rand(1,8);
+		$rand = rand(1,9);
 			 $bannerImg = "http://mlinson.staging.wpengine.com/wp-content/uploads/2013/11/AEH_generalbanner" .$rand . "_222.jpg";
 	}
 

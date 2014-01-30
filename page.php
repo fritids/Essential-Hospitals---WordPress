@@ -38,7 +38,7 @@
 			$pageTitle = "Education" ;
 		}else{
 			$fPID = 645;
-			$rand = rand(1,8);
+			$rand = rand(1,9);
 			$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2013/11/AEH_generalbanner" .$rand . "_222.jpg";
 			$pageTheme == 'policy';
 			$bannerSize = "";
@@ -186,7 +186,7 @@
 			$pageTitle = "Education" ;
 		}else{
 			$fPID = 645;
-			$rand = rand(1,8);
+			$rand = rand(1,9);
 			$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2013/11/AEH_generalbanner" .$rand . "_222.jpg";
 			$bannerSize = "";
 			$parents = get_post_ancestors( $post->ID );
@@ -319,7 +319,7 @@
 			$pageTitle = "Education" ;
 		}else{
 			$fPID = 645;
-			$rand = rand(1,8);
+			$rand = rand(1,9);
 			$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2013/11/AEH_generalbanner" .$rand . "_222.jpg";
 			$bannerSize = "";
 			$parents = get_post_ancestors( $post->ID );

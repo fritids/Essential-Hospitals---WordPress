@@ -1318,7 +1318,7 @@ h2 .private-webinar {vertical-align:initial;}
 
 #columnBalance{float: left;height: auto;width: 100%;min-height: 100%;display: table;position:relative;}
 	#columnBalance #contentPrimary, #columnBalance #contentSecondary, #columnBalance #contentTertiary{height: 100%;min-height: 100%;display: table-cell;float: none;vertical-align: top;position:relative;}
-		#contentPrimary #printbtn {position: absolute;top:10px;right:10px;background:url(../images/print-icon.png) left top no-repeat;padding: 2px 0 2px 22px;}
+		#contentPrimary #printbtn {position: relative; float: right;  background:url(../images/print-icon.png) left top no-repeat;padding: 2px 0 2px 22px;}
 		.quality #contentPrimary #printbtn{background-position:0 -19px;}
 		.education #contentPrimary #printbtn{background-position:0 -57px;}
 		.institute #contentPrimary #printbtn{background-position:0 -38px;}
@@ -1529,5 +1529,5 @@ body.author.archive #fader div.item .post.wide.bio .bot-border{height: 6px;backg
 
 
 
-#singlestream {position: absolute;top: 12px;left: 20px;font-style: italic;}
+#singlestream {position: absolute;top: 12px;right: 20px; text-transform: uppercase;}
 	#singlestream a, #singlestream img{vertical-align:middle;}

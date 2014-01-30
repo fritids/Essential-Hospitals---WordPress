@@ -5,7 +5,7 @@
 			<div class="items">
 			<?php
 
- 
+
 			if ( have_posts() ) while ( have_posts() ) : the_post();
 				$postType = get_post_type( get_the_ID() );
 
@@ -42,7 +42,7 @@
 	    			<div class="item-header">
 	    				<h2><a href="<?php if(get_field('link_to_media')){the_field('uploaded_file');}else{the_permalink();} ?>"><?php the_title(); ?></a></h2>
 	    				<span class="item-date"><?php the_time('M j, Y'); ?> ||</span>
-	    				<span class="item-author"><?php the_author(); ?></span>
+	    				<span class="item-author"><a href="<?php echo get_author_posts_url(get_the_author_meta('ID')); ?>/?prof=article"><?php the_author(); ?></a></span>
 	    			</div>
 	    			<?php if(get_field('link_to_media')){ ?>
 						<a href="<?php the_field('uploaded_file'); ?>"><img src="<?php bloginfo('template_directory'); ?>/images/<?php echo $postType; ?>-doc.png" /></a>

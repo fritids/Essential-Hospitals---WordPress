@@ -50,17 +50,17 @@
         <!--Col1-->
         <dl>
           <dt class="color_policy">
-            <a href="<?php echo get_permalink(62); ?>">Action</a><br> 
+            <a href="<?php echo get_permalink(62); ?>">Action</a><br>
           </dt>
           <dd>advocacy work, industry news, issue analysis</dd>
-          
+
           <dt> <br/ ><br/ ><a class="color_about" href="<?php echo get_permalink(645); ?>">About Us</a></dt>
-          <dd>our members, our leaders, our mission</dd>          
-          
-          
-          
+          <dd>our members, our leaders, our mission</dd>
+
+
+
         </dl>
-        
+
       </div>
       <div class="col2">
         <!--Col2-->
@@ -71,7 +71,7 @@
           <dt><br/ ><a class="color_about" href="#">Vital 2014</a></dt>
 
         </dl>
-        
+
       </div>
       <div class="col3">
         <!--Col3-->
@@ -88,8 +88,8 @@
           <dt class="color_education"><a href="<?php echo get_permalink(472); ?>">Education</a></dt>
           <dd>webinars, programs, virtual classrooms</dd>
           <dt class="color_quality"> <br/ ><br/ > <br/ ><a href="#" class="">GAGE Awards</a></dt>
-        </dl> 
-        
+        </dl>
+
       </div>
     </div></div>
     <div id="footer-brandSocial">
@@ -112,10 +112,15 @@
     <!-- END CONTAINER -->
   </div>
   <div class="clear"></div>
-  
+
   <!-- END FOOTER -->
 </div>
   </div>
+
+
+<?php
+
+	 ?>
 
   <?php wp_footer(); ?>
 

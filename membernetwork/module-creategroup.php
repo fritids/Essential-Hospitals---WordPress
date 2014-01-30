@@ -21,7 +21,9 @@ if (isset($_POST['newgroup'])){
 		$sort++;
 	}
 
-	$newDesc = '<h3>Group Description</h3>'.$groupDesc;
+	$curid = get_current_user_id();
+
+	$newDesc = $groupDesc;
 
 	// Create post object
 	$newpost = array(
@@ -29,13 +31,15 @@ if (isset($_POST['newgroup'])){
 	  'post_content'   => $newDesc,
 	  'post_status'    => 'pending',
 	  'post_title'     => $groupName,
-	  'post_type'      => 'group'
+	  'post_type'      => 'group',
+	  'post_author'	   => $curid
 	);
 
 	// Insert the post into the database
 	$newID = wp_insert_post( $newpost, true );
 	add_post_meta($newID, 'autp', $addArr);
 	add_post_meta($newID,'mod',get_current_user_id());
+	add_post_meta($newID,'frontend',true);
 	$parent_term = term_exists( 'group', 'discussions' ); // array is returned if taxonomy is given
 	$parent_term_id = $parent_term['term_id']; // get numeric term id
 	wp_insert_term(
@@ -45,7 +49,8 @@ if (isset($_POST['newgroup'])){
 	    'slug' => $newID,
 	    'parent'=> $parent_term_id
 	  )
-	);?>
+	);
+	create_group($newID);?>
 	<div id="createGroup" class="show">
 			<div class="gutter">
 				<p>An association staff member will review your request shortly and you will be notified of the status via email.</p>
