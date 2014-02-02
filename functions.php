@@ -38,6 +38,16 @@ function add_custom_post_counts() {
    endforeach;
 }
 
+//Constant Contact Sidebar Widget
+register_sidebar(array(
+  'name' => __( 'Constant Contact' ),
+  'id' => 'email-reg',
+  'description' => __( 'Used for Constant Contact widget only' ),
+  'before_title' => '',
+  'after_title' => ''
+));
+
+
 //RSS Feeds
 add_action('init','newslineRSS');
 function newslineRSS(){

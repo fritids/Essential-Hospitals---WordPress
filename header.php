@@ -76,49 +76,32 @@
 	<div id="slidePane">
 		<div id="mobile-login">
 			<?php if(is_user_logged_in()){ ?>
-		 		<div id="login" class="login"><a id="memNetwork" href="#">My Dashboard</a></div>
+		 		<div id="login" class="login"><a id="memNetwork" href="<?php echo get_permalink(244); ?>">My Dashboard</a></div>
 		 	<?php }else{ ?>
 				<div id="login" class="login"><a href="<?php bloginfo('url');?>/membernetwork/registration"><img src="<?php bloginfo('template_directory'); ?>/images/signup.png" /></a><img id="loginButton" src="<?php bloginfo('template_directory'); ?>/images/login.png" /></div>
 		 	<?php } ?>
 		</div>
 		<div id="mobile-main">
-			<?php
-			global $post;
-			$thePostID = $post->ID;
-
-		    $menu_name = 'primary-menu';
-
-		    if ( ( $locations = get_nav_menu_locations() ) && isset( $locations[ $menu_name ] ) ) {
-			$menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
-
-			$menu_items = wp_get_nav_menu_items($menu->term_id);
-
-			$menu_list = '<ul id="menu-' . $menu_name . '">';
-
-			foreach ( (array) $menu_items as $key => $menu_item ) {
-				if($thePostID == $menu_item->object_id){
-					$activeClass = 'active';
-				}else{
-					$activeClass = '';
-				}
-			    $title = $menu_item->title;
-			    $url = $menu_item->url;
-			    $desc = $menu_item->description;
-			    $menuClass = $menu_item->classes;
-			    $menu_list .= '<li class="';
-			    if($menuClass){
-				    foreach($menuClass as $class){
-					    $menu_list .= $class.' ';
-				    }
-			    }
-			    $menu_list .= $activeClass.'"><a href="' . $url . '">' . $title . '<span>'.$desc.'</span></a></li>';
-			}
-			$menu_list .= '</ul>';
-		    } else {
-			$menu_list = '<ul><li>Menu "' . $menu_name . '" not defined.</li></ul>';
-		    }
-		    echo $menu_list;
-			?>
+			<?php $walker = new Menu_With_Description;
+				$defaults = array(
+					'theme_location'  => 'primary-menu',
+					'menu'            => 'primary-menu',
+					'container'       => '',
+					'container_class' => '',
+					'container_id'    => '',
+					'menu_class'      => '',
+					'menu_id'         => 'menu-primary-menu',
+					'echo'            => true,
+					'fallback_cb'     => 'wp_page_menu',
+					'before'          => '',
+					'after'           => '<div class="colorswipe"></div>',
+					'link_before'     => '',
+					'link_after'      => '',
+					'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+					'depth'           => 1,
+					'walker'          => $walker
+				);
+				wp_nav_menu( $defaults ); ?>
 		</div>
 		<div id="mobile-search">
 			<?php get_template_part( 'membernetwork/module', 'searchform' ); ?>

@@ -40,7 +40,7 @@
 			$fPID = 645;
 			$rand = rand(1,9);
 			$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2013/11/AEH_generalbanner" .$rand . "_222.jpg";
-			$pageTheme == 'policy';
+			$pageTheme = 'policy';
 			$bannerSize = "";
 			$parents = get_post_ancestors( $post->ID );
 			$chck_id = ($parents) ? $parents[count($parents)-1]: $parent_id;

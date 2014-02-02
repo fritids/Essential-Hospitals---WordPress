@@ -12,7 +12,7 @@
 
 	            <form>
 	             <!-- <span>Essential news in your inbox: </span>  -->
-	              <?php echo do_shortcode('[constantcontactapi formid="1" lists="1"]'); ?>
+	              <?php //echo do_shortcode('[constantcontactapi formid="1" lists="1"]'); ?>
 
 	               <!--<input type="text" class="newsletter_btn_input" value="Enter Your Email"><input class="newsletter_btn" type="submit" > -->
 	              <div class="clear"></div>
@@ -113,13 +113,25 @@
 						<a href="<?php the_field('uploaded_file'); ?>"><img src="<?php bloginfo('template_directory'); ?>/images/<?php echo $postType; ?>-doc.png" /></a>
 					<?php }else{ ?>
 						<p><?php
+						
+						
 						$exc = get_the_excerpt();
 						$line=$exc;
 						if (preg_match('/^.{1,100}\b/s', $exc, $match))
 						{
 						    $line=$match[0];
-						}
-						echo $exc; ?></p><a class="more" href="<?php the_permalink(); ?>"> view more » </a>
+						}  
+
+						 $long_exc = get_field('long_excerpt');
+
+						 if($long_exc == '')
+						 	echo $exc;
+						 else
+						 	echo $long_exc;
+
+						 ?>
+
+					</p><a class="more" href="<?php the_permalink(); ?>"> view more » </a>
 					<?php } ?>
 	    			<div class="item-tags">
 	    				<?php $tags = get_the_terms(get_the_ID(),'post_tag');

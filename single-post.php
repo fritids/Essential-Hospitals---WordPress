@@ -1,9 +1,5 @@
-<?php get_header();
-$randnum = rand(0,3);
-  if ($randnum == 0){$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2013/11/Blog_option_test1.jpg";}
-  if ($randnum == 1){$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2014/01/Blog_option_test2.jpg";}
-  if ($randnum == 2){$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2014/01/Blog_option_test3.jpg";}
-  if ($randnum == 3){$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2014/01/Blog_option_test4.jpg";} ?>
+<?php get_header();?>
+ 
 <div id="featured-img" class="blog">
 	<div class="container">
 		<div id="featured-intro">
@@ -12,7 +8,7 @@ $randnum = rand(0,3);
 		</div>
 	</div>
 </div>
-
+<?php $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id(562) ); ?>
 <?php if ( have_posts() ) { while ( have_posts() ) { the_post();
 	$authorID = get_the_author_id(); ?>
 <div id="content" class="page-single blog" style="background-image:url(<?php if($speakerIMG){echo $speakerIMG;} ?>);">
@@ -77,7 +73,7 @@ $randnum = rand(0,3);
 								    'orderby'       => 'name',
 								    'order'         => 'ASC',
 								    'hide_empty'    => true,
-								    'exclude'       => array(),
+								    'exclude'       => array(227),
 								    'exclude_tree'  => array(94,1,102),
 								    'include'       => array(),
 								    'number'        => '',

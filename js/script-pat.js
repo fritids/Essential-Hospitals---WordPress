@@ -711,6 +711,16 @@ $(document).ready(function(){
 			$contentcontainer.text($content+' [...]');
 		}
 	});
+
+	//Browsersniff
+	var OSName="Unknown OS";
+	if (navigator.appVersion.indexOf("Win")!=-1) OSName="win";
+	if (navigator.appVersion.indexOf("Mac")!=-1) OSName="osx";
+	if (navigator.appVersion.indexOf("X11")!=-1) OSName="unix";
+	if (navigator.appVersion.indexOf("Linux")!=-1) OSName="linux";
+	$('body').addClass(OSName);
+
+
 });
 jQuery.fn.scrollTo = function( target, options, callback ){
   if(typeof options == 'function' && arguments.length == 2){ callback = options; options = target; }

@@ -7,8 +7,8 @@ get_header(); ?>
 		</div>
 	</div>
 </div>
-
-<div id="content" class="page-single blog">
+<?php $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id(562) ); ?>
+<div id="content" class="page-single blog" style="background-image:url(<?php if($speakerIMG){echo $speakerIMG; } ?>);">
 	<div class="container">
 		<div id="contentColumnWrap">
 			<div id="contentPrimary" class="heightcol">
@@ -56,7 +56,7 @@ get_header(); ?>
 								    'orderby'       => 'name',
 								    'order'         => 'ASC',
 								    'hide_empty'    => true,
-								    'exclude'       => array(),
+								    'exclude'       => array(227),
 								    'exclude_tree'  => array(94,1,102),
 								    'include'       => array(),
 								    'number'        => '',

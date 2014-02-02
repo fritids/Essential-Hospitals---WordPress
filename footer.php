@@ -55,7 +55,7 @@
 			</div>
 			<div id="newsletter">
 				<form>
-					<?php echo do_shortcode('[constantcontactapi formid="1" lists="1"]'); ?>
+					<?php//echo //do_shortcode('[constantcontactapi formid="1" lists="1"]'); ?>
 					<div class="clear"></div>
 				</form>
 				<div class="clear"></div>
@@ -64,23 +64,23 @@
 		<div id="footer_contact" class="four columns element"><div class="gutter">
 			<div class="contact-section">
 				<span class="footHead">Media Inquiries</span><br />
-				<span class="serif">Carl Graziano | 202.585.0102</span>
+				<span class="serif">COMM.admin@essentialhospitals.org</span>
 				<br /><br />
 			</div>
 			<div class="contact-section">
 				<span class="footHead">Association Membership</span><br />
-				<span class="serif">Kristine Metter | 202.585.0573</span>
+				<span class="serif">MS.admin@essentialhospitals.org</span>
 				<br /><br />
 			</div>
 			<div class="contact-section">
 				<span class="footHead">Meetings and Conferences</span><br />
-				<span class="serif">Nneka St. Gerard | 202.585.0131</span>
+				<span class="serif">MS.admin@essentialhospitals.org</span>
 				<br /><br />
 			</div>
 			<div class="contact-section">
-				<span class="footHead">Website Admin and<br />
+				<span class="footHead">Website and<br />
 				Sign in Questions</span><br />
-				<span class="serif">Maeceon Lewis | 202.585.0559</span>
+				<span class="serif">COMM.admin@essentialhospitals.org</span>
 			</div>
 		</div></div>
 		<div class="eight columns element" id="footer_columns"><div class="gutter">
@@ -170,6 +170,17 @@
 		addthis_config.data_track_addressbar = false;
 		addthis_config.data_track_clickback = false;
 	</script>
+
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-47673413-1', 'essentialhospitals.org');
+  ga('send', 'pageview');
+
+</script>
 
 
 </body>

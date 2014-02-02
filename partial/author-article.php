@@ -1,9 +1,15 @@
 <?php $queryObject = get_queried_object();
-$speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
-<div id="featured-img" class="archive tag policy">
+ 
+$pageTitle = "ABOUT"; 
+$pageTheme = 'policy';
+$rand = rand(1,9);
+$speakerIMG = "http://mlinson.staging.wpengine.com/wp-content/uploads/2013/11/AEH_generalbanner" .$rand . "_222.jpg";
+ 
+?>
+<div id="featured-img" class="archive tag <?php echo $pageTheme; ?>" style="background-image:url(<?php echo $speakerIMG; ?>); ">
 	<div class="container">
 		<div id="featured-intro">
-			<h3 class="tag">All articles by: <?php echo $queryObject->display_name; ?></h3>
+			<h3> <span><?php echo $pageTitle; ?> </span> <br/><?php echo $queryObject->display_name; ?></h3>
 		</div>
 	</div>
 </div>
@@ -13,7 +19,7 @@ $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
 	<div class="container twelve columns content">
 
 
-		<div id="contentWrap" class="relative archivecss <?php if(!page_in_menu('primary-menu')){echo 'default-quality';} ?>">
+		<div id="contentWrap" class="relative archivecss <?php if(!page_in_menu('primary-menu')){echo 'default-utility';} ?>">
 			<div class="gutter">
 				<div class="container">
 					<?php if(has_nav_menu('primary-menu')){

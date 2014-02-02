@@ -3,11 +3,11 @@
 	<div class="container">
 		<div id="featured-intro">
 			<h3>Essential Insights</h3>
-			<h4>This will be subtext that overview this section of the site and gives the user more insight on what they can find here. You can use the word blog here to better define this section.</h4>
+			 <h4><?php echo get_field('bannerTitle',562); ?></h4>
 		</div>
 	</div>
 </div>
-
+<?php $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id(562) ); ?>
 <div id="content" class="page-single blog" style="background-image:url(<?php if($speakerIMG){echo $speakerIMG; } ?>);">
 	<div class="container">
 		<div id="contentColumnWrap">
@@ -48,7 +48,7 @@
 								    'orderby'       => 'name',
 								    'order'         => 'ASC',
 								    'hide_empty'    => true,
-								    'exclude'       => array(),
+								    'exclude'       => array(227),
 								    'exclude_tree'  => array(94,1,102),
 								    'include'       => array(),
 								    'number'        => '',

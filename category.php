@@ -5,11 +5,12 @@
 	<div class="container">
 		<div id="featured-intro">
 			<h3>Essential Insights</h3>
+			<h4><?php echo get_field('bannerTitle',562); ?></h4>
 		</div>
 	</div>
 </div>
 
-<div id="content" class="page-single blog">
+<div id="content" class="page-single blog" style="background-image:url(<?php if($speakerIMG){echo $speakerIMG; } ?>);">
 	<div class="container">
 		<div id="contentColumnWrap">
 			<div id="contentPrimary" class="heightcol">
@@ -62,7 +63,7 @@
 								    'orderby'       => 'name',
 								    'order'         => 'ASC',
 								    'hide_empty'    => true,
-								    'exclude'       => array(),
+								    'exclude'       => array(227),
 								    'exclude_tree'  => array(94,1,102),
 								    'include'       => array(),
 								    'number'        => '',

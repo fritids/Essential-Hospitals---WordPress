@@ -11,7 +11,7 @@ get_header(); ?>
 	</div>
 </div>
 <?php $authorID = get_the_author_id();
-	  $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
+	  $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id(562) );
   
   
   
@@ -89,7 +89,7 @@ get_header(); ?>
 								    'orderby'       => 'name',
 								    'order'         => 'ASC',
 								    'hide_empty'    => true,
-								    'exclude'       => array(),
+								    'exclude'       => array(227),
 								    'exclude_tree'  => array(94,1,102),
 								    'include'       => array(),
 								    'number'        => '',

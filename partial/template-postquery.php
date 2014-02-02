@@ -8,41 +8,37 @@
 
 	//Determine if filter is being reset
 	if($ajaxFilter == '*'){
-		$ajaxFilter = array('policy','quality','education','institute');
+		$ajaxFilter = array('policy','quality','webinar','institute');
 	}
 	if($ajaxFilter == 'education'){
-		$ajaxFilter = array('policy','quality','education','institute');
-		$taxQuery   = 'educationtopics';
-		$taxonomy = 'educationtopics'; // this is the name of the taxonomy
-		$terms = get_terms( $taxonomy, 'orderby=count&hide_empty=1' );
-		$newTerms = array();
-		foreach($terms as $term){
-			array_push($newTerms, $term->slug);
-		}
+		$ajaxFilter = 'webinar';
 	}
 
 	//Count our posts and set the $output variable
 	$postCount = 0;
 	$output = '';
-
-	if($taxQuery){
+	$today = mktime(0, 0, 0, date('n'), date('j'));
+	if($ajaxFilter != 'education'){
 		$args = array(
 			'posts_per_page' => 15,
 			'post_type' => $ajaxFilter,
 			'ignore_sticky_posts' => 1,
-			'tax_query' => array(
-	            array(
-	                'taxonomy' => $taxQuery,
-	                'field' => 'slug',
-	                'terms' => $newTerms
-	            )
-	        )
 		);
 	}else{
 		$args = array(
-			'posts_per_page' => 15,
+			'order' => 'asc',
+			'posts_per_page' => 10,
 			'post_type' => $ajaxFilter,
 			'ignore_sticky_posts' => 1,
+			'meta_query'  => array(
+				array(
+					'key' => 'webinar_date',
+					'value' => $today,
+					'compare' => '>='
+				)
+			),
+			'orderby' => 'meta_value',
+			'meta_key' => 'webinar_date',
 		);
 	}
 
@@ -71,8 +67,9 @@
 			$postColor = 'redd';
 		}else if($postType == 'quality'){
 			$postColor = 'greenn';
-		}else if($postType == 'education'){
+		}else if($postType == 'webinar'){
 			$postColor = 'grayy';
+			$postType = 'education';
 		}else if($postType == 'institute'){
 			$postColor = 'bluee';
 		}else{

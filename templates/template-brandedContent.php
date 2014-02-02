@@ -92,9 +92,9 @@ get_header('branded'); ?>
 					<div class="brand-nav-info">
 						<div class="gutter">
 							<h2><span>Name: </span><?php the_title(); ?></h2>
-							<span class="brand-nav-position"><span>Occupation: </span><?php echo get_field('occupation'); ?></span>
-							<span class="brand-nav-hospital"><span>Hospital: </span><?php echo get_field('hospital'); ?></span>
-							<div class="brand-nav-about"><span>Legacy: </span><?php echo get_field('legacy_cond');?></div>
+							<span class="brand-nav-position"><?php echo get_field('occupation'); ?></span>
+							<span class="brand-nav-hospital"><?php echo get_field('hospital'); ?></span>
+							<div class="brand-nav-about"><?php echo get_field('legacy_cond');?></div>
 						</div>
 					</div>
 					<?php $image = wp_get_attachment_image_src( get_field('portrait'), 'story-focus' ); ?>

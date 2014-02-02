@@ -66,7 +66,7 @@ $speakerIMG = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
 				<div class="graybar"></div>
 				<div class="graybarX"></div>
 					<div class="gutter clearfix">
-						<div id="institutePostBox">
+						<div id="institutePostBox" class="eduoverride">
 
 						<div class="stamp first">
 							<?php if(!is_user_logged_in()){ ?>

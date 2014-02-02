@@ -10,7 +10,7 @@
 			<div class="items">
 			<div class="post long columns redd policy bio">
 				<div id="author-article-info">
-					<div class="gutter">
+					<div class="gutter clearfix">
 						<div class="author-article-ava">
 							<a href="<?php echo get_permalink(276); ?>?member=<?php echo $user->ID; ?>"><?php echo $authAva; ?></a>
 						</div>
